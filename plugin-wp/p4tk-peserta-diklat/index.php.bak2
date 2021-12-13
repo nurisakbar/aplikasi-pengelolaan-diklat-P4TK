@@ -1,0 +1,134 @@
+<?php
+/*
+Plugin Name: Info pembeli
+Description: Menampilkan informasi pengiriman
+Author: Nuris Akbar
+Version: 0.1
+*/
+
+
+add_shortcode('show_resi_pengiriman', 'show_resi_pengiriman_tags');
+function show_resi_pengiriman_tags($batas)
+{
+    
+//     header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+// header("Cache-Control: post-check=0, pre-check=0", false);
+// header("Pragma: no-cache");
+
+
+        //foreach($batas as $i){ $limit=$i;}
+	$url  = "http://order.nurisakbar.com/api";
+	$data = curl($url);
+	$mahasiswa = json_decode($data);
+        //echo print_r($batas);
+        
+        
+
+	
+
+	echo "<table class='table table-striped'>
+		<tr><th>NAMA</th><th>TANGGAL</th><th>KURIR</th><th>NO RESI</th><th>PEMBAYARAN</th></tr>";
+	foreach ($mahasiswa as $m) 
+	{
+		$nama = strtoupper(substr($m->nama,0,20));
+		$tgl = $m->tanggal;
+		$tanggal = substr($tgl, 8,2).'-'.substr($tgl, 5,2).'-'.substr($tgl, 0,4);
+		//$noresi = $m->noresi==''?'<b>SEDANG DIPROSESS</b>':strtoupper($m->noresi);
+		$kurir = strtoupper($m->kurir);
+		
+		if($m->noresi!='')
+		{
+		
+    		if($kurir=='JNE REG' or $kurir=='JNE OKE' or $kurir=='JNE YES')
+    		{
+    		    // ubah format resi 2 digit akhirnya pakai **
+    		    $resi = substr($m->noresi,0,13).'***';
+    		    
+    		}else
+    		{
+    		    $resi   = $m->noresi;
+    		}
+		}
+		
+		
+		
+	    
+	    if($kurir=='DOWNLOAD' or $kurir=='COD'){
+	    	$noresi = "SELESAI";
+	    }elseif($resi==''){
+	    	$noresi="<b>SEDANG PROSES</b>";
+	    }
+	    else{
+	    	$noresi=$resi;
+	    }
+
+
+	    if($m->nama_bank=='Tokopedia'){
+	    	$bank = "<a href='https://www.tokopedia.com/tutorialpemogram' target='_blank'>TOKOPEDIA</a>";
+	    }elseif($m->nama_bank=='bukalapak'){
+	    	$bank = "<a href='https://www.bukalapak.com/nuris_akbar' target='_blank'>BUKALAPAK</a>";
+	    }
+	    elseif($m->nama_bank=='shopee'){
+	    	$bank = "<a href='https://shopee.co.id/nurisakbar' target='_blank'>SHOPEE</a>";
+	    }
+	    elseif($m->nama_bank=='bca'){
+	    	$bank = "<a href='https://belajarphp.net/cara-pemesanan-tutorial/' target='_blank'>TRANSFER</a>";
+	    }
+
+	    else{
+	    	$bank = "<a href='https://belajarphp.net/cara-pemesanan-tutorial/' target='_blank'>TRANSFER</a>";
+	    }
+
+		echo "<tr><td>$nama</td><td>$tanggal</td><td>$kurir</td><td>";
+		//echo $kurir=='COD'?'SELESAI':$noresi; 
+		echo "<a href='http://cekresi.com/?noresi=$noresi' target='new'>$noresi</a></td><td>$bank</td></tr>"; 
+		}
+	echo "</table>";
+}
+
+function bulan($bulan){
+	if($bulan=='01'){
+		return 'JANUARI';
+	}elseif($bulan=='02'){
+		return 'FEBRUARY';
+	}elseif($bulan=='03'){
+		return 'MARET';
+	}elseif($bulan=='04'){
+		return 'APRIL';
+	}elseif($bulan=='05'){
+		return 'MEI';
+	}elseif($bulan=='06'){
+		return 'JUNI';
+	}elseif($bulan=='07'){
+		return 'JULI';
+	}elseif($bulan=='08'){
+		return 'AGUSTUS';
+	}elseif($bulan=='09'){
+		return 'SEPTEMBER';
+	}elseif($bulan=='10'){
+		return 'OKTOBER';
+	}elseif($bulan=='11'){
+		return 'NOVEMBER';
+	}elseif($bulan=='12'){
+		return 'DESEMBER';
+	}else{
+		return $bulan;
+	}
+
+}
+
+
+function curl($url){
+	        // create curl resource 
+        $ch = curl_init(); 
+        // set url 
+        curl_setopt($ch, CURLOPT_URL, $url); 
+        //return the transfer as a string 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        // $output contains the output string 
+        $output = curl_exec($ch); 
+        // close curl resource to free up system resources 
+        curl_close($ch); 
+        return $output; 
+}
+?>

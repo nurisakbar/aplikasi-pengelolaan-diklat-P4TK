@@ -1,0 +1,100 @@
+<?php
+/*
+Plugin Name: Info pembeli
+Description: Menampilkan informasi pengiriman
+Author: Nuris Akbar
+Version: 0.1
+*/
+
+
+add_shortcode('show_resi_pengiriman', 'show_resi_pengiriman_tags');
+function show_resi_pengiriman_tags($batas)
+{
+        foreach($batas as $i){ $limit=$i;}
+	$url  = "http://apps.belajarphp.net/api/index/$limit";
+	$data = curl($url);
+	$mahasiswa = json_decode($data);
+        //echo print_r($batas);
+
+	
+
+	echo "<table class='table table-striped'>
+		<tr><th>PEMBAYARAN</Tth><th>NAMA</th><th>TANGGAL</th><th>KURIR</th><th>NO RESI</th></tr>";
+	foreach ($mahasiswa as $m) 
+	{
+		$nama = strtoupper($m->nama);
+		$tgl = $m->tanggal;
+		$tanggal = substr($tgl, 8,2).'-'.substr($tgl, 5,2).'-'.substr($tgl, 0,4);
+		//$noresi = $m->noresi==''?'<b>SEDANG DIPROSESS</b>':strtoupper($m->noresi);
+		$kurir = strtoupper($m->kurir);
+	    $resi   = $m->noresi;
+	    if($kurir=='DOWNLOAD' or $kurir=='COD'){
+	    	$noresi = "SELESAI";
+	    }elseif($resi==''){
+	    	$noresi="<b>SEDANG PROSES</b>";
+	    }
+	    else{
+	    	$noresi=$resi;
+	    }
+
+	    if($m->nama_bank=='tokopedia'){
+	    	$bank = "<a href='https://www.tokopedia.com/tutorialpemogram' target='_blank'>TOKOPEDIA</a>";
+	    }elseif($m->nama_bank='bukalapak'){
+	    	$bank = "<a href='https://www.bukalapak.com/nuris_akbar' target='_blank'>BUKALAPAK</a>";
+	    }else{
+	    	$bank = "<a href='https://belajarphp.net/cara-pemesanan-tutorial/' target='_blank'>TRANSFER</a>";
+	    }
+
+		echo "<tr><td>$bank</td><td>$nama</td><td>$tanggal</td><td>$kurir</td><td>";
+		//echo $kurir=='COD'?'SELESAI':$noresi; 
+		echo "$noresi</td></tr>";
+		}
+	echo "</table>";
+}
+
+function bulan($bulan){
+	if($bulan==01){
+		return 'JANUARI';
+	}elseif($bulan==02){
+		return 'FEBRUARY';
+	}elseif($bulan==03){
+		return 'MARET';
+	}elseif($bulan==04){
+		return 'APRIL';
+	}elseif($bulan==05){
+		return 'MEI';
+	}elseif($bulan==06){
+		return 'JUNI';
+	}elseif($bulan==07){
+		return 'JULI';
+	}elseif($bulan=='08'){
+		return 'AGUSTUS';
+	}elseif($bulan==09){
+		return 'SEPTEMBER';
+	}elseif($bulan==10){
+		return 'OKTOBER';
+	}elseif($bulan==11){
+		return 'NOVEMBER';
+	}elseif($bulan==12){
+		return 'DESEMBER';
+	}else{
+		return $bulan;
+	}
+
+}
+
+
+function curl($url){
+	        // create curl resource 
+        $ch = curl_init(); 
+        // set url 
+        curl_setopt($ch, CURLOPT_URL, $url); 
+        //return the transfer as a string 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        // $output contains the output string 
+        $output = curl_exec($ch); 
+        // close curl resource to free up system resources 
+        curl_close($ch); 
+        return $output; 
+}
+?>
