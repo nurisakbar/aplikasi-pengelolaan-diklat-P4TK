@@ -1,0 +1,93 @@
+@extends('layouts.app')
+@section('title','Laporan Gaji')
+@section('content')
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Laporan Gaji</h6>
+    </div>
+    <div class="card-body">
+        @include('alert')
+        {!! Form::open(['url'=>'gaji','method'=>'GET']) !!}
+        <table class="table table-bordered">
+            <tr>
+              <td width="200">Periode Gaji</td>
+              <td width="200">
+                <input id="NoIconDemo" class="form-control" name="periode" type="text" value="{{$periode}}" />
+              </td>
+              <td>
+                  <button type="submit" name="action" value="filter" class="btn btn-danger btn btn-sm">Tampilkan</button>
+                  @if (Auth::user()->level == 'administrator')
+                    <button type="submit" name="action" value="excel" class="btn btn-danger btn btn-sm">Download Excel</button>
+                  @endif
+              </td>
+            </tr>
+          </table>
+        </form>
+        <hr>
+        <table class="table table-bordered" id="users-table">
+            <thead>
+                <tr>
+                    <th width="10">No</th>
+                    <th>Periode</th>
+                    <th>Nama Pegawai</th>
+                    <th>Jabatan</th>
+                    <th>Lama Bekerja</th>
+                    <th>Total Hadir</th>
+                    <th>Gaji Pokok</th>
+                    <th>Tunjangan Jabatan</th>
+                    <th>Bonus</th>
+                    <th>Total Gaji</th>
+                    <th width="20">#</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+@endsection
+
+@push('scripts')
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js" integrity="sha256-hlKLmzaRlE8SCJC1Kw8zoUbU8BxA+8kR3gseuKfMjxA=" crossorigin="anonymous"></script>
+<script src="{{asset('jquery-ui-month-picker-master/src/MonthPicker.js')}}"></script>
+<!-- DataTables -->
+<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<script>
+$(function() {
+    $('#NoIconDemo').MonthPicker({
+      Button: false,
+      OnAfterChooseMonth: function () {
+        const period = $(this).val()
+        $("#export_pdf").attr("href", "/gaji/export?periode="+ period)
+      }
+    });
+    $("#NoIconDemo").MonthPicker('option', 'MonthFormat','yy-mm');
+
+
+    $('#users-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "/gaji?periode={{$periode}}",
+        columns: [
+            {data: 'DT_RowIndex', orderable: false, searchable: false},
+            { data: 'periode_gaji', name: 'periode_gaji' },
+            { data: 'user.name', name: 'user.name' },
+            { data: 'user.jabatan.nama_jabatan', name: 'user.jabatan.nama_jabatan' },
+            { data: 'lama_bekerja', name: 'lama_bekerja' },
+            { data: 'total_hadir', name: 'total_hadir' },
+            { data: 'gaji_pokok', name: 'gaji_pokok' },
+            { data: 'tunjangan_jabatan', name: 'tunjangan_jabatan' },
+            { data: 'bonus', name: 'bonus' },
+            { data: 'total_gaji', name: 'total_gaji' },
+            { data: 'action', name: 'action' }
+        ]
+    });
+});
+</script>
+@endpush
+
+@push('css')
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{asset('jquery-ui-month-picker-master/src/MonthPicker.css')}}">
+@endpush
+
+
