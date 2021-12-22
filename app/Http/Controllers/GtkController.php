@@ -43,7 +43,17 @@ class GtkController extends Controller
                 $btn .= '<a class="btn btn-danger btn-sm" href="/gtk/' . $row->nopes . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a>';
                 return $btn;
             })
-            ->rawColumns(['action'])
+
+            ->addColumn('keterangan', function ($row) {
+                return '';
+            })
+            ->addColumn('pilih', function ($row) {
+                $btn = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onClick="tutup_modal_gtk(' . $row->nopes . ')" data-target="#modalPesertaTerpilih">
+                Pilih
+              </button>';
+                return $btn;
+            })
+            ->rawColumns(['action','pilih'])
             ->addIndexColumn()
             ->make(true);
         }
@@ -81,9 +91,11 @@ class GtkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
-        //
+        if ($request->ajax()) {
+            return Gtk::findOrFail($id);
+        }
     }
 
     /**

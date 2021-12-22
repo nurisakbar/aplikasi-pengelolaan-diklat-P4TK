@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Gtk extends Model
 {
+    protected $primaryKey = "nopes";
+
     protected $table = "master_gtk";
 
     protected $fillable = ['nama_jabatan','level','jabatan_id','tunjangan'];

@@ -4,14 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\DiklatCreateRequest;
-use App\Diklat;
-use App\DiklatKelas;
-use App\DiklatPeserta;
+use App\Sekolah;
 use App\Provinsi;
 use Auth;
-use App\Gtk;
-use App\KategoriDiklat;
-class DiklatController extends Controller
+
+class SekolahController extends Controller
 {
     public function __construct()
     {
@@ -28,12 +25,12 @@ class DiklatController extends Controller
         if ($request->ajax()) {
             $search         = $request->input('search.value');
             $columns        = $request->get('columns');
-            $count_total    = Diklat::count();
-            $count_filter   = Diklat::where('nama_diklat', 'LIKE', '%' . $search . '%')
-                            ->orWhere('tahun', 'LIKE', '%' . $search . '%')
+            $count_total    = Sekolah::count();
+            $count_filter   = Sekolah::where('nama_sekolah', 'LIKE', '%' . $search . '%')
+                            ->orWhere('alamat', 'LIKE', '%' . $search . '%')
                             ->count();
 
-            $items          = Diklat::with('kategori')->take(10);
+            $items          = Sekolah::with('district.regency.province')->take(10);
 
             return \DataTables::of($items)
             ->with([
@@ -41,21 +38,18 @@ class DiklatController extends Controller
                 'recordsFiltered' => $count_filter,
               ])
             ->addColumn('action', function ($row) {
-                $btn = \Form::open(['url' => '/diklat/' . $row->id, 'method' => 'DELETE','style' => 'float:right;margin-right:5px']);
+                $btn = \Form::open(['url' => '/diklat/' . $row->sekolah_id, 'method' => 'DELETE','style' => 'float:right;margin-right:5px']);
                 $btn .= "<button type='submit' class='btn btn-danger btn-sm'><i class='fa fa-trash' aria-hidden='true'></i></button>";
                 $btn .= \Form::close();
-                $btn .= '<a class="btn btn-danger btn-sm" href="/diklat/' . $row->id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a> ';
-                $btn .= '<a class="btn btn-danger btn-sm" href="/diklat/' . $row->id . '"><i class="fas fa-eye" aria-hidden="true"></i></a>';
+                $btn .= '<a class="btn btn-danger btn-sm" href="/diklat/' . $row->sekolah_id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a> ';
+                $btn .= '<a class="btn btn-danger btn-sm" href="/diklat/' . $row->sekolah_id . '"><i class="fas fa-eye" aria-hidden="true"></i></a>';
                 return $btn;
-            })
-            ->addColumn('jumlah_peserta', function ($row) {
-                return $row->peserta()->count();
             })
             ->rawColumns(['action'])
             ->addIndexColumn()
             ->make(true);
         }
-        return view('diklat.index');
+        return view('sekolah.index');
     }
 
     /**
@@ -65,8 +59,7 @@ class DiklatController extends Controller
      */
     public function create()
     {
-        $data['kategori'] = KategoriDiklat::pluck('nama_kategori','id');
-        return view('diklat.create',$data);
+        return view('diklat.create');
     }
 
     /**
@@ -77,7 +70,7 @@ class DiklatController extends Controller
      */
     public function store(DiklatCreateRequest $request)
     {
-        $diklat = Diklat::create($request->all());
+        $diklat = Sekolah::create($request->all());
         \Session::flash('message', 'Data Diklat Berhasil Ditambahkan');
 
         foreach ($request->kelas as $kelasDiklat) {
@@ -94,7 +87,7 @@ class DiklatController extends Controller
      */
     public function show($id, Request $request)
     {
-        $data['diklat'] = Diklat::with('peserta.gtk')->findOrFail($id);
+        $data['diklat'] = Sekolah::with('peserta.gtk')->findOrFail($id);
 
         if ($request->ajax()) {
             $peserta = $data['diklat']->peserta;
@@ -115,7 +108,7 @@ class DiklatController extends Controller
 
     public function pdf($id)
     {
-        $data['diklat'] = Diklat::with('peserta.gtk', 'peserta.kelas')->findOrFail($id);
+        $data['diklat'] = Sekolah::with('peserta.gtk', 'peserta.kelas')->findOrFail($id);
         return \PDF::loadView('diklat.pdf', $data)->setPaper('A4', 'landscape')->stream();
         //return view('diklat.pdf', $data);
     }
@@ -128,7 +121,7 @@ class DiklatController extends Controller
      */
     public function edit($id)
     {
-        $data['diklat']   = Diklat::findOrFail($id);
+        $data['diklat']   = Sekolah::findOrFail($id);
         return view('diklat.edit', $data);
     }
 
@@ -141,7 +134,7 @@ class DiklatController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $diklat = Diklat::findOrFail($id);
+        $diklat = Sekolah::findOrFail($id);
         $diklat->update($request->all());
         \Session::flash('message', 'Data Diklat Berhasil Diperbaharui');
         return redirect('diklat');
@@ -155,7 +148,7 @@ class DiklatController extends Controller
      */
     public function destroy($id)
     {
-        $diklat = Diklat::findOrFail($id);
+        $diklat = Sekolah::findOrFail($id);
         $diklat->delete();
         \Session::flash('message', 'Data Diklat Berhasil Dihapus');
         return redirect('diklat');

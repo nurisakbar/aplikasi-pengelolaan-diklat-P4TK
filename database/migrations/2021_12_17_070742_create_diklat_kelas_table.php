@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDiklatsTable extends Migration
+class CreateDiklatKelasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateDiklatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('diklat', function (Blueprint $table) {
+        Schema::create('diklat_kelas', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_diklat');
-            $table->integer('tahun');
-            $table->integer('quota');
-            $table->string('departement');
-            $table->string('kompetensi_keahlian');
-            $table->string('status_aktif');
+            $table->string('nama_kelas');
+            $table->integer('diklat_id');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreateDiklatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('diklats');
+        Schema::dropIfExists('diklat_kelas');
     }
 }

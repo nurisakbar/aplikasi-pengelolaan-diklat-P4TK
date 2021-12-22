@@ -1,14 +1,7 @@
-<div class="mb-6">
+<div class="mb-10">
     <label class="form-label">Nama Diklat</label>
     {!! Form::text('nama_diklat', null, ['class'=>'form-control','placeholder'=>'Nama Diklat']) !!}
 </div>
-
-<div class="mb-6">
-    <label class="form-label">Kategori Diklat</label>
-    {!! Form::select('kategori_diklat_id',$kategori, null, ['class'=>'form-control','placeholder'=>'Pilih Kategori']) !!}
-</div>
-
-
 
 <div class="row">
     <div class="col-sm-2">
