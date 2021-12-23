@@ -18,6 +18,6 @@ class Diklat extends Model
 
     public function kategori()
     {
-        return $this->belongsTo(KategoriDiklat::class,'kategori_diklat_id','id');
+        return $this->belongsTo(KategoriDiklat::class, 'kategori_diklat_id', 'id');
     }
 }

@@ -27,4 +27,5 @@ Route::resource('diklatpeserta', 'DiklatPesertaController');
 Route::resource('user', 'UserController');
 Route::resource('sekolah', 'SekolahController');
 Route::resource('kategori', 'KategoriDiklatController');
+Route::resource('bidangkeahlian', 'BidangKeahlianController');
 Route::post('tambah-kelas-diklat','DiklatController@tambahKelasDiklat');

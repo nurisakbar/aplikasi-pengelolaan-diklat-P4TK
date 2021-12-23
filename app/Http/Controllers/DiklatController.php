@@ -11,6 +11,7 @@ use App\Provinsi;
 use Auth;
 use App\Gtk;
 use App\KategoriDiklat;
+
 class DiklatController extends Controller
 {
     public function __construct()
@@ -65,8 +66,8 @@ class DiklatController extends Controller
      */
     public function create()
     {
-        $data['kategori'] = KategoriDiklat::pluck('nama_kategori','id');
-        return view('diklat.create',$data);
+        $data['kategori'] = KategoriDiklat::pluck('nama_kategori', 'id');
+        return view('diklat.create', $data);
     }
 
     /**
