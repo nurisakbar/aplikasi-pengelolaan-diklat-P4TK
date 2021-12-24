@@ -44,7 +44,7 @@ License: For each use you must have a valid license purchased only from above li
 				<div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
 					<!--begin::Logo-->
 					<a href="https://preview.keenthemes.com/metronic8/demo11/../demo11/index.html" class="mb-12">
-						<img alt="Logo" src="https://preview.keenthemes.com/metronic8/demo11/assets/media/logos/logo-1.svg" class="h-40px" />
+						<img alt="Logo" src="{{asset('LOGO-BAru-2020.png')}}" class="h-40px" />
 					</a>
 					<!--end::Logo-->
 					<!--begin::Wrapper-->
