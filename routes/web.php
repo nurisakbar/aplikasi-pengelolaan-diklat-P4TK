@@ -28,4 +28,6 @@ Route::resource('user', 'UserController');
 Route::resource('sekolah', 'SekolahController');
 Route::resource('kategori', 'KategoriDiklatController');
 Route::resource('bidangkeahlian', 'BidangKeahlianController');
+Route::resource('programkeahlian', 'ProgramKeahlianController');
+Route::resource('kompetensikeahlian', 'KompetensiKeahlianController');
 Route::post('tambah-kelas-diklat','DiklatController@tambahKelasDiklat');

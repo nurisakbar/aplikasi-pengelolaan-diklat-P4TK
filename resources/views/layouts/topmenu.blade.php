@@ -96,7 +96,7 @@
                 </a>
                 <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
                     <div class="menu-item">
-                        <a class="menu-link py-3" href="bidangkeahlian">
+                        <a class="menu-link py-3" href="{{ url('bidangkeahlian')}}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                                 <span class="svg-icon svg-icon-2">
@@ -112,7 +112,7 @@
                     </div>
 
                     <div class="menu-item">
-                        <a class="menu-link py-3" href="programkeahlian">
+                        <a class="menu-link py-3" href="{{ url('programkeahlian')}}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen009.svg-->
                                 <span class="svg-icon svg-icon-2">
@@ -127,7 +127,7 @@
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a class="menu-link py-3" href="kompetensikeahlian">
+                        <a class="menu-link py-3" href="{{ url('kompetensikeahlian')}}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: icons/duotune/communication/com001.svg-->
                                 <span class="svg-icon svg-icon-2">
