@@ -10,7 +10,8 @@
                 <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                     <th width="10">Nomor</th>
                     <th>Nama Kompetensi Keahlian</th>
-                    <th>Nama Bidang Keahlian</th>
+                    <th>Program Keahlian</th>
+                    <th>Bidang Keahlian</th>
                     <th width="120">#</th>
                 </tr>
             </thead>
@@ -19,7 +20,7 @@
 </div>
 @endsection
 @push('scripts')
-<script src="https://preview.keenthemes.com/metronic8/demo11/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
 <script>
     $(function() {
         $('#users-table').DataTable({
@@ -28,8 +29,9 @@
             ajax: '/kompetensikeahlian',
             columns: [
                 {data: 'DT_RowIndex', orderable: false, searchable: false},
-                { data: 'nama_program_keahlian', name: 'nama_program_keahlian' },
-                { data: 'bidang_keahlian.nama_bidang_keahlian', name: 'bidang_keahlian.nama_bidang_keahlian' },
+                { data: 'nama_kompetensi_keahlian', name: 'nama_kompetensi_keahlian' },
+                { data: 'program_keahlian.nama_program_keahlian', name: 'program_keahlian.nama_program_keahlian' },
+                { data: 'program_keahlian.bidang_keahlian.nama_bidang_keahlian', name: 'program_keahlian.bidang_keahlian.nama_bidang_keahlian' },
                 { data: 'action', name: 'action' }
             ]
         });
@@ -38,5 +40,5 @@
 @endpush
 
 @push('css')
-    <link href="https://preview.keenthemes.com/metronic8/demo11/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
 @endpush

@@ -31,3 +31,5 @@ Route::resource('bidangkeahlian', 'BidangKeahlianController');
 Route::resource('programkeahlian', 'ProgramKeahlianController');
 Route::resource('kompetensikeahlian', 'KompetensiKeahlianController');
 Route::post('tambah-kelas-diklat','DiklatController@tambahKelasDiklat');
+
+Route::get('/ajax/programkeahlian-dropdown','AjaxController@programKeahlianDropdown');

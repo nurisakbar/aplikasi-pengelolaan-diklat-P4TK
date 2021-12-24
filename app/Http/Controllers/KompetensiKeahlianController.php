@@ -82,7 +82,7 @@ class KompetensiKeahlianController extends Controller
      */
     public function edit($id)
     {
-        $data['KompetensiKeahlian']    = KompetensiKeahlian::findOrFail($id);
+        $data['kompetensiKeahlian']    = KompetensiKeahlian::findOrFail($id);
         $data['bidangKeahlian']     = BidangKeahlian::pluck('nama_bidang_keahlian', 'id');
         return view('kompetensikeahlian.edit', $data);
     }

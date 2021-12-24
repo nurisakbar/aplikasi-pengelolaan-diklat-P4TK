@@ -191,7 +191,7 @@
 </div>
 @endsection
 @push('scripts')
-<script src="https://preview.keenthemes.com/metronic8/demo11/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
 <script>
 $(function() {
     $('#users-table').DataTable({
@@ -211,5 +211,5 @@ $(function() {
 @endpush
 
 @push('css')
-    <link href="https://preview.keenthemes.com/metronic8/demo11/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
 @endpush
