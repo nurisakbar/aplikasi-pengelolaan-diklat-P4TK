@@ -80,7 +80,7 @@
                 {data: 'DT_RowIndex', orderable: false, searchable: false},
                 { data: 'nama_diklat', name: 'nama_diklat' },
                 { data: 'kategori.nama_kategori', name: 'kategori.nama_kategori' },
-                { data: 'kompetensi_keahlian', name: 'kompetensi_keahlian' },
+                { data: 'kompetensi.nama_kompetensi_keahlian', name: 'kompetensi.nama_kompetensi_keahlian' },
                 { data: 'tahun', name: 'tahun' },
                 { data: 'jumlah_peserta', name: 'jumlah_peserta' },
                 { data: 'status_aktif', name: 'status_aktif' },

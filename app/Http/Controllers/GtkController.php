@@ -30,7 +30,7 @@ class GtkController extends Controller
                             ->orWhere('nama_gtk', 'LIKE', '%' . $search . '%')
                             ->count();
 
-            $items = Gtk::take(10);
+            $items = Gtk::with('sekolah')->take(10);
             return \DataTables::of($items)
             ->with([
                 'recordsTotal' => $count_total,

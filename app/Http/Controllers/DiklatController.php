@@ -37,7 +37,7 @@ class DiklatController extends Controller
                             ->orWhere('tahun', 'LIKE', '%' . $search . '%')
                             ->count();
 
-            $items          = Diklat::with('kategori')->take(10);
+            $items          = Diklat::with('kategori','kompetensi')->take(10);
 
             return \DataTables::of($items)
             ->with([

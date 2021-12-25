@@ -20,4 +20,9 @@ class Diklat extends Model
     {
         return $this->belongsTo(KategoriDiklat::class, 'kategori_diklat_id', 'id');
     }
+
+    public function kompetensi()
+    {
+        return $this->belongsTo(KompetensiKeahlian::class, 'kompetensi_keahlian', 'id');
+    }
 }

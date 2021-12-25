@@ -201,7 +201,7 @@ $(function() {
         columns: [
             { data: 'nopes', name: 'nopes' },
             { data: 'nama_gtk', name: 'nama_gtk' },
-            { data: 'asal_sekolah', name: 'asal_sekolah' },
+            { data: 'sekolah.nama_sekolah', name: 'sekolah.nama_sekolah' },
             { data: 'provinsi', name: 'provinsi' },
             { data: 'action', name: 'action' }
         ]
