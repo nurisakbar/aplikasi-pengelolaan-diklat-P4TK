@@ -11,6 +11,9 @@ use App\Provinsi;
 use Auth;
 use App\Gtk;
 use App\KategoriDiklat;
+use App\KompetensiKeahlian;
+use App\Sekolah;
+use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 
 class DiklatController extends Controller
 {
@@ -166,5 +169,82 @@ class DiklatController extends Controller
     public function tambahKelasDiklat(Request $request)
     {
         return DiklatKelas::create($request->all());
+    }
+
+    public function importRiwayatDiklat(Request $request)
+    {
+        $file = $request->file('file');
+        $nama_file = $file->getClientOriginalName();
+        $destinationPath = 'uploads';
+        $file->move($destinationPath, $nama_file);
+
+        $filePath = $destinationPath . '/' . $nama_file;
+        $reader = ReaderEntityFactory::createXLSXReader();
+        $reader->open($filePath);
+
+
+        $diklat = $request->only('tahun', 'tanggal_mulai', 'tanggal_selesai');
+        $peserta_diklat_nopes = [];
+
+        foreach ($reader->getSheetIterator() as $sheet) {
+            $nomor = 1;
+            foreach ($sheet->getRowIterator() as $row) {
+                $cells                      = $row->getCells();
+                $program_diklat             = $cells[11]->getValue();
+                $nama_diklat                = $cells[12]->getValue();
+                $program_keahlian_diklat    = $cells[13]->getValue();
+
+                $kategori_diklat            = KategoriDiklat::firstOrCreate(['nama_kategori' => $program_diklat], ['nama_kategori' => $program_diklat]);
+                $kompetensi_keahlian        = KompetensiKeahlian::where('nama_kompetensi_keahlian', $program_keahlian_diklat)->first();
+                if ($nomor == 2) {
+                    $diklat['nama_diklat']              = $nama_diklat;
+                    $diklat['quota']                    = 0;
+                    $diklat['kompetensi_keahlian']      = $kompetensi_keahlian->id;
+                    $diklat['departemen']               = "test";
+                    $diklat['status_aktif']             = 'Selesai';
+                    $diklat['kategori_diklat_id']       = $kategori_diklat->id;
+                }
+                if ($nomor > 1) {
+                    // check profile GTK, kalau belum ada akan dicreate
+                    $peserta_diklat_nopes[]     = $this->gtkInfo($cells);
+                }
+                $nomor++;
+            }
+        }
+
+        $createDiklat   = Diklat::create($diklat);
+        $createKelas    = DiklatKelas::create(['nama_kelas' => 'Kelas A','diklat_id' => $createDiklat->id]);
+        $peserta_diklat = [];
+        foreach ($peserta_diklat_nopes as $nopes) {
+            DiklatPeserta::insert(['nopes' => $nopes, 'diklat_id' => $createDiklat->id,'diklat_kelas_id' => $createKelas->id,'status_kehadiran' => 'Terkonfirmasi']);
+        }
+
+
+        \Session::flash('message', 'Data Diklat Berhasil Di Import');
+        return redirect('diklat/' . $createDiklat->id);
+    }
+
+
+    public function gtkInfo($row)
+    {
+        $gtk = Gtk::firstOrCreate([
+            'nopes' => $row[1]->getValue()
+        ], [
+            'nopes'             => $row[2]->getValue(),
+            'nama_gtk'          => $row[2]->getValue(),
+            'sekolah_id'        => $this->sekolahInfo($row[7]->getValue()), // mendapatkan sekolah_id dari tabel sekolah
+            'kelamin'           => $row[4]->getValue(),
+            'umur'              => $row[3]->getValue(),
+            'simkb_nomor_hp'    => $row[5]->getValue(),
+            'simkb_email'       => $row[6]->getValue()
+        ]);
+
+        return $row[1]->getValue();
+    }
+
+    public function sekolahInfo($nama_sekolah)
+    {
+        $sekolah = Sekolah::where('nama_sekolah', $nama_sekolah)->first();
+        return $sekolah->sekolah_id;
     }
 }

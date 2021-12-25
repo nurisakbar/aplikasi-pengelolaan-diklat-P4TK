@@ -75,8 +75,10 @@
                 </div>
              </div>
           </div>
-          <button type="button" class="btn btn-primary fw-bolder" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Tambah Peserta Diklat
+          <a href="{{ url('diklat/'.$diklat->id.'/pdf')}}" class="btn btn-primary btn-sm" style="margin-right:10px;"><i class="far fa-file-excel"></i> Download Excel</a>
+          <a href="{{ url('diklat/'.$diklat->id.'/pdf')}}" class="btn btn-danger btn-sm" style="margin-right:10px;"><i class="far fa-file-pdf"></i> Download PDF</a>
+          <button type="button" class="btn btn-success fw-bolder btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <i class="far fa-plus-square"></i> Tambah Peserta Diklat
           </button>
        </div>
     </div>

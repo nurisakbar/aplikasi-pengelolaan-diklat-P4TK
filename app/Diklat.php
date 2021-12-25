@@ -9,7 +9,7 @@ class Diklat extends Model
 {
     protected $table = "diklat";
 
-    protected $fillable = ['nama_diklat','tahun','status_aktif','kompetensi_keahlian','quota','departement','kategori_diklat_id'];
+    protected $fillable = ['nama_diklat','tahun','status_aktif','kompetensi_keahlian','quota','departement','kategori_diklat_id','tanggal_mulai','tanggal_selesai'];
 
     public function peserta()
     {

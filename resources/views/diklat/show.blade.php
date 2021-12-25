@@ -4,8 +4,7 @@
 @include('diklat.__toolbar-show')
 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
     <div class="content flex-row-fluid" id="kt_content">
-        <div class="card">
-            <div class="card-body py-4">
+       
                @include('alert')
                <div id="alert"></div>
 
@@ -16,7 +15,7 @@
             </tr>
             <tr>
                 <td>Tahun Pelaksanaan</td>
-                <td>{{ $diklat->tahun }}</td>
+                <td>{{ $diklat->tahun }} | Dari Mulai {{ $diklat->tanggal_mulai }} Sampai {{ $diklat->tanggal_selesai }}</td>
             </tr>
             <tr>
                 <td>Departemen</td>
@@ -54,15 +53,14 @@
                         </tr>
                     </thead>
                 </table>
-            </div>
-        </div>
+        
     </div>
 
     @include('diklat.show-modal')
 </div>
 @endsection
 @push('scripts')
-<script src="https://preview.keenthemes.com/metronic8/demo11/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 $(function() {
@@ -228,5 +226,5 @@ function tambah_kelas(){
 @endpush
 
 @push('css')
-    <link href="https://preview.keenthemes.com/metronic8/demo11/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
 @endpush

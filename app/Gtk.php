@@ -8,13 +8,7 @@ class Gtk extends Model
 {
     protected $primaryKey = "nopes";
 
-    protected $table = "master_gtk";
+    protected $table = "gtk";
 
-    protected $fillable = ['nama_jabatan','level','jabatan_id','tunjangan'];
-
-
-    // public function jabatan()
-    // {
-    //     return $this->belongsTo(\App\Jabatan::class);
-    // }
+    protected $fillable = ['nopes','nama_gtk','sekolah_id','kelamin','umur','simkb_nomor_hp','simkb_email'];
 }

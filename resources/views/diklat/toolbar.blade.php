@@ -75,6 +75,9 @@
                 </div>
              </div>
           </div>
+          <button type="button" class="btn btn-primary" style="margin-right:10px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Import
+          </button> 
           <a href="{{ url('diklat/create')}}" class="btn btn-primary fw-bolder">Tambah Diklat Baru</a>
        </div>
     </div>

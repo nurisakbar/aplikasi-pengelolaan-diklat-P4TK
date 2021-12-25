@@ -22,6 +22,7 @@ Route::get('user/dropdown-jabatan', 'UserController@dropdownJabatan');
 Route::get('home', 'PageController@home');
 Route::resource('gtk', 'GtkController');
 Route::get('diklat/{id}/pdf', 'DiklatController@pdf');
+Route::post('diklat/import','DiklatController@importRiwayatDiklat');
 Route::resource('diklat', 'DiklatController');
 Route::resource('diklatpeserta', 'DiklatPesertaController');
 Route::resource('user', 'UserController');

@@ -20,6 +20,52 @@
             </thead>
         </table>
     </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 60%;max-width:600px;">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Import Riwayat Diklat</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ Form::open(['url'=>'diklat/import','files'=>true])}}
+              <table class="table table-bordered">
+                <tr>
+                    <td>Periode</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" required class="form-control" name="tahun" placeholder="Tahun">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="date" required class="form-control" name="tanggal_mulai" placeholder="Tanggal Mulai">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="date" required class="form-control" name="tanggal_selesai" placeholder="Tanggal Selesai">
+                            </div>
+                        </div>
+                        
+                    </td>
+                </tr>
+                  <tr>
+                      <td>File</td>
+                      <td>
+                          <input type="file" name="file" class="form-control">
+                      </td>
+                  </tr>
+              </table>
+             
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+              <button type="submit" class="btn btn-primary">Upload Dan Proses</button>
+            </div>
+            {{Form::close()}}
+          </div>
+        </div>
+      </div>
+
 </div>
 @endsection
 @push('scripts')
