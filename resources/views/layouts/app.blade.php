@@ -9,7 +9,6 @@
 		<!--begin::Fonts-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
 		<!--end::Fonts-->
-		<link href="{{asset('sbadmin/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
 		<!--begin::Page Vendor Stylesheets(used by this page)-->
 		
 		<!--end::Page Vendor Stylesheets-->
@@ -47,8 +46,9 @@
 									<!--end::Svg Icon-->
 								</div>
 								<!--end::Heaeder menu toggle-->
-								<a href="https://preview.keenthemes.com/metronic8/demo11/../demo11/index.html">
-									<img alt="Logo" src="https://preview.keenthemes.com/metronic8/demo11/assets/media/logos/logo-demo11.svg" class="h-20px h-lg-30px" />
+								<a href="#">
+									<img alt="Logo" src="{{asset('LOGO-BAru-2020.png')}}" width="60" />
+									<h1 style="float:right;margin-top:20px;margin-left:10px;">SISTEM INFORMASI DIKLAT P4TKBMTI</h1>
 								</a>
 							</div>
 							<!--end::Header Logo-->
