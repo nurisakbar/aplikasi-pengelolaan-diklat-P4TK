@@ -38,11 +38,11 @@ class SekolahController extends Controller
                 'recordsFiltered' => $count_filter,
               ])
             ->addColumn('action', function ($row) {
-                $btn = \Form::open(['url' => '/diklat/' . $row->sekolah_id, 'method' => 'DELETE','style' => 'float:right;margin-right:5px']);
+                $btn = \Form::open(['url' => '/sekolah/' . $row->sekolah_id, 'method' => 'DELETE','style' => 'float:right;margin-right:5px']);
                 $btn .= "<button type='submit' class='btn btn-danger btn-sm'><i class='fa fa-trash' aria-hidden='true'></i></button>";
                 $btn .= \Form::close();
-                $btn .= '<a class="btn btn-danger btn-sm" href="/diklat/' . $row->sekolah_id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a> ';
-                $btn .= '<a class="btn btn-danger btn-sm" href="/diklat/' . $row->sekolah_id . '"><i class="fas fa-eye" aria-hidden="true"></i></a>';
+                $btn .= '<a class="btn btn-danger btn-sm" href="/sekolah/' . $row->sekolah_id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a> ';
+                $btn .= '<a class="btn btn-danger btn-sm" href="/sekolah/' . $row->sekolah_id . '"><i class="fas fa-eye" aria-hidden="true"></i></a>';
                 return $btn;
             })
             ->rawColumns(['action'])

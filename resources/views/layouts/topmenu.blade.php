@@ -2,16 +2,16 @@
     <!--begin::Menu wrapper-->
     <div class="header-menu flex-column flex-lg-row" data-kt-drawer="true" data-kt-drawer-name="header-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_header_menu_toggle" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header_nav'}">
         <!--begin::Menu-->
+
+        
         <div class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch flex-grow-1" id="#kt_header_menu" data-kt-menu="true">
+            @if(Auth::check())
             <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
-                <a class="menu-link py-3" href="{{ url('/')}}">
+                <a class="menu-link py-3" href="{{ url('/dashboard')}}">
                     <span class="menu-title">Dashboard</span>
                     <span class="menu-arrow d-lg-none"></span>
                 </a>
             </div>
-
-
-
             <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
                 <a class="menu-link py-3" href="{{ url('gtk')}}">
                     <span class="menu-title">Data GTK</span>
@@ -96,158 +96,32 @@
                     </div>
                 </div>
             </div>
-
-
-            {{-- <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
-                <span class="menu-link py-3">
-                    <span class="menu-title">Mega Menu</span>
+            @else
+            <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
+                <a class="menu-link py-3" href="{{ url('/')}}">
+                    <span class="menu-title">Home</span>
                     <span class="menu-arrow d-lg-none"></span>
-                </span>
-                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown w-100 w-lg-600px p-5 p-lg-5">
-                    <!--begin:Row-->
-                    <div class="row" data-kt-menu-dismiss="true">
-                        <!--begin:Col-->
-                        <div class="col-lg-4 border-left-lg-1">
-                            <div class="menu-inline menu-column menu-active-bg">
-                                <div class="menu-item">
-                                    <a href="#" class="menu-link">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                                        <span class="menu-title">Example link</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="#" class="menu-link">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                                        <span class="menu-title">Example link</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="#" class="menu-link">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                                        <span class="menu-title">Example link</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="#" class="menu-link">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                                        <span class="menu-title">Example link</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="#" class="menu-link">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                                        <span class="menu-title">Example link</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end:Col-->
-                        <!--begin:Col-->
-                        <div class="col-lg-4 border-left-lg-1">
-                            <div class="menu-inline menu-column menu-active-bg">
-                                <div class="menu-item">
-                                    <a href="#" class="menu-link">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                                        <span class="menu-title">Example link</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="#" class="menu-link">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                                        <span class="menu-title">Example link</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="#" class="menu-link">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                                        <span class="menu-title">Example link</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="#" class="menu-link">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                                        <span class="menu-title">Example link</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="#" class="menu-link">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                                        <span class="menu-title">Example link</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end:Col-->
-                        <!--begin:Col-->
-                        <div class="col-lg-4 border-left-lg-1">
-                            <div class="menu-inline menu-column menu-active-bg">
-                                <div class="menu-item">
-                                    <a href="#" class="menu-link">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                                        <span class="menu-title">Example link</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="#" class="menu-link">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                                        <span class="menu-title">Example link</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="#" class="menu-link">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                                        <span class="menu-title">Example link</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="#" class="menu-link">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                                        <span class="menu-title">Example link</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="#" class="menu-link">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                                        <span class="menu-title">Example link</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end:Col-->
-                    </div>
-                    <!--end:Row-->
-                </div>
-            </div> --}}
+                </a>
+            </div>
+            <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
+                <a class="menu-link py-3" href="{{ url('/list-diklat')}}">
+                    <span class="menu-title">Daftar Diklat</span>
+                    <span class="menu-arrow d-lg-none"></span>
+                </a>
+            </div>
+            <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
+                <a class="menu-link py-3" href="{{ url('/pendaftaran')}}">
+                    <span class="menu-title">Pendaftaran</span>
+                    <span class="menu-arrow d-lg-none"></span>
+                </a>
+            </div>
+            <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
+                <a class="menu-link py-3" href="{{ url('/masuk')}}">
+                    <span class="menu-title">Login Pengguna</span>
+                    <span class="menu-arrow d-lg-none"></span>
+                </a>
+            </div>
+            @endif
         </div>
         <!--end::Menu-->
     </div>

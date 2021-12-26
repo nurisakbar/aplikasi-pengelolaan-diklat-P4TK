@@ -14,9 +14,8 @@ use Laravel\Socialite\Facades\Socialite;
 |
 */
 
-Route::get('/', function () {
-    return redirect('login');
-});
+Route::get('/', 'PageController@home');
+Route::get('dashboard', 'PageController@dashboard');
 Auth::routes();
 Route::get('user/dropdown-jabatan', 'UserController@dropdownJabatan');
 Route::get('home', 'PageController@home');
@@ -32,5 +31,6 @@ Route::resource('bidangkeahlian', 'BidangKeahlianController');
 Route::resource('programkeahlian', 'ProgramKeahlianController');
 Route::resource('kompetensikeahlian', 'KompetensiKeahlianController');
 Route::post('tambah-kelas-diklat','DiklatController@tambahKelasDiklat');
+Route::get('logout','LogoutController');
 
 Route::get('/ajax/programkeahlian-dropdown','AjaxController@programKeahlianDropdown');
