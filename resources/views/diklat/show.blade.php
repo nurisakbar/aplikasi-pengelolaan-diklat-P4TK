@@ -72,8 +72,8 @@ $(function() {
             { data: 'nopes', name: 'nopes' },
             { data: 'gtk.nama_gtk', name: 'gtk.nama_gtk' },
             { data: 'gtk.instansi.nama_instansi'},
-            { data: 'gtk.kota', name: 'gtk.kota' },
-            { data: 'gtk.provinsi', name: 'gtk.provinsi' },
+            { data: 'gtk.instansi.wilayah_administratif.regency_name'},
+            { data: 'gtk.instansi.wilayah_administratif.province_name'},
             { data: 'gtk.simkb_nomor_hp', name: 'gtk.simkb_nomor_hp' },
             { data: 'status_kehadiran', name: 'status_kehadiran' },
             { data: 'action', name: 'action' }

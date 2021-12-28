@@ -98,7 +98,7 @@ class DiklatController extends Controller
      */
     public function show($id, Request $request)
     {
-        $data['diklat'] = Diklat::with('peserta.gtk')->findOrFail($id);
+        $data['diklat'] = Diklat::with('peserta.gtk.instansi.wilayahAdministratif')->findOrFail($id);
 
         if ($request->ajax()) {
             $peserta = $data['diklat']->peserta;
