@@ -26,11 +26,11 @@ class GtkController extends Controller
             $search         = $request->input('search.value');
             $columns        = $request->get('columns');
             $count_total    = Gtk::count();
-            $count_filter   = Gtk::with('sekolah.wilayahAdministratif')->where('gtk.nopes', 'LIKE', '%' . $search . '%')
+            $count_filter   = Gtk::with('instansi.wilayahAdministratif')->where('gtk.nopes', 'LIKE', '%' . $search . '%')
                             ->orWhere('gtk.nama_gtk', 'LIKE', '%' . $search . '%')
                             ->count();
 
-            $items = Gtk::with('sekolah.wilayahAdministratif')->take(10);
+            $items = Gtk::with('instansi.wilayahAdministratif')->take(10);
             
             return \DataTables::of($items)
             ->with([

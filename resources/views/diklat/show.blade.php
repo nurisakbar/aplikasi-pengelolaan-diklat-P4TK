@@ -71,7 +71,7 @@ $(function() {
         columns: [
             { data: 'nopes', name: 'nopes' },
             { data: 'gtk.nama_gtk', name: 'gtk.nama_gtk' },
-            { data: 'gtk.asal_sekolah', name: 'gtk.asal_sekolah' },
+            { data: 'gtk.instansi.nama_instansi'},
             { data: 'gtk.kota', name: 'gtk.kota' },
             { data: 'gtk.provinsi', name: 'gtk.provinsi' },
             { data: 'gtk.simkb_nomor_hp', name: 'gtk.simkb_nomor_hp' },

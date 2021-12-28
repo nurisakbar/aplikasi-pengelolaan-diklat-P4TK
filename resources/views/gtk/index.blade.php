@@ -153,7 +153,7 @@
                  <th>Jenis Kelamin</th>
                  <th>Umur</th>
                  <th>Nomor HP</th>
-                 <th>Asal Sekolah</th>
+                 <th>Asal instansi</th>
                  <th>Provinsi - Kota</th>
                  <th width="120">#</th>
              </tr>
@@ -166,22 +166,6 @@
 @push('scripts')
 <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
 <script>
-// $(function() {
-//     $('#users-table').DataTable({
-//         processing: true,
-//         serverSide: true,
-//         ajax: '/gtk',
-//         columns: [
-//             { data: 'nopes', name: 'nopes' },
-//             { data: 'nama_gtk', name: 'nama_gtk' },
-//             { data: 'sekolah.nama_sekolah', name: 'sekolah.nama_sekolah' },
-//             { data: 'provinsi', name: 'provinsi' },
-//             { data: 'action', name: 'action' }
-//         ]
-//     });
-// });
-
-
 
 "use strict";
 
@@ -207,8 +191,8 @@ var KTDatatablesServerSide = function () {
             { data: 'kelamin', name: 'kelamin' },
             { data: 'umur', name: 'umur' },
             { data: 'simkb_nomor_hp', name: 'simkb_nomor_hp' },
-            { data: 'sekolah.nama_sekolah', name: 'sekolah.nama_sekolah' },
-            { data: 'sekolah.wilayah_administratif.province_name', name: 'sekolah.wilayah_administratif.province_name' },
+            { data: 'instansi.nama_instansi', name: 'instansi.nama_instansi' },
+            { data: 'instansi.wilayah_administratif.province_name'},
             { data: 'action', name: 'action' }
         ]
         });

@@ -25,7 +25,7 @@ Route::post('diklat/import','DiklatController@importRiwayatDiklat');
 Route::resource('diklat', 'DiklatController');
 Route::resource('diklatpeserta', 'DiklatPesertaController');
 Route::resource('user', 'UserController');
-Route::resource('sekolah', 'SekolahController');
+Route::resource('instansi', 'InstansiController');
 Route::resource('kategori', 'KategoriDiklatController');
 Route::resource('bidangkeahlian', 'BidangKeahlianController');
 Route::resource('programkeahlian', 'ProgramKeahlianController');

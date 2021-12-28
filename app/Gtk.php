@@ -13,7 +13,7 @@ class Gtk extends Model
     protected $fillable = ['nopes','nama_gtk','sekolah_id','kelamin','umur','simkb_nomor_hp','simkb_email'];
 
 
-    public function sekolah(){
-        return $this->belongsTo(\App\Sekolah::class,'sekolah_id','sekolah_id');
+    public function instansi(){
+        return $this->belongsTo(\App\Instansi::class,'sekolah_id','instansi_id');
     }
 }

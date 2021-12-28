@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title','Data Diklat')
 @section('content')
-@include('sekolah.toolbar')
+@include('instansi.toolbar')
 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
     <div class="content flex-row-fluid" id="kt_content">
         @include('alert')
@@ -29,15 +29,15 @@
         $('#users-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '/sekolah',
+            ajax: '/instansi',
             columns: [
                 {data: 'DT_RowIndex', orderable: false, searchable: false},
-                { data: 'nama_sekolah', name: 'nama_sekolah' },
+                { data: 'nama_instansi', name: 'nama_instansi' },
                 { data: 'jenjang', name: 'jenjang' },
                 { data: 'alamat', name: 'alamat' },
-                { data: 'district.name', name: 'district.name' },
-                { data: 'district.regency.name', name: 'district.regency.name' },
-                { data: 'district.regency.province.name', name: 'district.regency.province.name' },
+                { data: 'wilayah_administratif.district_name'},
+                { data: 'wilayah_administratif.regency_name' },
+                { data: 'wilayah_administratif.province_name'},
                 { data: 'action', name: 'action' }
             ]
         });
