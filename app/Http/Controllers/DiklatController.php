@@ -34,30 +34,30 @@ class DiklatController extends Controller
             $columns        = $request->get('columns');
             $count_total    = Diklat::count();
             $count_filter   = Diklat::where('nama_diklat', 'LIKE', '%' . $search . '%')
-                            ->orWhere('tahun', 'LIKE', '%' . $search . '%')
-                            ->count();
+                ->orWhere('tahun', 'LIKE', '%' . $search . '%')
+                ->count();
 
-            $items          = Diklat::with('kategori','kompetensi')->take(10);
+            $items          = Diklat::with('kategori', 'kompetensi', 'departemen')->take(10);
 
             return \DataTables::of($items)
-            ->with([
-                'recordsTotal' => $count_total,
-                'recordsFiltered' => $count_filter,
-              ])
-            ->addColumn('action', function ($row) {
-                $btn = \Form::open(['url' => '/diklat/' . $row->id, 'method' => 'DELETE','style' => 'float:right;margin-right:5px']);
-                $btn .= "<button type='submit' class='btn btn-danger btn-sm'><i class='fa fa-trash' aria-hidden='true'></i></button>";
-                $btn .= \Form::close();
-                $btn .= '<a class="btn btn-danger btn-sm" href="/diklat/' . $row->id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a> ';
-                $btn .= '<a class="btn btn-danger btn-sm" href="/diklat/' . $row->id . '"><i class="fas fa-eye" aria-hidden="true"></i></a>';
-                return $btn;
-            })
-            ->addColumn('jumlah_peserta', function ($row) {
-                return $row->peserta()->count();
-            })
-            ->rawColumns(['action'])
-            ->addIndexColumn()
-            ->make(true);
+                ->with([
+                    'recordsTotal' => $count_total,
+                    'recordsFiltered' => $count_filter,
+                ])
+                ->addColumn('action', function ($row) {
+                    $btn = \Form::open(['url' => '/diklat/' . $row->id, 'method' => 'DELETE', 'style' => 'float:right;margin-right:5px']);
+                    $btn .= "<button type='submit' class='btn btn-danger btn-sm'><i class='fa fa-trash' aria-hidden='true'></i></button>";
+                    $btn .= \Form::close();
+                    $btn .= '<a class="btn btn-danger btn-sm" href="/diklat/' . $row->id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a> ';
+                    $btn .= '<a class="btn btn-danger btn-sm" href="/diklat/' . $row->id . '"><i class="fas fa-eye" aria-hidden="true"></i></a>';
+                    return $btn;
+                })
+                ->addColumn('jumlah_peserta', function ($row) {
+                    return $row->peserta()->count();
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
         }
         return view('diklat.index');
     }
@@ -85,7 +85,7 @@ class DiklatController extends Controller
         \Session::flash('message', 'Data Diklat Berhasil Ditambahkan');
 
         foreach ($request->kelas as $kelasDiklat) {
-            DiklatKelas::create(['diklat_id' => $diklat->id,'nama_kelas' => $kelasDiklat]);
+            DiklatKelas::create(['diklat_id' => $diklat->id, 'nama_kelas' => $kelasDiklat]);
         }
         return redirect('diklat/' . $diklat->id);
     }
@@ -103,14 +103,14 @@ class DiklatController extends Controller
         if ($request->ajax()) {
             $peserta = $data['diklat']->peserta;
             return \DataTables::of($peserta)
-            ->addColumn('action', function ($row) {
-                $btn = '<button class="btn btn-danger btn-sm" onclick="hapusPeserta(' . $row->id . ')"><i class="fa fa-trash" aria-hidden="true"></i></button> ';
-                $btn .= '<button class="btn btn-danger btn-sm" onclick="buka_modal_ubah_status(' . $row->id . ')"><i class="fa fa-edit" aria-hidden="true"></i></button> ';
-                return $btn;
-            })
-            ->rawColumns(['action'])
-            ->addIndexColumn()
-            ->make(true);
+                ->addColumn('action', function ($row) {
+                    $btn = '<button class="btn btn-danger btn-sm" onclick="hapusPeserta(' . $row->id . ')"><i class="fa fa-trash" aria-hidden="true"></i></button> ';
+                    $btn .= '<button class="btn btn-danger btn-sm" onclick="buka_modal_ubah_status(' . $row->id . ')"><i class="fa fa-edit" aria-hidden="true"></i></button> ';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
         }
         $data['provinsi']   = Provinsi::pluck('name', 'id');
         $data['kelas']      = DiklatKelas::pluck('nama_kelas', 'id');
@@ -213,10 +213,10 @@ class DiklatController extends Controller
         }
 
         $createDiklat   = Diklat::create($diklat);
-        $createKelas    = DiklatKelas::create(['nama_kelas' => 'Kelas A','diklat_id' => $createDiklat->id]);
+        $createKelas    = DiklatKelas::create(['nama_kelas' => 'Kelas A', 'diklat_id' => $createDiklat->id]);
         $peserta_diklat = [];
         foreach ($peserta_diklat_nopes as $nopes) {
-            DiklatPeserta::insert(['nopes' => $nopes, 'diklat_id' => $createDiklat->id,'diklat_kelas_id' => $createKelas->id,'status_kehadiran' => 'Terkonfirmasi']);
+            DiklatPeserta::insert(['nopes' => $nopes, 'diklat_id' => $createDiklat->id, 'diklat_kelas_id' => $createKelas->id, 'status_kehadiran' => 'Terkonfirmasi']);
         }
 
 

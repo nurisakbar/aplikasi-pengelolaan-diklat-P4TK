@@ -19,7 +19,7 @@
             </tr>
             <tr>
                 <td>Departemen</td>
-                <td>{{ $diklat->departement }}</td>
+                <td>{{ $diklat->departemen->nama_departemen }}</td>
             </tr>
             <tr>
                 <td>Quota</td>
