@@ -7,7 +7,7 @@
     </div>
     <div class="card-body">
         @include('validation_error')
-        {!! Form::model($user,['url'=>'user/'.$user->id,'method'=>'PUT','files'=>true]) !!}
+        {!! Form::model($user,['url'=>'user/'.$user->id,'method'=>'PUT']) !!}
         @include('user.form')
         {!! Form::close() !!}
     </div>

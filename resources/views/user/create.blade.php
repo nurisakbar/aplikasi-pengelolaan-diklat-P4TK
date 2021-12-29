@@ -7,9 +7,9 @@
     </div>
     <div class="card-body">
         @include('validation_error')
-            {!! Form::open(['url'=>'user','files'=>true]) !!}
+        {!! Form::open(['url'=>'user']) !!}
             @include('user.form')
-            {!! Form::close() !!}
+        {!! Form::close() !!}
     </div>
 </div>
 @endsection

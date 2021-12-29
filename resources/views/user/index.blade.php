@@ -17,9 +17,7 @@
                     <th>Nama Pegawai</th>
                     <th>Email</th>
                     <th>Jabatan</th>
-                    <th>Lama Kerja</th>
-                    <th>Toko</th>
-                    <th width="60">#</th>
+                    <th width="110">#</th>
                 </tr>
             </thead>
         </table>
@@ -40,9 +38,7 @@
                 {data: 'DT_RowIndex', orderable: false, searchable: false},
                 { data: 'name', name: 'name' },
                 { data: 'email', name: 'email' },
-                { data: 'jabatan', name: 'jabatan' },
-                { data: 'lama_kerja', name: 'lama_kerja' },
-                { data: 'toko', name: 'toko' },
+                { data: 'level', name: 'level' },
                 { data: 'action', name: 'action' }
             ]
         });
