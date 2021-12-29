@@ -14,9 +14,11 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
+    protected $jabatan;
     public function __construct()
     {
         $this->middleware('auth');
+        $this->jabatan = ['administrator' => 'Administrator', 'karyawan' => 'Karyawan'];
     }
     /**
      * Display a listing of the resource.
@@ -36,30 +38,17 @@ class UserController extends Controller
     {
         $this->verify();
         if ($request->ajax()) {
-            return \DataTables::of(User::with('jabatan')->get())
-            ->addColumn('action', function ($user) {
-                $btn = \Form::open(['url' => 'user/' . $user->id, 'method' => 'DELETE','style' => 'float:right;margin-right:5px']);
-                $btn .= "<button type='submit' class='btn btn-danger btn-sm'><i class='fa fa-trash' aria-hidden='true'></i></button>";
-                $btn .= \Form::close();
-                $btn .= '<a class="btn btn-danger btn-sm" href="/user/' . $user->id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a>';
-                return $btn;
-            })
-            ->addColumn('toko', function ($user) {
-                $list = "";
-                foreach ($user->toko as $t) {
-                    $list .= "- " . $t->nama_toko . "<br>";
-                }
-                return $list;
-            })
-            ->addColumn('jabatan', function ($user) {
-                return $user->jabatan->nama_jabatan ?? null;
-            })
-            ->addColumn('lama_kerja', function ($user) {
-                return $user->tanggal_mulai_bekerja == '0000-00-00' ? '-' : \Carbon\Carbon::parse($user->tanggal_mulai_bekerja)->diffInMonths(date('Y-m-d')) . ' Bulan';
-            })
-            ->rawColumns(['action','toko'])
-            ->addIndexColumn()
-            ->make(true);
+            return \DataTables::of(User::get())
+                ->addColumn('action', function ($user) {
+                    $btn = \Form::open(['url' => 'user/' . $user->id, 'method' => 'DELETE', 'style' => 'float:right;margin-right:5px']);
+                    $btn .= "<button type='submit' class='btn btn-danger btn-sm'><i class='fa fa-trash' aria-hidden='true'></i></button>";
+                    $btn .= \Form::close();
+                    $btn .= '<a class="btn btn-danger btn-sm" href="/user/' . $user->id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
         }
         return view('user.index');
     }
@@ -71,7 +60,7 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
-        $data['jabatan'] = Jabatan::pluck('nama_jabatan', 'id');
+        $data['jabatan'] = $this->jabatan;
         return view('user.create', $data);
     }
 
@@ -84,15 +73,8 @@ class UserController extends Controller
     public function store(UserCreateRequest $request)
     {
         $data               = $request->all();
-        if ($request->hasFile('photo')) {
-            $file       = $request->file('photo');
-            $fileName   = 'photo' . time() . '.' . $file->getClientOriginalExtension();
-            \Storage::putFileAs('public', $request->file('photo'), $fileName);
-            $data['photo'] = $fileName;
-        }
 
         $data['password']   = Hash::make($request->password);
-        $data['user_id']    = Auth::user()->id;
         User::create($data);
         \Session::flash('message', 'Berhasil Menambahkan Data');
         return redirect('user');
@@ -115,9 +97,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, Request $request)
+    public function edit($id)
     {
-        $data['jabatan'] = Jabatan::pluck('nama_jabatan', 'id');
+        $data['jabatan'] = $this->jabatan;
         $data['user']   = User::find($id);
         return view('user.edit', $data);
     }
@@ -137,12 +119,6 @@ class UserController extends Controller
             $data['password'] = Hash::make($request->password);
         } else {
             unset($data['password']);
-        }
-        if ($request->hasFile('photo')) {
-            $file       = $request->file('photo');
-            $fileName   = 'photo' . time() . '.' . $file->getClientOriginalExtension();
-            \Storage::putFileAs('public', $request->file('photo'), $fileName);
-            $data['photo'] = $fileName;
         }
         $user->update($data);
         \Session::flash('message', 'Berhasil Mengupdate Data ' . $request->name);

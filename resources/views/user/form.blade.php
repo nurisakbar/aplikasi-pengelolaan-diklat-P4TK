@@ -1,12 +1,14 @@
 @if(isset($user))
  <input type="hidden" id="jabatan_id_value" value="{{ $user->jabatan_id}}">
 @endif
-<div class="form-group">
-  <label for="exampleInputEmail1">Nama Pegawai</label>
-  {!! Form::text('name', null, ['class'=>'form-control','placeholder'=>'Nama Lengkap']) !!}
-</div>
-<div class="row">
-  <div class="col-md-6">
+<div class="row mb-3">
+  <div class="col-md-6 mb-3">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Nama Pegawai</label>
+      {!! Form::text('name', null, ['class'=>'form-control','placeholder'=>'Nama Lengkap']) !!}
+    </div>
+  </div>
+  <div class="col-md-6 mb-3">
     <div class="form-group">
       <label for="exampleInputEmail1">Email</label>
       {!! Form::text('email', null, ['class'=>'form-control','placeholder'=>'Email']) !!}
@@ -18,9 +20,15 @@
       <input type="password" name="password" class="form-control" placeholder="Password">
     </div>
   </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="exampleInputEmail1" >Jabatan</label>
+      {!! Form::select('level', array_merge(['' => '--Pilih jabatan--'], $jabatan), null, ['class'=>'form-control']) !!}
+    </div>
+  </div>
 </div>
 
-<div class="row">
+{{-- <div class="row">
   <div class="col-md-6">
     <div class="form-group">
       <label for="exampleInputEmail1">Tempat Lahir</label>
@@ -49,8 +57,8 @@
   </div>
   <div class="col-md-3">
     <div class="form-group">
-      <label for="exampleInputEmail1" id="label_jabatan">Jabatan</label>
-      <div id="dropdown_jabatan"></div>
+      <label for="exampleInputEmail1" >Jabatan</label>
+      {!! Form::select('level', $jabatan, null, ['class'=>'form-control']) !!}
     </div>
   </div>
 </div>
@@ -61,7 +69,6 @@
       {!! Form::text('alamat_lengkap', null, ['class'=>'form-control','placeholder'=>'Alamat Lengkap']) !!}
     </div>
   </div>
-  
 </div>
 <div class="row">
   <div class="col-md-12">
@@ -74,7 +81,7 @@
       @endif
     </div>
   </div>
-</div>
+</div> --}}
 <button type="submit" class="btn btn-primary">Simpan</button>
 <a href="/user" class="btn btn-primary">Kembali</a>
 

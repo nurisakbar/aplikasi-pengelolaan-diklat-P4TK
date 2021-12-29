@@ -27,8 +27,6 @@ class UserCreateRequest extends FormRequest
             'name'                  =>  'required',
             'email'                 =>  'required|unique:users',
             'password'              =>  'required',
-            'tanggal_mulai_bekerja' =>  'required',
-            'jabatan_id'            =>  'required',
             'level'                 =>  'required'
         ];
     }

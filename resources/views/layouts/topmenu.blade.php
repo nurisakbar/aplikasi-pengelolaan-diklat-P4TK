@@ -96,6 +96,14 @@
                     </div>
                 </div>
             </div>
+
+            <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
+                <a class="menu-link py-3" href="{{ url('user')}}">
+                    <span class="menu-title">Data Pengguna</span>
+                    <span class="menu-arrow d-lg-none"></span>
+                </a>
+            </div>
+
             @else
             <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
                 <a class="menu-link py-3" href="{{ url('/')}}">
