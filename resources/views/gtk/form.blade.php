@@ -92,31 +92,22 @@
         <label class="form-label">NPWP</label>
         {!! Form::text('npwp', null, ['class'=>'form-control','placeholder'=>'NPWP']) !!}
     </div>
-    @if(!isset($gtk))
     <div class="col-md-4 mb-5">
         <label class="form-label">Desa</label>
-        <select name="village_id"  class="desa form-control" style="height: 100px;" placeholder="Masukan Nama Desa"></select>
-    </div>
-    <div class="col-md-4 mb-5">
-        <label class="form-label">Instansi</label>
-        <select name="instansi_id" class="instansi form-control" style="height: 100px;" placeholder="Masukan Nama Instansi"></select>
-    </div>
-    @else
-    <div class="col-md-4 mb-5">
-        <label class="form-label">Desa</label>
-        <select name="village_id"  class="form-control">
+        <select name="village_id" id="desa" class="desa form-control" style="height: 100px;" placeholder="Masukan Nama Desa">
+        @if(isset($gtk))
             <option value="{{ $gtk->village_id }}">{{ $gtk->village->name }}</option>
+        @endif
         </select>
-        {{-- <input class="form-control" id="desa" disabled type="text" value="{{ $gtk->village->name }}"> --}}
     </div>
     <div class="col-md-4 mb-5">
         <label class="form-label">Instansi</label>
-        <select name="instansi_id"  class="form-control">
+        <select name="instansi_id" id="instansi" class="instansi form-control" style="height: 100px;" placeholder="Masukan Nama Instansi">
+        @if(isset($gtk))
             <option value="{{ $gtk->instansi_id }}">{{ $gtk->instansi->nama_instansi }}</option>
+        @endif
         </select>
     </div>
-
-    @endif
 </div>
 <div class="mb-10">
     <button type="submit" class="btn btn-danger">Simpan GTK</button>
@@ -131,7 +122,7 @@
 $( document ).ready(function() {
 
     $('.desa').select2({
-        placeholder: 'Cari Nama Desa',
+        placeholder: 'Masukan Nama Desa',
         ajax: {
         url: '/ajax/select2Desa',
         dataType: 'json',
