@@ -10,7 +10,7 @@ class Gtk extends Model
 
     protected $table = "gtk";
 
-    protected $fillable = ['nopes','nama_gtk','sekolah_id','kelamin','umur','simkb_nomor_hp','simkb_email'];
+    protected $fillable = ['nomor_ukg','nama_lengkap','instansi_id','jenis_kelamin','nomor_hp','email'];
 
 
     public function instansi()

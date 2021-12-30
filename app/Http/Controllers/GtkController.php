@@ -31,7 +31,7 @@ class GtkController extends Controller
                             ->orWhere('gtk.nomor_ukg', 'LIKE', '%' . $search . '%')
                             ->count();
 
-            $items = Gtk::with('instansi.wilayahAdministratif')->take(10);
+            $items = Gtk::with('instansi.wilayahAdministratif')->orderBy('nomor_ukg', 'ASC')->take(10);
 
             return \DataTables::of($items)
             ->with([
@@ -50,7 +50,7 @@ class GtkController extends Controller
                 return '';
             })
             ->addColumn('umur', function ($row) {
-                return 30;
+                return \Carbon\Carbon::parse($row->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y');
             })
             ->addColumn('pilih', function ($row) {
                 $btn = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onClick="tutup_modal_gtk(' . $row->id . ')" data-target="#modalPesertaTerpilih">

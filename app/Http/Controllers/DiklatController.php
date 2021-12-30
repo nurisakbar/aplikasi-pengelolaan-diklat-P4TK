@@ -62,7 +62,7 @@ class DiklatController extends Controller
                 ->make(true);
         }
         $data['departemen'] = Departemen::pluck('nama_departemen', 'id');
-        return view('diklat.index',$data);
+        return view('diklat.index', $data);
     }
 
     /**
@@ -173,7 +173,7 @@ class DiklatController extends Controller
     {
         $diklat = Diklat::findOrFail($id);
         DiklatKelas::where('diklat_id', $id)->delete();
-        DiklatPeserta::where('diklat_id', $id)->delete();
+        DiklatPeserta::where('diklat_id', $id)->forceDelete();
         $diklat->delete();
         \Session::flash('message', 'Data Diklat Berhasil Dihapus');
         return redirect('diklat');
@@ -197,7 +197,7 @@ class DiklatController extends Controller
         $reader->open($filePath);
 
 
-        $diklat = $request->only('tahun', 'tanggal_mulai', 'tanggal_selesai','departemen_id');
+        $diklat = $request->only('tahun', 'tanggal_mulai', 'tanggal_selesai', 'departemen_id');
         $peserta_diklat_id = [];
 
         foreach ($reader->getSheetIterator() as $sheet) {
@@ -206,18 +206,23 @@ class DiklatController extends Controller
                 $cells                      = $row->getCells();
                 $program_diklat             = $cells[11]->getValue();
                 $nama_diklat                = $cells[12]->getValue();
-                $program_keahlian_diklat    = $cells[13]->getValue();
 
 
 
                 $kategori_diklat            = KategoriDiklat::firstOrCreate(['nama_kategori' => $program_diklat], ['nama_kategori' => $program_diklat]);
-                $kompetensi_keahlian        = KompetensiKeahlian::where('nama_kompetensi_keahlian', $program_keahlian_diklat)->first();
                 if ($nomor == 2) {
+                    $program_keahlian_diklat    = $cells[13]->getValue();
+                    // check program keahlian
+                    $kompetensi_keahlian = KompetensiKeahlian::where('nama_kompetensi_keahlian', $program_keahlian_diklat)->first();
+                    if ($kompetensi_keahlian == null) {
+                        return redirect('diklat')->with('message', 'Program Keahlian ' . $program_keahlian_diklat . ' Belum Terdata Pada Kompetensi Keahlian');
+                    }
                     $diklat['nama_diklat']              = $nama_diklat;
                     $diklat['quota']                    = 0;
                     $diklat['kompetensi_keahlian']      = $kompetensi_keahlian->id;
                     $diklat['status_aktif']             = 'Selesai';
                     $diklat['kategori_diklat_id']       = $kategori_diklat->id;
+                    $diklat['program_keahlian_id']      = $kompetensi_keahlian->program_keahlian_id;
                 }
                 if ($nomor > 1) {
                     // check profile GTK, kalau belum ada akan dicreate
