@@ -17,7 +17,7 @@
     </div>
     <div class="col-sm-3">
         <label class="form-label">Departemen</label>
-        {!! Form::select('departement',['Departemen A'=>'Departemen A','Departemen B'=>'Departemen B'], null, ['class'=>'form-control']) !!}
+        {!! Form::select('departement', $departemen, null, ['class'=>'form-control']) !!}
     </div>
     <div class="col-sm-2">
         <label class="form-label">Quota</label>
