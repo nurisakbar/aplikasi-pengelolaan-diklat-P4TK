@@ -7,14 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 class Gtk extends Model
 {
     protected $primaryKey = "id";
-
+  
     protected $table = "gtk";
 
-    protected $fillable = ['nomor_ukg','nama_lengkap','instansi_id','jenis_kelamin','nomor_hp','email'];
+    protected $guarded = ['id'];
 
-
+  
     public function instansi()
     {
         return $this->belongsTo(\App\Instansi::class, 'instansi_id', 'id');
+    }
+
+    public function village()
+    {
+        return $this->belongsTo(Village::class);
+
     }
 }

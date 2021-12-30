@@ -10,9 +10,18 @@ use Storage;
 
 class GtkController extends Controller
 {
+    protected $agama;
     public function __construct()
     {
         $this->middleware('auth');
+        $this->agama = [
+            'islam'    => 'Islam',
+            'kristen'  => 'Kristen',
+            'katolik'  => 'Katolik',
+            'hindu'    => 'Hindu',
+            'buddha'   => 'Buddha',
+            'konghucu' => 'Konghucu'
+        ];
     }
     /**
      * Display a listing of the resource.
@@ -27,9 +36,9 @@ class GtkController extends Controller
             $columns        = $request->get('columns');
             $count_total    = Gtk::count();
             $count_filter   = Gtk::with('instansi.wilayahAdministratif')
-                                ->where('gtk.nama_lengkap', 'LIKE', '%' . $search . '%')
-                            ->orWhere('gtk.nomor_ukg', 'LIKE', '%' . $search . '%')
-                            ->count();
+                ->where('gtk.nama_lengkap', 'LIKE', '%' . $search . '%')
+                ->orWhere('gtk.nomor_ukg', 'LIKE', '%' . $search . '%')
+                ->count();
 
             $items = Gtk::with('instansi.wilayahAdministratif')->orderBy('nomor_ukg', 'ASC')->take(10);
 
@@ -45,7 +54,6 @@ class GtkController extends Controller
                 $btn .= '<a class="btn btn-danger btn-sm" href="/gtk/' . $row->id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a>';
                 return $btn;
             })
-
             ->addColumn('keterangan', function ($row) {
                 return '';
             })
@@ -53,12 +61,10 @@ class GtkController extends Controller
                 return \Carbon\Carbon::parse($row->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y');
             })
             ->addColumn('pilih', function ($row) {
-                $btn = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onClick="tutup_modal_gtk(' . $row->id . ')" data-target="#modalPesertaTerpilih">
-                Pilih
-              </button>';
-                return $btn;
-            })
-            ->rawColumns(['action','pilih'])
+                $btn = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onClick="tutup_modal_gtk(' . $row->id . ')" data-target="#modalPesertaTerpilih">Pilih</button>';
+                    return $btn;
+                })
+            ->rawColumns(['action', 'pilih'])
             ->addIndexColumn()
             ->make(true);
         }
@@ -72,7 +78,7 @@ class GtkController extends Controller
      */
     public function create()
     {
-        $data['leader'] = Gtk::where('level', 'leader')->pluck('nama_gtk', 'id');
+        $data['agama'] = $this->agama;
         return view('gtk.create', $data);
     }
 
@@ -82,12 +88,11 @@ class GtkController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(GtkCreateRequest $request)
+    public function store(Request $request)
     {
-        $request['Gtk::_id'] = $request->level == 'leader' ? null : $request->Gtk::_id;
         Gtk::create($request->all());
-        \Session::flash('message', 'Data Gtk:: Berhasil Ditambahkan');
-        return redirect('gtk::');
+        \Session::flash('message', 'Data Gtk Berhasil Ditambahkan');
+        return redirect('gtk');
     }
 
     /**
@@ -111,9 +116,9 @@ class GtkController extends Controller
      */
     public function edit($id)
     {
-        $data['Gtk::']   = Gtk::findOrFail($id);
-        $data['leader'] = Gtk::where('level', 'leader')->pluck('nama_gtk', 'id');
-        return view('gtk::.edit', $data);
+        $data['gtk']   = Gtk::with('village', 'instansi')->findOrFail($id);
+        $data['agama'] = $this->agama;
+        return view('gtk.edit', $data);
     }
 
     /**
@@ -123,7 +128,7 @@ class GtkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GtkCreateRequest $request, $id)
     {
         $gtk = Gtk::findOrFail($id);
         $gtk->update($request->all());
