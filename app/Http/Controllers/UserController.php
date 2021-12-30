@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests\UserCreateRequest;
-use App\User;
-use App\Group;
-use App\Jabatan;
 use Auth;
+use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Exports\DataKaryawanExport;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\UserCreateRequest;
 
 class UserController extends Controller
 {
@@ -58,7 +54,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
         $data['jabatan'] = $this->jabatan;
         return view('user.create', $data);
@@ -140,23 +136,5 @@ class UserController extends Controller
         $user->delete();
         \Session::flash('message', 'Berhasil Menghapus Data Anggota');
         return redirect('user');
-    }
-
-    public function profile()
-    {
-        $id = Auth::user()->id;
-        $data['user']   = User::find($id);
-        return view('user.profile', $data);
-    }
-
-    public function excel()
-    {
-        return Excel::download(new  DataKaryawanExport(), 'laporan-data-karyawan.xlsx');
-    }
-
-    public function dropdownJabatan(Request $request)
-    {
-        $jabatan = Jabatan::where('level', $request->level)->pluck('nama_jabatan', 'id');
-        return \Form::select('jabatan_id', $jabatan, null, ['class' => 'form-control jabatan_id']);
     }
 }

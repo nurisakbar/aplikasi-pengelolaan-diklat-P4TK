@@ -130,8 +130,8 @@
       <table class="table table-rounded table-striped border gy-7 gs-7" id="gtk-table">
          <thead>
              <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                 <th width="10">Nomor UKG</th>
-                 <th>Nama GTK</th>
+                 <th width="10">No UKG</th>
+                 <th>Nama Lengkap</th>
                  <th>Jenis Kelamin</th>
                  <th>Umur</th>
                  <th>Nomor HP</th>

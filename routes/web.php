@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('user/dropdown-jabatan', 'UserController@dropdownJabatan');
 Route::get('home', 'PageController@home');
 Route::resource('gtk', 'GtkController');
-Route::get('diklat/{id}/pdf', 'DiklatController@pdf');
+Route::get('diklat/{id}/export', 'DiklatController@export');
 Route::post('diklat/import', 'DiklatController@importRiwayatDiklat');
 Route::resource('diklat', 'DiklatController');
 Route::resource('diklatpeserta', 'DiklatPesertaController');

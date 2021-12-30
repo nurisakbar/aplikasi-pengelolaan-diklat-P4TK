@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+
 class LogoutController extends Controller
 {
     /**
@@ -15,6 +16,6 @@ class LogoutController extends Controller
     public function __invoke(Request $request)
     {
         Auth::logout();
-        return redirect('/login')->with('message','Anda Sudah Berhasil Logout');
+        return redirect('/login')->with('message', 'Anda Sudah Berhasil Logout');
     }
 }

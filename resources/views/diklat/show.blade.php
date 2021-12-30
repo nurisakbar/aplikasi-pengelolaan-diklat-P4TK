@@ -42,8 +42,8 @@
                 <table class="table table-rounded table-striped border gy-7 gs-7" id="users-table">
                     <thead>
                         <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                            <th width="10">NOPES</th>
-                            <th>Nama GTK</th>
+                            <th width="10">No UKG</th>
+                            <th>Nama Lengkap</th>
                             <th>Asal Sekolah</th>
                             <th>Kota</th>
                             <th>Provinsi</th>
@@ -69,12 +69,12 @@ $(function() {
         serverSide: true,
         ajax: '/diklat/{{$diklat->id}}',
         columns: [
-            { data: 'nopes', name: 'nopes' },
-            { data: 'gtk.nama_gtk', name: 'gtk.nama_gtk' },
+            { data: 'gtk.nomor_ukg', name: 'gtk.nomor_ukg' },
+            { data: 'gtk.nama_lengkap', name: 'gtk.nama_lengkap' },
             { data: 'gtk.instansi.nama_instansi'},
             { data: 'gtk.instansi.wilayah_administratif.regency_name'},
             { data: 'gtk.instansi.wilayah_administratif.province_name'},
-            { data: 'gtk.simkb_nomor_hp', name: 'gtk.simkb_nomor_hp' },
+            { data: 'gtk.nomor_hp', name: 'gtk.nomor_hp' },
             { data: 'status_kehadiran', name: 'status_kehadiran' },
             { data: 'action', name: 'action' }
         ]
@@ -85,11 +85,11 @@ $(function() {
         serverSide: true,
         ajax: '/gtk',
         columns: [
-            { data: 'nopes', name: 'nopes' },
-            { data: 'nama_gtk', name: 'nama_gtk' },
-            { data: 'asal_sekolah', name: 'asal_sekolah' },
-            { data: 'kota', name: 'kota' },
-            { data: 'provinsi', name: 'provinsi' },
+            { data: 'nomor_ukg', name: 'nomor_ukg' },
+            { data: 'nama_lengkap', name: 'nama_lengkap' },
+            { data: 'instansi.nama_instansi', name: 'instansi.nama_instansi' },
+            { data: 'instansi.wilayah_administratif.regency_name'},
+            { data: 'instansi.wilayah_administratif.province_name'},
             { data: 'keterangan', name: 'keterangan' },
             { data: 'pilih', name: 'pilih' }
         ]
@@ -97,26 +97,28 @@ $(function() {
 });
 
 
-function tutup_modal_gtk(nopes)
+function tutup_modal_gtk(id)
 {
     $('#exampleModal').modal('hide');
-    console.log(nopes);
+    console.log(id);
+    console.log('open detail gtk');
+    $('#modalPesertaTerpilih').modal('show');
     $.ajax({
-    url: "/gtk/"+nopes,
+    url: "/gtk/"+id,
     cache: false,
     success: function(response){
-        console.log(response.nopes);
-        $('#nama').html(response.nama_gtk);
-        $('#nopes').html(response.nopes);
-        $('#asal_sekolah').html(response.asal_sekolah+' - '+response.provinsi);
-        $('#mapel_ajar_dapodik').html(response.mapel_ajar_dapodik);
-        $("#nopes_txt").val(response.nopes);
+        console.log(response);
+        $('#nama').html(response.nama_lengkap);
+        $('#nomor_ukg').html(response.nomor_ukg);
+        $('#asal_sekolah').html(response.instansi.nama_instansi);
+        $('#mapel_ajar_dapodik').html(response.mapel_ukg_ptk);
+        $("#peserta_id_txt").val(response.id);
     }
 });
 }
 
 function tambah_peserta(){
-    var nopes = $("#nopes_txt").val();
+    var peserta_id = $("#peserta_id_txt").val();
     var diklat_kelas_id = $("#kelas").val();
     var diklat_id_txt = $("#diklat_id_txt").val();
     $.ajax({
@@ -125,7 +127,7 @@ function tambah_peserta(){
         "_token": "{{ csrf_token() }}",
         diklat_kelas_id:diklat_kelas_id,
         diklat_id:diklat_id_txt,
-        nopes:nopes,
+        peserta_id:peserta_id,
     },
     method:'POST',
     cache: false,
@@ -142,16 +144,16 @@ function buka_modal_gtk(){
 
 function buka_modal_ubah_status(id){
     $('#modalUbahStatus').modal('toggle');
-    console.log(nopes);
+    console.log(id);
     $.ajax({
     url: "/diklatpeserta/"+id,
     cache: false,
     success: function(response){
-        //console.log(response.diklat_kelas_id);
-        $('#nama_gtk').html(response.nama_gtk);
-        $('#nopes_gtk').html(response.nopes);
-        $('#asal_sekolah_gtk').html(response.asal_sekolah+' - '+response.provinsi);
-        $('#mapel_ajar_dapodik_gtk').html(response.mapel_ajar_dapodik);
+        console.log(response.gtk);
+        $('#nama_gtk').html(response.gtk.nama_lengkap);
+        $('#nopes_gtk').html(response.gtk.nomor_ukg);
+        $('#asal_sekolah_gtk').html(response.gtk.instansi.nama_instansi);
+        $('#mapel_ajar_dapodik_gtk').html(response.gtk.mapel_ukg_ptk);
         $("#id").val(id);
         $("#status_kehadiran").val(response.status_kehadiran).change();
         $("#kelas_id_txt").val(response.diklat_kelas_id).change();

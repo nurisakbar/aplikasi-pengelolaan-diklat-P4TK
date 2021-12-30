@@ -28,60 +28,6 @@
   </div>
 </div>
 
-{{-- <div class="row">
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="exampleInputEmail1">Tempat Lahir</label>
-      {!! Form::text('tempat_lahir', null, ['class'=>'form-control','placeholder'=>'Tempat Lahir']) !!}
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="exampleInputEmail1">Tanggal Lahir</label>
-      {!! Form::date('tanggal_lahir', null, ['class'=>'form-control','placeholder'=>'Tanggal Lahir']) !!}
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="exampleInputEmail1">Tanggal  Mulai Bekerja</label>
-      {!! Form::date('tanggal_mulai_bekerja', null, ['class'=>'form-control','placeholder'=>'Tanggal Mulai Bekerja']) !!}
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="form-group">
-      <label for="exampleInputEmail1">Jenis Jabatan</label>
-      {!! Form::select('level',['leader'=>'Leader','kelompok'=>'Kelompok'], null, ['class'=>'level form-control','onChange'=>'load_kelompok()']) !!}
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="form-group">
-      <label for="exampleInputEmail1" >Jabatan</label>
-      {!! Form::select('level', $jabatan, null, ['class'=>'form-control']) !!}
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <div class="form-group">
-      <label for="exampleInputEmail1">Alamat Lengkap</label>
-      {!! Form::text('alamat_lengkap', null, ['class'=>'form-control','placeholder'=>'Alamat Lengkap']) !!}
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <div class="form-group">
-      <label for="exampleInputEmail1">Upload Photo ( opsional )</label>
-      {!! Form::file('photo', ['class'=>'form-control']) !!}
-      @if(isset($user))
-      <hr>
-        <img src="{{asset('storage/'.$user->photo.'')}}" width="300">
-      @endif
-    </div>
-  </div>
-</div> --}}
 <button type="submit" class="btn btn-primary">Simpan</button>
 <a href="/user" class="btn btn-primary">Kembali</a>
 
