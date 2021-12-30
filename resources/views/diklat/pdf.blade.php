@@ -28,12 +28,12 @@
     @foreach ($diklat->peserta as $peserta)
         <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $peserta->gtk->nama_gtk }}</td>
-            <td>{{ $peserta->gtk->dapodik_nomor_hp }}</td>
-            <td>{{ $peserta->gtk->email_login }}</td>
-            <td>{{ $peserta->gtk->asal_sekolah }}</td>
-            <td>{{ $peserta->gtk->domisili_kota_kabupaten }}</td>
-            <td>{{ $peserta->gtk->provinsi }}</td>
+            <td>{{ $peserta->gtk->nama_lengkap }}</td>
+            <td>{{ $peserta->gtk->nomor_hp }}</td>
+            <td>{{ $peserta->gtk->email }}</td>
+            <td>{{ $peserta->gtk->instansi->nama_instansi }}</td>
+            <td>{{ $peserta->gtk->instansi->wilayahAdministratif->regency_name}}</td>
+            <td>{{ $peserta->gtk->instansi->wilayahAdministratif->province_name}}</td>
             <td>{{ $peserta->kelas->nama_kelas }}</td>
         </tr>
     @endforeach

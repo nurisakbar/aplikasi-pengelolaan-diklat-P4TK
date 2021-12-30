@@ -36,7 +36,7 @@ class DiklatPesertaController extends Controller
      */
     public function show($id)
     {
-        return DiklatPeserta::join('master_gtk', 'master_gtk.nopes', 'diklat_peserta.nopes')->first();
+        return DiklatPeserta::with('gtk.instansi.wilayahAdministratif')->where('id', $id)->first();
     }
 
     /**

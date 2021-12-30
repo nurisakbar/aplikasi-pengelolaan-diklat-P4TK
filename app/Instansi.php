@@ -15,7 +15,8 @@ class Instansi extends Model
         return $this->belongsTo(\App\District::class);
     }
 
-    public function wilayahAdministratif(){
-        return $this->belongsTo(\App\WilayahAdministratif::class,'district_id','district_id');
+    public function wilayahAdministratif()
+    {
+        return $this->belongsTo(\App\WilayahAdministratif::class, 'district_id', 'district_id');
     }
 }
