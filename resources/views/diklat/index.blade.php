@@ -45,7 +45,12 @@
                                 <input type="date" required class="form-control" name="tanggal_selesai" placeholder="Tanggal Selesai">
                             </div>
                         </div>
-                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>Departemen</td>
+                    <td>
+                        {!! Form::select('departemen_id', $departemen, null, ['class'=>'form-control']) !!}
                     </td>
                 </tr>
                   <tr>

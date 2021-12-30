@@ -14,7 +14,7 @@ use App\Gtk;
 use App\KategoriDiklat;
 use App\KompetensiKeahlian;
 use App\BidangKeahlian;
-use App\Sekolah;
+use App\Instansi;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 
 class DiklatController extends Controller
@@ -61,7 +61,8 @@ class DiklatController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        return view('diklat.index');
+        $data['departemen'] = Departemen::pluck('nama_departemen', 'id');
+        return view('diklat.index',$data);
     }
 
     /**
@@ -124,8 +125,8 @@ class DiklatController extends Controller
     public function export($id, Request $request)
     {
         $type = $request->type;
+        $data['diklat'] = Diklat::with('peserta.gtk.instansi.wilayahAdministratif', 'peserta.kelas')->findOrFail($id);
         if ($type == 'pdf') {
-            $data['diklat'] = Diklat::with('peserta.gtk.instansi.wilayahAdministratif', 'peserta.kelas')->findOrFail($id);
             return \PDF::loadView('diklat.pdf', $data)->setPaper('A4', 'landscape')->stream();
         } else {
             return 'handle export excel here';
@@ -196,8 +197,8 @@ class DiklatController extends Controller
         $reader->open($filePath);
 
 
-        $diklat = $request->only('tahun', 'tanggal_mulai', 'tanggal_selesai');
-        $peserta_diklat_nopes = [];
+        $diklat = $request->only('tahun', 'tanggal_mulai', 'tanggal_selesai','departemen_id');
+        $peserta_diklat_id = [];
 
         foreach ($reader->getSheetIterator() as $sheet) {
             $nomor = 1;
@@ -207,19 +208,20 @@ class DiklatController extends Controller
                 $nama_diklat                = $cells[12]->getValue();
                 $program_keahlian_diklat    = $cells[13]->getValue();
 
+
+
                 $kategori_diklat            = KategoriDiklat::firstOrCreate(['nama_kategori' => $program_diklat], ['nama_kategori' => $program_diklat]);
                 $kompetensi_keahlian        = KompetensiKeahlian::where('nama_kompetensi_keahlian', $program_keahlian_diklat)->first();
                 if ($nomor == 2) {
                     $diklat['nama_diklat']              = $nama_diklat;
                     $diklat['quota']                    = 0;
                     $diklat['kompetensi_keahlian']      = $kompetensi_keahlian->id;
-                    $diklat['departemen']               = "test";
                     $diklat['status_aktif']             = 'Selesai';
                     $diklat['kategori_diklat_id']       = $kategori_diklat->id;
                 }
                 if ($nomor > 1) {
                     // check profile GTK, kalau belum ada akan dicreate
-                    $peserta_diklat_nopes[]     = $this->gtkInfo($cells);
+                    $peserta_diklat_id[]     = $this->gtkInfo($cells);
                 }
                 $nomor++;
             }
@@ -228,8 +230,8 @@ class DiklatController extends Controller
         $createDiklat   = Diklat::create($diklat);
         $createKelas    = DiklatKelas::create(['nama_kelas' => 'Kelas A', 'diklat_id' => $createDiklat->id]);
         $peserta_diklat = [];
-        foreach ($peserta_diklat_nopes as $nopes) {
-            DiklatPeserta::insert(['nopes' => $nopes, 'diklat_id' => $createDiklat->id, 'diklat_kelas_id' => $createKelas->id, 'status_kehadiran' => 'Terkonfirmasi']);
+        foreach ($peserta_diklat_id as $peserta_id) {
+            DiklatPeserta::insert(['peserta_id' => $peserta_id, 'diklat_id' => $createDiklat->id, 'diklat_kelas_id' => $createKelas->id, 'status_kehadiran' => 'Terkonfirmasi']);
         }
 
 
@@ -241,23 +243,22 @@ class DiklatController extends Controller
     public function gtkInfo($row)
     {
         $gtk = Gtk::firstOrCreate([
-            'nopes' => $row[1]->getValue()
+            'nomor_ukg' => $row[1]->getValue()
         ], [
-            'nopes'             => $row[2]->getValue(),
-            'nama_gtk'          => $row[2]->getValue(),
-            'sekolah_id'        => $this->sekolahInfo($row[7]->getValue()), // mendapatkan sekolah_id dari tabel sekolah
-            'kelamin'           => $row[4]->getValue(),
-            'umur'              => $row[3]->getValue(),
-            'simkb_nomor_hp'    => $row[5]->getValue(),
-            'simkb_email'       => $row[6]->getValue()
+            'nomor_ukg'             => $row[2]->getValue(),
+            'nama_lengkap'          => $row[2]->getValue(),
+            'instansi_id'           => $this->instansiInfo($row[7]->getValue()), // mendapatkan sekolah_id dari tabel sekolah
+            'jenis_kelamin'         => $row[4]->getValue(),
+            'nomor_hp'              => $row[5]->getValue(),
+            'email'                 => $row[6]->getValue()
         ]);
 
-        return $row[1]->getValue();
+        return $gtk->id;
     }
 
-    public function sekolahInfo($nama_sekolah)
+    public function instansiInfo($nama_instansi)
     {
-        $sekolah = Sekolah::where('nama_sekolah', $nama_sekolah)->first();
-        return $sekolah->sekolah_id;
+        $instansi = Instansi::where('nama_instansi', $nama_instansi)->first();
+        return $instansi->id;
     }
 }
