@@ -13,6 +13,7 @@ use Auth;
 use App\Gtk;
 use App\KategoriDiklat;
 use App\KompetensiKeahlian;
+use App\BidangKeahlian;
 use App\Sekolah;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 
@@ -38,7 +39,7 @@ class DiklatController extends Controller
                 ->orWhere('tahun', 'LIKE', '%' . $search . '%')
                 ->count();
 
-            $items          = Diklat::with('kategori', 'kompetensi', 'departemen')->take(10);
+            $items          = Diklat::with('kategori', 'programKeahlian', 'departemen')->take(10);
 
             return \DataTables::of($items)
                 ->with([
@@ -72,6 +73,7 @@ class DiklatController extends Controller
     {
         $data['departemen'] = Departemen::pluck('nama_departemen', 'id');
         $data['kategori'] = KategoriDiklat::pluck('nama_kategori', 'id');
+        $data['bidangKeahlian'] = BidangKeahlian::pluck('nama_bidang_keahlian', 'id');
         return view('diklat.create', $data);
     }
 
@@ -119,11 +121,15 @@ class DiklatController extends Controller
         return view('diklat.show', $data);
     }
 
-    public function pdf($id)
+    public function export($id, Request $request)
     {
-        $data['diklat'] = Diklat::with('peserta.gtk', 'peserta.kelas')->findOrFail($id);
-        return \PDF::loadView('diklat.pdf', $data)->setPaper('A4', 'landscape')->stream();
-        //return view('diklat.pdf', $data);
+        $type = $request->type;
+        if ($type == 'pdf') {
+            $data['diklat'] = Diklat::with('peserta.gtk.instansi.wilayahAdministratif', 'peserta.kelas')->findOrFail($id);
+            return \PDF::loadView('diklat.pdf', $data)->setPaper('A4', 'landscape')->stream();
+        } else {
+            return 'handle export excel here';
+        }
     }
 
     /**
@@ -135,6 +141,9 @@ class DiklatController extends Controller
     public function edit($id)
     {
         $data['diklat']   = Diklat::findOrFail($id);
+        $data['departemen'] = Departemen::pluck('nama_departemen', 'id');
+        $data['kategori'] = KategoriDiklat::pluck('nama_kategori', 'id');
+        $data['bidangKeahlian'] = BidangKeahlian::pluck('nama_bidang_keahlian', 'id');
         return view('diklat.edit', $data);
     }
 
@@ -162,6 +171,8 @@ class DiklatController extends Controller
     public function destroy($id)
     {
         $diklat = Diklat::findOrFail($id);
+        DiklatKelas::where('diklat_id', $id)->delete();
+        DiklatPeserta::where('diklat_id', $id)->delete();
         $diklat->delete();
         \Session::flash('message', 'Data Diklat Berhasil Dihapus');
         return redirect('diklat');

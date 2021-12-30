@@ -32,17 +32,17 @@ class GtkController extends Controller
                             ->count();
 
             $items = Gtk::with('instansi.wilayahAdministratif')->take(10);
-            
+
             return \DataTables::of($items)
             ->with([
                 'recordsTotal' => $count_total,
                 'recordsFiltered' => $count_filter,
               ])
             ->addColumn('action', function ($row) {
-                $btn = \Form::open(['url' => '/gtk/' . $row->nopes, 'method' => 'DELETE','style' => 'float:right;margin-right:5px']);
+                $btn = \Form::open(['url' => '/gtk/' . $row->id, 'method' => 'DELETE','style' => 'float:right;margin-right:5px']);
                 $btn .= "<button type='submit' class='btn btn-danger btn-sm'><i class='fa fa-trash' aria-hidden='true'></i></button>";
                 $btn .= \Form::close();
-                $btn .= '<a class="btn btn-danger btn-sm" href="/gtk/' . $row->nopes . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a>';
+                $btn .= '<a class="btn btn-danger btn-sm" href="/gtk/' . $row->id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a>';
                 return $btn;
             })
 
@@ -53,7 +53,7 @@ class GtkController extends Controller
                 return 30;
             })
             ->addColumn('pilih', function ($row) {
-                $btn = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onClick="tutup_modal_gtk(' . $row->nopes . ')" data-target="#modalPesertaTerpilih">
+                $btn = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onClick="tutup_modal_gtk(' . $row->id . ')" data-target="#modalPesertaTerpilih">
                 Pilih
               </button>';
                 return $btn;
@@ -99,7 +99,7 @@ class GtkController extends Controller
     public function show($id, Request $request)
     {
         if ($request->ajax()) {
-            return Gtk::findOrFail($id);
+            return Gtk::with('instansi.wilayahAdministratif')->findOrFail($id);
         }
     }
 

@@ -11,11 +11,11 @@ class DiklatPeserta extends Model
 
     protected $table = "diklat_peserta";
 
-    protected $fillable = ['diklat_id','diklat_kelas_id','nopes','keterangan','status_kehadiran'];
+    protected $fillable = ['diklat_id','diklat_kelas_id','peserta_id','keterangan','status_kehadiran'];
 
     public function gtk()
     {
-        return $this->belongsTo(\App\Gtk::class, 'nopes', 'nopes');
+        return $this->belongsTo(\App\Gtk::class, 'peserta_id', 'id');
     }
 
     public function kelas()
