@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Departemen;
 use Illuminate\Http\Request;
 use App\Http\Requests\DiklatCreateRequest;
 use App\Diklat;
@@ -69,6 +70,7 @@ class DiklatController extends Controller
      */
     public function create()
     {
+        $data['departemen'] = Departemen::pluck('nama_departemen', 'id');
         $data['kategori'] = KategoriDiklat::pluck('nama_kategori', 'id');
         return view('diklat.create', $data);
     }
