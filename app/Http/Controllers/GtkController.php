@@ -26,8 +26,9 @@ class GtkController extends Controller
             $search         = $request->input('search.value');
             $columns        = $request->get('columns');
             $count_total    = Gtk::count();
-            $count_filter   = Gtk::with('instansi.wilayahAdministratif')->where('gtk.nopes', 'LIKE', '%' . $search . '%')
-                            ->orWhere('gtk.nama_gtk', 'LIKE', '%' . $search . '%')
+            $count_filter   = Gtk::with('instansi.wilayahAdministratif')
+                                ->where('gtk.nama_lengkap', 'LIKE', '%' . $search . '%')
+                            ->orWhere('gtk.nomor_ukg', 'LIKE', '%' . $search . '%')
                             ->count();
 
             $items = Gtk::with('instansi.wilayahAdministratif')->take(10);
@@ -47,6 +48,9 @@ class GtkController extends Controller
 
             ->addColumn('keterangan', function ($row) {
                 return '';
+            })
+            ->addColumn('umur', function ($row) {
+                return 30;
             })
             ->addColumn('pilih', function ($row) {
                 $btn = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onClick="tutup_modal_gtk(' . $row->nopes . ')" data-target="#modalPesertaTerpilih">

@@ -14,6 +14,6 @@ class Gtk extends Model
 
 
     public function instansi(){
-        return $this->belongsTo(\App\Instansi::class,'sekolah_id','instansi_id');
+        return $this->belongsTo(\App\Instansi::class,'instansi_id','id');
     }
 }

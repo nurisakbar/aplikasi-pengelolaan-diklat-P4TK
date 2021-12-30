@@ -148,7 +148,7 @@
       <table class="table table-rounded table-striped border gy-7 gs-7" id="users-table">
          <thead>
              <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                 <th width="10">NOPES</th>
+                 <th width="10">Nomor UKG</th>
                  <th>Nama GTK</th>
                  <th>Jenis Kelamin</th>
                  <th>Umur</th>
@@ -186,11 +186,11 @@ var KTDatatablesServerSide = function () {
                 url: "gtk",
             },
             columns: [
-            { data: 'nopes', name: 'nopes' },
-            { data: 'nama_gtk', name: 'nama_gtk' },
-            { data: 'kelamin', name: 'kelamin' },
+            { data: 'nomor_ukg', name: 'nomor_ukg' },
+            { data: 'nama_lengkap', name: 'nama_lengkap' },
+            { data: 'jenis_kelamin', name: 'jenis_kelamin' },
             { data: 'umur', name: 'umur' },
-            { data: 'simkb_nomor_hp', name: 'simkb_nomor_hp' },
+            { data: 'nomor_hp', name: 'nomor_hp' },
             { data: 'instansi.nama_instansi', name: 'instansi.nama_instansi' },
             { data: 'instansi.wilayah_administratif.province_name'},
             { data: 'action', name: 'action' }
