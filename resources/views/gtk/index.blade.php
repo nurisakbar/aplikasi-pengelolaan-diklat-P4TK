@@ -137,7 +137,7 @@
                  <th>Nomor HP</th>
                  <th>Asal instansi</th>
                  <th>Provinsi - Kota</th>
-                 <th width="120">#</th>
+                 <th width="170">#</th>
              </tr>
          </thead>
      </table>
