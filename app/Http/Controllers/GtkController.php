@@ -43,30 +43,30 @@ class GtkController extends Controller
             $items = Gtk::with('instansi.wilayahAdministratif')->orderBy('nomor_ukg', 'ASC')->take(10);
 
             return \DataTables::of($items)
-            ->with([
-                'recordsTotal' => $count_total,
-                'recordsFiltered' => $count_filter,
-              ])
-            ->addColumn('action', function ($row) {
-                $btn = \Form::open(['url' => '/gtk/' . $row->id, 'method' => 'DELETE','style' => 'float:right;margin-right:5px']);
-                $btn .= "<button type='submit' class='btn btn-danger btn-sm'><i class='fa fa-trash' aria-hidden='true'></i></button>";
-                $btn .= \Form::close();
-                $btn .= '<a class="btn btn-danger btn-sm" href="/gtk/' . $row->id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a>';
-                return $btn;
-            })
-            ->addColumn('keterangan', function ($row) {
-                return '';
-            })
-            ->addColumn('umur', function ($row) {
-                return \Carbon\Carbon::parse($row->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y');
-            })
-            ->addColumn('pilih', function ($row) {
-                $btn = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onClick="tutup_modal_gtk(' . $row->id . ')" data-target="#modalPesertaTerpilih">Pilih</button>';
+                ->with([
+                    'recordsTotal' => $count_total,
+                    'recordsFiltered' => $count_filter,
+                ])
+                ->addColumn('action', function ($row) {
+                    $btn = \Form::open(['url' => '/gtk/' . $row->id, 'method' => 'DELETE', 'style' => 'float:right;margin-right:5px']);
+                    $btn .= "<button type='submit' class='btn btn-danger btn-sm'><i class='fa fa-trash' aria-hidden='true'></i></button>";
+                    $btn .= \Form::close();
+                    $btn .= '<a class="btn btn-danger btn-sm" href="/gtk/' . $row->id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a>';
                     return $btn;
                 })
-            ->rawColumns(['action', 'pilih'])
-            ->addIndexColumn()
-            ->make(true);
+                ->addColumn('keterangan', function ($row) {
+                    return '';
+                })
+                ->addColumn('umur', function ($row) {
+                    return \Carbon\Carbon::parse($row->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y');
+                })
+                ->addColumn('pilih', function ($row) {
+                    $btn = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onClick="tutup_modal_gtk(' . $row->id . ')" data-target="#modalPesertaTerpilih">Pilih</button>';
+                    return $btn;
+                })
+                ->rawColumns(['action', 'pilih'])
+                ->addIndexColumn()
+                ->make(true);
         }
         return view('gtk.index');
     }
@@ -88,7 +88,7 @@ class GtkController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GtkCreateRequest $request)
     {
         Gtk::create($request->all());
         \Session::flash('message', 'Data Gtk Berhasil Ditambahkan');
