@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DiklatPeserta;
 use Illuminate\Http\Request;
 use App\Http\Requests\GtkCreateRequest;
 use App\Gtk;
@@ -48,10 +49,11 @@ class GtkController extends Controller
                     'recordsFiltered' => $count_filter,
                 ])
                 ->addColumn('action', function ($row) {
-                    $btn = \Form::open(['url' => '/gtk/' . $row->id, 'method' => 'DELETE', 'style' => 'float:right;margin-right:5px']);
+                    $btn = \Form::open(['url' => '/gtk/' . $row->id, 'method' => 'DELETE', 'style' => 'float:right;']);
                     $btn .= "<button type='submit' class='btn btn-danger btn-sm'><i class='fa fa-trash' aria-hidden='true'></i></button>";
                     $btn .= \Form::close();
-                    $btn .= '<a class="btn btn-danger btn-sm" href="/gtk/' . $row->id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a>';
+                    $btn .= '<a class="btn btn-danger btn-sm mx-1" href="/gtk/' . $row->id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a>';
+                    $btn .= '<a class="btn btn-danger btn-sm" href="/gtk/' . $row->id . '"><i class="fas fa-eye" aria-hidden="true"></i></a>';
                     return $btn;
                 })
                 ->addColumn('keterangan', function ($row) {
@@ -106,6 +108,11 @@ class GtkController extends Controller
         if ($request->ajax()) {
             return Gtk::with('instansi.wilayahAdministratif')->findOrFail($id);
         }
+
+        $data['gtk'] = Gtk::with('instansi')->findOrFail($id);
+        $data['riwayats'] = DiklatPeserta::with('diklat', 'kelas')->where('peserta_id', $id)->get();
+
+        return view('gtk.show', $data);
     }
 
     /**
