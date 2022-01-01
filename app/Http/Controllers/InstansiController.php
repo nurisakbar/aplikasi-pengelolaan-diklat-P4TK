@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Gtk;
 use Illuminate\Http\Request;
 use App\Http\Requests\DiklatCreateRequest;
+use App\Http\Requests\InstansiCreateRequest;
 use App\Instansi;
 use App\Provinsi;
 use Auth;
@@ -27,27 +29,27 @@ class InstansiController extends Controller
             $columns        = $request->get('columns');
             $count_total    = Instansi::count();
             $count_filter   = Instansi::where('nama_instansi', 'LIKE', '%' . $search . '%')
-                            ->orWhere('alamat', 'LIKE', '%' . $search . '%')
-                            ->count();
+                ->orWhere('alamat', 'LIKE', '%' . $search . '%')
+                ->count();
 
             $items          = Instansi::with('wilayahAdministratif')->take(10);
 
             return \DataTables::of($items)
-            ->with([
-                'recordsTotal' => $count_total,
-                'recordsFiltered' => $count_filter,
-              ])
-            ->addColumn('action', function ($row) {
-                $btn = \Form::open(['url' => '/instansi/' . $row->sekolah_id, 'method' => 'DELETE','style' => 'float:right;margin-right:5px']);
-                $btn .= "<button type='submit' class='btn btn-danger btn-sm'><i class='fa fa-trash' aria-hidden='true'></i></button>";
-                $btn .= \Form::close();
-                $btn .= '<a class="btn btn-danger btn-sm" href="/instansi/' . $row->sekolah_id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a> ';
-                $btn .= '<a class="btn btn-danger btn-sm" href="/instansi/' . $row->sekolah_id . '"><i class="fas fa-eye" aria-hidden="true"></i></a>';
-                return $btn;
-            })
-            ->rawColumns(['action'])
-            ->addIndexColumn()
-            ->make(true);
+                ->with([
+                    'recordsTotal' => $count_total,
+                    'recordsFiltered' => $count_filter,
+                ])
+                ->addColumn('action', function ($row) {
+                    $btn = \Form::open(['url' => '/instansi/' . $row->id, 'method' => 'DELETE', 'style' => 'float:right;']);
+                    $btn .= "<button type='submit' class='btn btn-danger btn-sm'><i class='fa fa-trash' aria-hidden='true'></i></button>";
+                    $btn .= \Form::close();
+                    $btn .= '<a class="btn btn-danger btn-sm mx-1" href="/instansi/' . $row->id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a> ';
+                    $btn .= '<a class="btn btn-danger btn-sm" href="/instansi/' . $row->id . '"><i class="fas fa-eye" aria-hidden="true"></i></a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
         }
         return view('instansi.index');
     }
@@ -59,7 +61,7 @@ class InstansiController extends Controller
      */
     public function create()
     {
-        return view('diklat.create');
+        return view('instansi.create');
     }
 
     /**
@@ -68,15 +70,14 @@ class InstansiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DiklatCreateRequest $request)
+    public function store(InstansiCreateRequest $request)
     {
-        $diklat = Instansicreate($request->all());
-        \Session::flash('message', 'Data Diklat Berhasil Ditambahkan');
+        $request['jenis_instansi'] = 'Sekolah';
+        $request['nama_instansi'] = strtoupper($request->nama_instansi);
+        Instansi::create($request->all());
+        \Session::flash('message', 'Data Instansi Berhasil Ditambahkan');
 
-        foreach ($request->kelas as $kelasDiklat) {
-            DiklatKelas::create(['diklat_id' => $diklat->id,'nama_kelas' => $kelasDiklat]);
-        }
-        return redirect('diklat/' . $diklat->id);
+        return redirect('instansi');
     }
 
     /**
@@ -87,30 +88,20 @@ class InstansiController extends Controller
      */
     public function show($id, Request $request)
     {
-        $data['diklat'] = Instansiwith('peserta.gtk')->findOrFail($id);
+        $data['instansi'] = Instansi::findOrFail($id);
 
         if ($request->ajax()) {
-            $peserta = $data['diklat']->peserta;
-            return \DataTables::of($peserta)
-            ->addColumn('action', function ($row) {
-                $btn = '<button class="btn btn-danger btn-sm" onclick="hapusPeserta(' . $row->id . ')"><i class="fa fa-trash" aria-hidden="true"></i></button> ';
-                $btn .= '<button class="btn btn-danger btn-sm" onclick="buka_modal_ubah_status(' . $row->id . ')"><i class="fa fa-edit" aria-hidden="true"></i></button> ';
-                return $btn;
-            })
-            ->rawColumns(['action'])
-            ->addIndexColumn()
-            ->make(true);
+            return \DataTables::of(Gtk::where('instansi_id', $id)->get())
+                ->addColumn('action', function ($row) {
+                    $btn = '<a class="btn btn-danger btn-sm" href="/gtk/' . $row->id . '"><i class="fas fa-eye" aria-hidden="true"></i></a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
         }
-        $data['provinsi']   = Provinsi::pluck('name', 'id');
-        $data['kelas']      = DiklatKelas::pluck('nama_kelas', 'id');
-        return view('diklat.show', $data);
-    }
 
-    public function pdf($id)
-    {
-        $data['diklat'] = Instansiwith('peserta.gtk', 'peserta.kelas')->findOrFail($id);
-        return \PDF::loadView('diklat.pdf', $data)->setPaper('A4', 'landscape')->stream();
-        //return view('diklat.pdf', $data);
+        return view('instansi.show', $data);
     }
 
     /**
@@ -121,8 +112,8 @@ class InstansiController extends Controller
      */
     public function edit($id)
     {
-        $data['diklat']   = InstansifindOrFail($id);
-        return view('diklat.edit', $data);
+        $data['instansi']   = Instansi::with('district')->findOrFail($id);
+        return view('instansi.edit', $data);
     }
 
     /**
@@ -132,12 +123,12 @@ class InstansiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(InstansiCreateRequest $request, $id)
     {
-        $diklat = InstansifindOrFail($id);
-        $diklat->update($request->all());
-        \Session::flash('message', 'Data Diklat Berhasil Diperbaharui');
-        return redirect('diklat');
+        $instansi = Instansi::findOrFail($id);
+        $instansi->update($request->all());
+        \Session::flash('message', 'Data Instansi Berhasil Diperbaharui');
+        return redirect('instansi');
     }
 
     /**
@@ -148,15 +139,9 @@ class InstansiController extends Controller
      */
     public function destroy($id)
     {
-        $diklat = InstansifindOrFail($id);
-        $diklat->delete();
-        \Session::flash('message', 'Data Diklat Berhasil Dihapus');
-        return redirect('diklat');
-    }
-
-
-    public function tambahKelasDiklat(Request $request)
-    {
-        return DiklatKelas::create($request->all());
+        $instansi = Instansi::findOrFail($id);
+        $instansi->delete();
+        \Session::flash('message', 'Data Instansi Berhasil Dihapus');
+        return redirect('instansi');
     }
 }

@@ -10,6 +10,7 @@
              <li class="breadcrumb-item text-gray-600">Data Master Instansi</li>
           </ul>
        </div>
+       @if(Request::segment(2) === null)
        <div class="d-flex align-items-center py-2 py-md-1">
           <div class="me-3">
              <a href="#" class="btn btn-light-primary fw-bolder" data-kt-menu-trigger="click"
@@ -75,7 +76,8 @@
                 </div>
              </div>
           </div>
-          <a href="{{ url('diklat/create')}}" class="btn btn-primary fw-bolder">Tambah Data Sekolah</a>
+          <a href="{{ url('instansi/create')}}" class="btn btn-primary fw-bolder">Tambah Data Instansi</a>
        </div>
+       @endif
     </div>
  </div>
