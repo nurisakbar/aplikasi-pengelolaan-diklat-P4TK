@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ProgramKeahlian;
+use App\Regency;
 
 class AjaxController extends Controller
 {
@@ -31,5 +32,11 @@ class AjaxController extends Controller
             ->limit(20)
             ->get();
         return response()->json($data);
+    }
+
+    public function kabupatenDropdown(Request $request)
+    {
+        $regencies = Regency::where('province_id', $request->provinsi)->pluck('name', 'id');
+        return \Form::select('regency_id', $regencies, null, ['class' => 'form-select form-select-solid','data-kt-select2' => 'true','data-placeholder' => 'Select option']);
     }
 }

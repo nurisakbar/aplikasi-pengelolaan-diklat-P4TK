@@ -10,10 +10,10 @@ class Instansi extends Model
 
     protected $fillable = ['nama_instansi','jenjang','nopes_ketua','district_id','alamat','komunitas_id','is_id'];
 
-    public function district()
-    {
-        return $this->belongsTo(\App\District::class);
-    }
+    // public function district()
+    // {
+    //     return $this->belongsTo(\App\District::class);
+    // }
 
     public function wilayahAdministratif()
     {

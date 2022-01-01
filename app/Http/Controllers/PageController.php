@@ -14,4 +14,17 @@ class PageController extends Controller
     {
         return view('dashboard');
     }
+
+    public function diklatDetail(){
+
+    }
+
+    public function pendaftaran(){
+        return view('pendaftaran');
+    }
+
+
+    public function masuk(){
+        return view('masuk');
+    }
 }
