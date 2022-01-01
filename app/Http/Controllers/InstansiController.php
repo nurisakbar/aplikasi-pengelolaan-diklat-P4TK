@@ -25,6 +25,7 @@ class InstansiController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
+            \Log::info($request->all());
             $search         = $request->input('search.value');
             $columns        = $request->get('columns');
             $count_total    = Instansi::count();
@@ -32,7 +33,42 @@ class InstansiController extends Controller
                 ->orWhere('alamat', 'LIKE', '%' . $search . '%')
                 ->count();
 
-            $items          = Instansi::with('wilayahAdministratif')->take(10);
+
+            //$items = Instansi::join('view_wilayah_administratif_indonesia', 'view_wilayah_administratif_indonesia.district_id', 'instansi.district_id');
+
+            // if ($request->province_id != '' || $request->province_id!='null') {
+            //     $items = Instansi::with(
+            //         ['wilayahAdministratif' => function ($query) use ($request) {
+            //             $query->where('province_id', $request->province_id);
+            //         }]
+            //     );
+            // } else {
+            //     $items          = Instansi::with('wilayahAdministratif');
+            // }
+
+
+
+            if ($request->has('province_id')) {
+                $province_id = $request->province_id;
+                if (!in_array($province_id, ['null', null])) {
+                    $items = Instansi::with(
+                        ['wilayahAdministratif' => function ($query) use ($request) {
+                            $query->where('province_id', $request->province_id);
+                        }]
+                    );
+                } else {
+                    $items          = Instansi::with('wilayahAdministratif');
+                }
+            }
+
+            if ($request->has('nama_instansi')) {
+                if (!in_array($request->nama_instansi, ['null', null])) {
+                    $items->where('nama_instansi', 'like', "%" . $request->nama_instansi . "%");
+                }
+            }
+
+            $count_filter = $items->count();
+            $items->take(10);
 
             return \DataTables::of($items)
                 ->with([
@@ -51,7 +87,8 @@ class InstansiController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        return view('instansi.index');
+        $data['provinsi']   = Provinsi::pluck('name', 'id');
+        return view('instansi.index', $data);
     }
 
     /**

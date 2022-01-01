@@ -27,10 +27,15 @@
 <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
 <script>
     $(function() {
+        var province_id     = getParameterByName('province_id');
+        var regency_id      = getParameterByName('regency_id');
+        var nama_instansi   = getParameterByName('nama_instansi');
+
         $('#users-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '/instansi',
+            processData: true,
+            ajax: '/instansi?province_id='+province_id+'&regency_id='+regency_id+'&nama_instansi='+nama_instansi,
             columns: [
                 {data: 'DT_RowIndex', orderable: false, searchable: false},
                 { data: 'nama_instansi', name: 'nama_instansi' },
@@ -44,6 +49,16 @@
             ]
         });
     });
+
+    function getParameterByName(name, url = window.location.href) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
     </script>
 @endpush
 

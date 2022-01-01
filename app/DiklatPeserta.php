@@ -11,7 +11,7 @@ class DiklatPeserta extends Model
 
     protected $table = "diklat_peserta";
 
-    protected $fillable = ['diklat_id','diklat_kelas_id','peserta_id','keterangan','status_kehadiran'];
+    protected $fillable = ['diklat_id', 'diklat_kelas_id', 'peserta_id', 'keterangan', 'status_kehadiran'];
 
     public function gtk()
     {
@@ -21,5 +21,10 @@ class DiklatPeserta extends Model
     public function kelas()
     {
         return $this->belongsTo(\App\DiklatKelas::class, 'diklat_kelas_id', 'id');
+    }
+
+    public function diklat()
+    {
+        return $this->belongsTo(Diklat::class);
     }
 }

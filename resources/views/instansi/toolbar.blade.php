@@ -25,55 +25,44 @@
                 </span>
                 <!--end::Svg Icon-->Filter Data
              </a>
+
+             
              <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true"
                 id="kt_menu_61c1ad817992a">
+                {{ Form::open(['url'=>'instansi','method'=>'GET'])}}
                 <div class="px-7 py-5">
                    <div class="fs-5 text-dark fw-bolder">Filter Options</div>
                 </div>
                 <div class="separator border-gray-200"></div>
                 <div class="px-7 py-5">
                    <div class="mb-10">
-                      <label class="form-label fw-bold">Status:</label>
+                      <label class="form-label fw-bold">Provinsi:</label>
                       <div>
-                         <select class="form-select form-select-solid" data-kt-select2="true"
-                            data-placeholder="Select option" data-dropdown-parent="#kt_menu_61c1ad817992a"
-                            data-allow-clear="true">
-                            <option></option>
-                            <option value="1">Approved</option>
-                            <option value="2">Pending</option>
-                            <option value="2">In Process</option>
-                            <option value="2">Rejected</option>
-                         </select>
+                         {{ Form::select('province_id',$provinsi,null,['onChange'=>'load_kabupaten()','class'=>'provinsi_txt form-select form-select-solid','data-placeholder'=>'Select option','placeholder'=>'-- Semua Provinsi --'])}}
                       </div>
                    </div>
+
                    <div class="mb-10">
-                      <label class="form-label fw-bold">Member Type:</label>
-                      <div class="d-flex">
-                         <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
-                         <input class="form-check-input" type="checkbox" value="1" />
-                         <span class="form-check-label">Author</span>
-                         </label>
-                         <label class="form-check form-check-sm form-check-custom form-check-solid">
-                         <input class="form-check-input" type="checkbox" value="2" checked="checked" />
-                         <span class="form-check-label">Customer</span>
-                         </label>
-                      </div>
-                   </div>
-                   <div class="mb-10">
-                      <label class="form-label fw-bold">Notifications:</label>
-                      <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                         <input class="form-check-input" type="checkbox" value="" name="notifications"
-                            checked="checked" />
-                         <label class="form-check-label">Enabled</label>
-                      </div>
-                   </div>
+                     <label class="form-label fw-bold">Kabupaten:</label>
+                     <div>
+                        <div id="kabupaten"></div>
+                     </div>
+                  </div>
+
+                  <div class="mb-10">
+                     <label class="form-label fw-bold">Nama Instansi:</label>
+                     <div>
+                        <input type="text" name="nama_instansi" class="form-control" placeholder="Nama Instansi">
+                     </div>
+                  </div>
                    <div class="d-flex justify-content-end">
-                      <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2"
-                         data-kt-menu-dismiss="true">Reset</button>
+                         <a href="/instansi" class="btn btn-sm btn-light btn-active-light-primary me-2"
+                         data-kt-menu-dismiss="true">Reset</a>
                       <button type="submit" class="btn btn-sm btn-primary"
-                         data-kt-menu-dismiss="true">Apply</button>
+                         data-kt-menu-dismiss="true">Tampilkan</button>
                    </div>
                 </div>
+                {{Form::close()}}
              </div>
           </div>
           <a href="{{ url('instansi/create')}}" class="btn btn-primary fw-bolder">Tambah Data Instansi</a>
@@ -81,3 +70,26 @@
        @endif
     </div>
  </div>
+
+
+ @push('scripts')
+
+ <script>
+    $( document ).ready(function() {
+      console.log( "ready!" );
+      });
+    
+    function load_kabupaten(){
+       provinsi = $(".provinsi_txt").val();
+       console.log(provinsi);
+       $.ajax({
+         url: "/ajax/kabupaten",
+         cache: false,
+         data:{provinsi:provinsi},
+         success: function(response){
+            console.log(response.nopes);
+            $('#kabupaten').html(response);
+         }
+    })}
+ </script>
+ @endpush
