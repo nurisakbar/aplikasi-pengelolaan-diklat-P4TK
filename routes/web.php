@@ -18,6 +18,7 @@ Route::get('/', 'PageController@home');
 Route::get('dashboard', 'PageController@dashboard');
 Auth::routes();
 Route::get('user/dropdown-jabatan', 'UserController@dropdownJabatan');
+Route::get('/ajax/kabupaten','AjaxController@kabupatenDropdown');
 Route::get('home', 'PageController@home');
 Route::resource('gtk', 'GtkController');
 Route::get('diklat/{id}/export', 'DiklatController@export');
@@ -37,3 +38,6 @@ Route::get('logout', 'LogoutController');
 Route::get('/ajax/programkeahlian-dropdown', 'AjaxController@programKeahlianDropdown');
 Route::get('/ajax/select2Desa', 'AjaxController@select2Desa');
 Route::get('/ajax/select2Instansi', 'AjaxController@select2Instansi');
+
+Route::get('/pendaftaran','pageController@pendaftaran');
+Route::get('/masuk','pageController@masuk');
