@@ -16,7 +16,7 @@
                     <th>Kecamatan</th>
                     <th>Kabupaten</th>
                     <th>Provinsi</th>
-                    <th width="170">#</th>
+                    <th width="180">#</th>
                 </tr>
             </thead>
         </table>

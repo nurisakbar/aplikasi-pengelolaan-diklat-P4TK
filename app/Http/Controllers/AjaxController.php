@@ -34,9 +34,19 @@ class AjaxController extends Controller
         return response()->json($data);
     }
 
+    public function select2Daerah(Request $request)
+    {
+        $data = \DB::table('districts')
+            ->select('id', 'name')
+            ->where('name', 'like', "%" . $request->q . "%")
+            ->limit(20)
+            ->get();
+        return response()->json($data);
+    }
+
     public function kabupatenDropdown(Request $request)
     {
         $regencies = Regency::where('province_id', $request->provinsi)->pluck('name', 'id');
-        return \Form::select('regency_id', $regencies, null, ['class' => 'form-select form-select-solid','data-kt-select2' => 'true','data-placeholder' => 'Select option']);
+        return \Form::select('regency_id', $regencies, null, ['class' => 'form-select form-select-solid', 'data-kt-select2' => 'true', 'data-placeholder' => 'Select option']);
     }
 }

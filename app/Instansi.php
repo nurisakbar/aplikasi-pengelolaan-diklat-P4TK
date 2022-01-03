@@ -8,7 +8,7 @@ class Instansi extends Model
 {
     protected $table = "instansi";
 
-    protected $fillable = ['nama_instansi','jenjang','nopes_ketua','district_id','alamat','komunitas_id','is_id'];
+    protected $guarded = ['id'];
 
     // public function district()
     // {
