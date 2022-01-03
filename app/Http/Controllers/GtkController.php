@@ -70,7 +70,9 @@ class GtkController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        return view('gtk.index');
+        $data['totalApprove'] = Gtk::where('is_approve', 0)->count();
+
+        return view('gtk.index', $data);
     }
 
     /**
