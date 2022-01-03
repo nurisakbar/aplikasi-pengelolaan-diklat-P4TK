@@ -3,9 +3,9 @@
 function hitung_absensi($user_id, $periode_awal, $periode_akhir, $status_kehadiran)
 {
     $absensi = \App\Absensi::where('user_id', $user_id)
-    ->where('status_kehadiran', $status_kehadiran)
-    ->whereBetween('tanggal', [$periode_awal,$periode_akhir])
-    ->count();
+        ->where('status_kehadiran', $status_kehadiran)
+        ->whereBetween('tanggal', [$periode_awal, $periode_akhir])
+        ->count();
     return $absensi;
 }
 
@@ -73,4 +73,13 @@ function laporan_gaji_gaji_pokok($row)
     }
 
     return $settingGajiPokok->jumlah * $jml_hadir;
+}
+
+function hitung_umur($date)
+{
+    $sekarang      = Carbon\Carbon::now();
+    $tanggal_lahir = Carbon\Carbon::parse($date);
+    $umur = $tanggal_lahir->diffInYears($sekarang);
+
+    return $umur;
 }

@@ -45,3 +45,6 @@ Route::get('/masuk', 'PageController@masuk');
 Route::get('daftarApprove', 'PageController@approve');
 Route::post('daftarApprove/{id}', 'PageController@doApprove');
 Route::get('daftarApprove/{id}', 'PageController@showApprove');
+Route::get('/ajax/select2Daerah', 'AjaxController@select2Daerah');
+Route::get('/pendaftaran','pageController@pendaftaran');
+Route::get('/masuk','pageController@masuk');

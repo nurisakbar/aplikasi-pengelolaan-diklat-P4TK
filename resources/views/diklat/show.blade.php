@@ -80,20 +80,6 @@ $(function() {
         ]
     });
 
-    $('#gtk-table').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: '/gtk',
-        columns: [
-            { data: 'nomor_ukg', name: 'nomor_ukg' },
-            { data: 'nama_lengkap', name: 'nama_lengkap' },
-            { data: 'instansi.nama_instansi', name: 'instansi.nama_instansi' },
-            { data: 'instansi.wilayah_administratif.regency_name'},
-            { data: 'instansi.wilayah_administratif.province_name'},
-            { data: 'keterangan', name: 'keterangan' },
-            { data: 'pilih', name: 'pilih' }
-        ]
-    });
 });
 
 

@@ -14,8 +14,10 @@ use App\Gtk;
 use App\KategoriDiklat;
 use App\KompetensiKeahlian;
 use App\BidangKeahlian;
+use App\Exports\DiklatExport;
 use App\Instansi;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DiklatController extends Controller
 {
@@ -109,8 +111,7 @@ class DiklatController extends Controller
             $peserta = $data['diklat']->peserta;
             return \DataTables::of($peserta)
                 ->addColumn('action', function ($row) {
-                    $btn = '<button class="btn btn-danger btn-sm" onclick="hapusPeserta(' . $row->id . ')"><i class="fa fa-trash" aria-hidden="true"></i></button> ';
-                    $btn .= '<button class="btn btn-danger btn-sm" onclick="buka_modal_ubah_status(' . $row->id . ')"><i class="fa fa-edit" aria-hidden="true"></i></button> ';
+                    $btn = '<a class="btn btn-danger btn-sm" href="/gtk/' . $row->gtk->id . '"><i class="fas fa-eye" aria-hidden="true"></i></a> ';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -125,11 +126,11 @@ class DiklatController extends Controller
     public function export($id, Request $request)
     {
         $type = $request->type;
-        $data['diklat'] = Diklat::with('peserta.gtk.instansi.wilayahAdministratif', 'peserta.kelas')->findOrFail($id);
+        $data['diklat'] = Diklat::with('peserta.gtk.instansi.wilayahAdministratif', 'peserta.kelas', 'kategori', 'programKeahlian')->findOrFail($id);
         if ($type == 'pdf') {
             return \PDF::loadView('diklat.pdf', $data)->setPaper('A4', 'landscape')->stream();
         } else {
-            return 'handle export excel here';
+            return Excel::download(new DiklatExport($request->segment(2)), 'Diklat.xlsx');
         }
     }
 
