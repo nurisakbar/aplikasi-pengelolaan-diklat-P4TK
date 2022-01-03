@@ -14,27 +14,41 @@
 </style>
 
 
-<table class="table1">
-    <tr>
-        <th width="20px">NO</th>
-        <th>NAMA</th>
-        <th>NOMOR HP</th>
-        <th>EMAIL</th>
-        <th>ASAL SEKOLAH</th>
-        <th>KABUPATEN</th>
-        <th>PROVINSI</th>
-        <th>KELAS</th>
-    </tr>
-    @foreach ($diklat->peserta as $peserta)
+<div style="margin-left:-6rem;">
+    <table class="table1" style="transform: scale(0.9)">
         <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $peserta->gtk->nama_lengkap }}</td>
-            <td>{{ $peserta->gtk->nomor_hp }}</td>
-            <td>{{ $peserta->gtk->email }}</td>
-            <td>{{ $peserta->gtk->instansi->nama_instansi }}</td>
-            <td>{{ $peserta->gtk->instansi->wilayahAdministratif->regency_name}}</td>
-            <td>{{ $peserta->gtk->instansi->wilayahAdministratif->province_name}}</td>
-            <td>{{ $peserta->kelas->nama_kelas }}</td>
+            <th width="20px">NO</th>
+            <th>NO UKG</th>
+            <th>NAMA LENGKAP</th>
+            <th>USIA</th>
+            <th>KELAMIN</th>
+            <th>NOMOR HP</th>
+            <th>KONTAK</th>
+            <th>NAMA SEKOLAH</th>
+            <th>NPSN SEKOLAH</th>
+            <th>JENJANG SEKOLAH</th>
+            <th>PROVINSI SEKOLAH</th>
+            <th>PROGRAM DIKLAT</th>
+            <th width="120">NAMA DIKLAT</th>
+            <th>PROGRAM KEAHLIAN DIKLAT</th>
         </tr>
-    @endforeach
-</table>
+        @foreach ($diklat->peserta as $peserta)
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $peserta->gtk->nomor_ukg }}</td>
+                <td>{{ $peserta->gtk->nama_lengkap }}</td>
+                <td>{{ hitung_umur($peserta->gtk->tanggal_lahir) }}</td>
+                <td>{{ $peserta->gtk->jenis_kelamin }}</td>
+                <td>{{ $peserta->gtk->nomor_hp }}</td>
+                <td>{{ $peserta->gtk->email }}</td>
+                <td>{{ $peserta->gtk->instansi->nama_instansi }}</td>
+                <td>{{ $peserta->gtk->instansi->npsn }}</td>
+                <td>{{ substr($peserta->gtk->instansi->nama_instansi, 0, 3) == "SMK" ? "SMK" : "-" }}</td>
+                <td>{{ $peserta->gtk->instansi->wilayahAdministratif->province_name}}</td>
+                <td>{{ $peserta->kelas->nama_kelas }}</td>
+                <td>{{ $diklat->kategori->nama_kategori }}</td>
+                <td>{{ $diklat->programKeahlian->nama_program_keahlian }}</td>
+            </tr>
+        @endforeach
+    </table>
+</div>
