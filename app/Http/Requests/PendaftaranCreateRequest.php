@@ -30,7 +30,10 @@ class PendaftaranCreateRequest extends FormRequest
             'instansi_id'           => 'required',
             'domisi_alamat_jalan' => 'required',
             'nomor_hp'              => 'required',
-            'jabatan'               => 'required'
+            'jabatan'               => 'required',
+            'email'                 => 'required',
+            'password'              => 'required|min:5',
+            'confirm_password'      => 'required|same:password'
         ];
     }
 }

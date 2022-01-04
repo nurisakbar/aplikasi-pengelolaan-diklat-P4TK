@@ -3,15 +3,22 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\Gtk as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Gtk extends Model
+class Gtk extends Authenticatable
 {
+    use Notifiable;
+
     protected $primaryKey = "id";
 
     protected $table = "gtk";
 
     protected $guarded = ['id'];
 
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
     public function instansi()
     {
@@ -21,5 +28,10 @@ class Gtk extends Model
     public function village()
     {
         return $this->belongsTo(Village::class);
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->password;
     }
 }

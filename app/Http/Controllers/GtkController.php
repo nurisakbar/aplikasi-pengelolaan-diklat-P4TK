@@ -12,17 +12,11 @@ use Storage;
 class GtkController extends Controller
 {
     protected $agama;
+
     public function __construct()
     {
         $this->middleware('auth');
-        $this->agama = [
-            'islam'    => 'Islam',
-            'kristen'  => 'Kristen',
-            'katolik'  => 'Katolik',
-            'hindu'    => 'Hindu',
-            'buddha'   => 'Buddha',
-            'konghucu' => 'Konghucu'
-        ];
+        $this->agama = config('datareferensi.agama');
     }
     /**
      * Display a listing of the resource.

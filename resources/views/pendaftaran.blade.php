@@ -58,23 +58,11 @@
                             <!--end::Title-->
                             <!--begin::Link-->
                             <div class="text-gray-400 fw-bold fs-4">Sudah Punya Akun ?
-                                <a href="/metronic8/demo11/../demo11/authentication/layouts/basic/sign-in.html"
-                                    class="link-primary fw-bolder">Login Disini</a>
+                                <a href="{{ url('masuk') }}" class="link-primary fw-bolder">Login Disini</a>
                             </div>
                             <!--end::Link-->
                         </div>
                         <!--end::Heading-->
-                        <!--begin::Action-->
-                        <button type="button" class="btn btn-light-primary fw-bolder w-100 mb-10">
-                            <img alt="Logo" src="{{ asset('assets/media/svg/brand-logos/google-icon.svg') }}"
-                                class="h-20px me-3" />Daftar Dengan Google</button>
-                        <!--end::Action-->
-                        <!--begin::Separator-->
-                        <div class="d-flex align-items-center mb-10">
-                            <div class="border-bottom border-gray-300 mw-50 w-100"></div>
-                            <span class="fw-bold text-gray-400 fs-7 mx-2">OR</span>
-                            <div class="border-bottom border-gray-300 mw-50 w-100"></div>
-                        </div>
                         <!--end::Separator-->
                         {{-- @include('validation_error') --}}
                         <!--begin::Input group-->
@@ -154,6 +142,36 @@
                                 value="{{ old('jabatan') }}" />
                             <div class="invalid-feedback">
                                 {{ $errors->first('jabatan') }}
+                            </div>
+                        </div>
+                        <div class="fv-row mb-7">
+                            <label class="form-label fw-bolder text-dark fs-6">Email</label>
+                            <input
+                                class="{{ $errors->has('email') ? 'is-invalid' : '' }} form-control form-control-lg form-control-solid"
+                                type="text" placeholder="" name="email" autocomplete="off"
+                                value="{{ old('email') }}" />
+                            <div class="invalid-feedback">
+                                {{ $errors->first('email') }}
+                            </div>
+                        </div>
+                        <div class="row fv-row mb-7">
+                            <div class="col-xl-6">
+                                <label class="form-label fw-bolder text-dark fs-6">Password</label>
+                                <input
+                                    class="{{ $errors->has('password') ? 'is-invalid' : '' }} form-control form-control-lg form-control-solid"
+                                    type="password" placeholder="" name="password" autocomplete="off" />
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('password') }}
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <label class="form-label fw-bolder text-dark fs-6">Konfirmasi Password</label>
+                                <input
+                                    class="{{ $errors->has('confirm_password') ? 'is-invalid' : '' }} form-control form-control-lg form-control-solid"
+                                    type="password" placeholder="" name="confirm_password" autocomplete="off" />
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('confirm_password') }}
+                                </div>
                             </div>
                         </div>
 

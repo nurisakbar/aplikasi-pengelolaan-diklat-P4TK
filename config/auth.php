@@ -46,6 +46,11 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'gtk' => [
+            'driver' => 'session',
+            'provider' => 'gtk',
+        ]
     ],
 
     /*
@@ -69,6 +74,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+        'gtk' => [
+            'driver' => 'eloquent',
+            'model' => App\Gtk::class,
         ],
 
         // 'users' => [
@@ -95,6 +104,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'gtk' => [
+            'provider' => 'gtk',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

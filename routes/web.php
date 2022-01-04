@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -34,6 +35,10 @@ Route::resource('kompetensikeahlian', 'KompetensiKeahlianController');
 Route::resource('departemen', 'DepartemenController');
 Route::post('tambah-kelas-diklat', 'DiklatController@tambahKelasDiklat');
 Route::get('logout', 'LogoutController');
+Route::get('list-diklat', 'AccessGtkController@index');
+Route::get('profile', 'AccessGtkController@profile');
+Route::put('updateProfile/{id}', 'AccessGtkController@updateProfile');
+Route::get('detailDiklat/{id}', 'AccessGtkController@detailDiklat');
 
 Route::get('/ajax/programkeahlian-dropdown', 'AjaxController@programKeahlianDropdown');
 Route::get('/ajax/select2Desa', 'AjaxController@select2Desa');
@@ -46,5 +51,6 @@ Route::get('daftarApprove', 'PageController@approve');
 Route::post('daftarApprove/{id}', 'PageController@doApprove');
 Route::get('daftarApprove/{id}', 'PageController@showApprove');
 Route::get('/ajax/select2Daerah', 'AjaxController@select2Daerah');
-Route::get('/pendaftaran','pageController@pendaftaran');
-Route::get('/masuk','pageController@masuk');
+Route::get('/pendaftaran', 'PageController@pendaftaran');
+Route::get('/masuk', 'PageController@masuk');
+Route::post('login/gtk', 'PageController@doLogin')->name('login.gtk');
