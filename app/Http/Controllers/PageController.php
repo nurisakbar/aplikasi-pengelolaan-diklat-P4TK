@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Gtk;
-use App\Http\Requests\LoginGtkRequest;
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\PendaftaranCreateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -78,18 +78,22 @@ class PageController extends Controller
         return redirect('gtk');
     }
 
-    public function doLogin(LoginGtkRequest $request)
+    public function doLogin(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
         if (Auth::guard('gtk')->attempt($credentials)) {
             $gtk = Auth::guard('gtk')->user();
             if ($gtk->is_approve == 0) {
-                return back()->with('failed', 'Akun belum diapprove oleh admin. Silahkan tunggu beberapa waktu');
+                return back()->with('failed', 'Akun anda belum diapprove oleh admin. Silahkan tunggu beberapa waktu');
             } else {
                 return redirect('list-diklat')->with('message', 'Selamat datang, ' . $gtk->nama_lengkap);
             }
         } else {
             return back()->with('failed', 'Akun belum terdaftar atau kesalahan dalam input.');
         }
+    }
+    public function reloadCaptcha()
+    {
+        return response()->json(['captcha' => captcha_img()]);
     }
 }
