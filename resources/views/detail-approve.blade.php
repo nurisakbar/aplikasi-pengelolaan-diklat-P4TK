@@ -10,6 +10,10 @@
                     <td>{{ $gtk->nama_lengkap }}</td>
                 </tr>
                 <tr>
+                    <td width="300">Email</td>
+                    <td>{{ $gtk->email }}</td>
+                </tr>
+                <tr>
                     <td>NIK</td>
                     <td>{{ $gtk->nik }}</td>
                 </tr>
