@@ -33,7 +33,8 @@ class PendaftaranCreateRequest extends FormRequest
             'jabatan'               => 'required',
             'email'                 => 'required',
             'password'              => 'required|min:5',
-            'confirm_password'      => 'required|same:password'
+            'confirm_password'      => 'required|same:password',
+            'captcha'               => 'required|captcha'
         ];
     }
 }

@@ -67,9 +67,11 @@
                                 class="{{ $errors->has('email') ? 'is-invalid' : '' }} form-control form-control-lg form-control-solid"
                                 type="text" name="email" placeholder="Masukan Email Pengguna" autocomplete="off"
                                 value="{{ old('email') }}" />
-                            <div class="invalid-feedback">
-                                {{ $errors->first('email') }}
-                            </div>
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
@@ -85,12 +87,35 @@
                             <input name="password"
                                 class="{{ $errors->has('password') ? 'is-invalid' : '' }} form-control form-control-lg form-control-solid"
                                 type="password" placeholder="Masukan Password" name="password" autocomplete="off" />
-                            <div class="invalid-feedback">
-                                {{ $errors->first('password') }}
-                            </div>
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
+                        <div class="fv-row mb-10">
+                            <!--begin::Label-->
+                            <label class="form-label fs-6 fw-bolder text-dark">Captcha</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <div class="captcha mb-3">
+                                <span>{!! captcha_img() !!}</span>
+                                <button type="button" class="btn btn-danger" class="reload" id="reload">
+                                    &#x21bb;
+                                </button>
+                            </div>
+                            <input name="captcha"
+                                class="@error('captcha') is-invalid @enderror form-control form-control-lg form-control-solid"
+                                type="text" placeholder="Masukan kode captcha diatas" name="captcha" />
+                            @error('captcha')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            <!--end::Input-->
+                        </div>
                         <!--begin::Actions-->
                         <div class="text-center">
                             <!--begin::Submit button-->
@@ -114,6 +139,19 @@
     </div>
     <!--end::Root-->
     <!--end::Main-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $('#reload').click(function() {
+            $.ajax({
+                type: 'GET',
+                url: 'reload-captcha',
+                success: function(data) {
+                    $(".captcha span").html(data.captcha);
+                }
+            });
+        });
+    </script>
 </body>
 <!--end::Body-->
 

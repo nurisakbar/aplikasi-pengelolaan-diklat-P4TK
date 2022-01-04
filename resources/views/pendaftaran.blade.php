@@ -69,35 +69,41 @@
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6">Nama Lengkap</label>
                             <input type="text" placeholder="" name="nama_lengkap" autocomplete="off"
-                                class="{{ $errors->has('nama_lengkap') ? 'is-invalid' : '' }} form-control form-control-lg form-control-solid"
+                                class="@error('nama_lengkap') is-invalid @enderror form-control form-control-lg form-control-solid"
                                 value="{{ old('nama_lengkap') }}" />
-                            <div class="invalid-feedback">
-                                {{ $errors->first('nama_lengkap') }}
-                            </div>
+                            @error('nama_lengkap')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="row fv-row mb-7">
                             <!--begin::Col-->
                             <div class="col-xl-6">
                                 <label class="form-label fw-bolder text-dark fs-6">NIK</label>
                                 <input
-                                    class="{{ $errors->has('nik') ? 'is-invalid' : '' }} form-control form-control-lg form-control-solid"
+                                    class="@error('nik') is-invalid @enderror form-control form-control-lg form-control-solid"
                                     type="text" placeholder="" name="nik" autocomplete="off"
                                     value="{{ old('nik') }}" />
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('nik') }}
-                                </div>
+                                @error('nik')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <!--end::Col-->
                             <!--begin::Col-->
                             <div class="col-xl-6">
                                 <label class="form-label fw-bolder text-dark fs-6">NUPTK</label>
                                 <input
-                                    class="{{ $errors->has('nuptk') ? 'is-invalid' : '' }} form-control form-control-lg form-control-solid"
+                                    class="@error('nuptk') is-invalid @enderror form-control form-control-lg form-control-solid"
                                     type="text" placeholder="" name="nuptk" autocomplete="off"
                                     value="{{ old('nuptk') }}" />
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('nuptk') }}
-                                </div>
+                                @error('nuptk')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <!--end::Col-->
                         </div>
@@ -106,73 +112,108 @@
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6">Sekolah</label>
                             <select name="instansi_id" id="instansi"
-                                class="{{ $errors->has('instansi_id') ? 'is-invalid' : '' }} instansi form-control form-control-lg form-control-solid"
+                                class="@error('instansi_id') is-invalid @enderror instansi form-control form-control-lg form-control-solid"
                                 style="height: 100px;" placeholder="Masukan Nama Instansi">
                             </select>
-                            <div class="invalid-feedback">
-                                {{ $errors->first('instansi_id') }}
-                            </div>
+                            @error('instansi_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <!--end::Input group-->
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6">Alamat</label>
                             <input
-                                class="{{ $errors->has('domisi_alamat_jalan') ? 'is-invalid' : '' }} form-control form-control-lg form-control-solid"
+                                class="@error('domisi_alamat_jalan') is-invalid @enderror form-control form-control-lg form-control-solid"
                                 type="text" placeholder="" name="domisi_alamat_jalan" autocomplete="off"
                                 value="{{ old('domisi_alamat_jalan') }}" />
-                            <div class="invalid-feedback">
-                                {{ $errors->first('domisi_alamat_jalan') }}
-                            </div>
+                            @error('domisi_alamat_jalan')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6">Nomor HP</label>
                             <input
-                                class="{{ $errors->has('nomor_hp') ? 'is-invalid' : '' }} form-control form-control-lg form-control-solid"
+                                class="@error('nomor_hp') is-invalid @enderror form-control form-control-lg form-control-solid"
                                 type="number" placeholder="" name="nomor_hp" autocomplete="off"
                                 value="{{ old('nomor_hp') }}" />
-                            <div class="invalid-feedback">
-                                {{ $errors->first('nomor_hp') }}
-                            </div>
+                            @error('nomor_hp')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6">Jabatan</label>
                             <input
-                                class="{{ $errors->has('jabatan') ? 'is-invalid' : '' }} form-control form-control-lg form-control-solid"
+                                class="@error('jabatan') is-invalid @enderror form-control form-control-lg form-control-solid"
                                 type="text" placeholder="" name="jabatan" autocomplete="off"
                                 value="{{ old('jabatan') }}" />
-                            <div class="invalid-feedback">
-                                {{ $errors->first('jabatan') }}
-                            </div>
+                            @error('jabatan')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6">Email</label>
                             <input
-                                class="{{ $errors->has('email') ? 'is-invalid' : '' }} form-control form-control-lg form-control-solid"
+                                class="@error('email') is-invalid @enderror form-control form-control-lg form-control-solid"
                                 type="text" placeholder="" name="email" autocomplete="off"
                                 value="{{ old('email') }}" />
-                            <div class="invalid-feedback">
-                                {{ $errors->first('email') }}
-                            </div>
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="row fv-row mb-7">
                             <div class="col-xl-6">
                                 <label class="form-label fw-bolder text-dark fs-6">Password</label>
                                 <input
-                                    class="{{ $errors->has('password') ? 'is-invalid' : '' }} form-control form-control-lg form-control-solid"
+                                    class="@error('password') is-invalid @enderror form-control form-control-lg form-control-solid"
                                     type="password" placeholder="" name="password" autocomplete="off" />
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('password') }}
-                                </div>
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="col-xl-6">
                                 <label class="form-label fw-bolder text-dark fs-6">Konfirmasi Password</label>
                                 <input
-                                    class="{{ $errors->has('confirm_password') ? 'is-invalid' : '' }} form-control form-control-lg form-control-solid"
+                                    class="@error('confirm_password') is-invalid @enderror form-control form-control-lg form-control-solid"
                                     type="password" placeholder="" name="confirm_password" autocomplete="off" />
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('confirm_password') }}
-                                </div>
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
+                        </div>
+                        <div class="fv-row mb-10">
+                            <!--begin::Label-->
+                            <label class="form-label fs-6 fw-bolder text-dark">Captcha</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <div class="captcha mb-3">
+                                <span>{!! captcha_img() !!}</span>
+                                <button type="button" class="btn btn-danger" class="reload" id="reload">
+                                    &#x21bb;
+                                </button>
+                            </div>
+                            <input name="captcha"
+                                class="@error('captcha') is-invalid @enderror form-control form-control-lg form-control-solid"
+                                type="text" placeholder="Masukan kode captcha diatas" name="captcha" />
+                            @error('captcha')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            <!--end::Input-->
                         </div>
 
                         <!--begin::Actions-->
@@ -237,6 +278,15 @@
                     },
                     cache: true
                 }
+            });
+            $('#reload').click(function() {
+                $.ajax({
+                    type: 'GET',
+                    url: 'reload-captcha',
+                    success: function(data) {
+                        $(".captcha span").html(data.captcha);
+                    }
+                });
             });
         });
     </script>

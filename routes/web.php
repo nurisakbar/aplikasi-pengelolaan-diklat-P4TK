@@ -54,3 +54,5 @@ Route::get('/ajax/select2Daerah', 'AjaxController@select2Daerah');
 Route::get('/pendaftaran', 'PageController@pendaftaran');
 Route::get('/masuk', 'PageController@masuk');
 Route::post('login/gtk', 'PageController@doLogin')->name('login.gtk');
+
+Route::get('/reload-captcha', 'PageController@reloadCaptcha');
