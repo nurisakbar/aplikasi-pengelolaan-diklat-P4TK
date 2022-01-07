@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Dashboard')
+@section('title','Halaman Utama')
 @section('content')
 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
     <!--begin::Post-->

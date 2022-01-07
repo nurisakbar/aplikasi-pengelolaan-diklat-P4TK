@@ -18,7 +18,7 @@
     @foreach ($diklat->peserta as $peserta)
         <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $peserta->gtk->nomor_ukg }}</td>
+            <td>{{ $peserta->gtk->nomor_ukg }}'</td>
             <td>{{ $peserta->gtk->nama_lengkap }}</td>
             <td>{{ hitung_umur($peserta->gtk->tanggal_lahir) }}</td>
             <td>{{ $peserta->gtk->jenis_kelamin }}</td>

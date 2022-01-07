@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="col-md-6 mb-3">
-        <label class="form-label">Daerah</label>
+        <label class="form-label">Kecamatan</label>
         <select name="district_id" id="district" class="district form-control" style="height: 100px;" placeholder="Masukan Nama Daerah">
           @if(isset($instansi))
             <option value="{{ $instansi->district_id }}">{{ $instansi->district->name }}</option>

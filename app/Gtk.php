@@ -3,7 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\Gtk as Authenticatable;
+//use Illuminate\Foundation\Auth\Gtk as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class Gtk extends Authenticatable
@@ -34,4 +35,9 @@ class Gtk extends Authenticatable
     {
         return $this->password;
     }
+
+    protected $casts = [
+        'nomor_ukg' => 'string'
+     ];
+
 }
