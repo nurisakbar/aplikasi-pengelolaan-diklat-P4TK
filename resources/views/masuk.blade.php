@@ -123,10 +123,10 @@
                                 Masuk Ke Sistem
                             </button>
                         </div>
-                        {{-- <div class="text-center text-muted text-uppercase fw-bolder mb-5">or</div>
+                        <div class="text-center text-muted text-uppercase fw-bolder mb-5">or</div>
                         <a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
                             <img alt="Logo" src="{{ asset('assets/media/svg/brand-logos/google-icon.svg') }}"
-                                class="h-20px me-3">Login Dengan Google</a> --}}
+                                class="h-20px me-3">Login Dengan Google</a>
                         <!--end::Actions-->
                     </form>
                     <!--end::Form-->
