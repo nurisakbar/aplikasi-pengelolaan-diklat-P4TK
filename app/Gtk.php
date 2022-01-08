@@ -39,5 +39,4 @@ class Gtk extends Authenticatable
     protected $casts = [
         'nomor_ukg' => 'string'
      ];
-
 }

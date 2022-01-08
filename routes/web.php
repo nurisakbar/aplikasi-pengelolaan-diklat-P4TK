@@ -56,3 +56,5 @@ Route::get('/masuk', 'PageController@masuk');
 Route::post('login/gtk', 'PageController@doLogin')->name('login.gtk');
 
 Route::get('/reload-captcha', 'PageController@reloadCaptcha');
+Route::get('socialite/redirect','SocialiteController@redirect');
+Route::get('socialite/callback','SocialiteController@callback');

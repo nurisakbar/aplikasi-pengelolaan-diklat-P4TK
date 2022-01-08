@@ -22,6 +22,7 @@ class LogoutController extends Controller
         }
 
         Auth::logout();
+        $request->session()->forget('avatar');
         return redirect('/login')->with('message', 'Anda Sudah Berhasil Logout');
     }
 }

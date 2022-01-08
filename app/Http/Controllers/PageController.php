@@ -8,12 +8,14 @@ use App\Http\Requests\PendaftaranCreateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Diklat;
 
 class PageController extends Controller
 {
     public function home()
     {
-        return view('home');
+        $data['diklat'] = Diklat::with('programKeahlian', 'kategori')->paginate(9);
+        return view('home', $data);
     }
     public function dashboard()
     {

@@ -15,7 +15,7 @@
         <!--begin::Row-->
         <div class="row g-6 g-xl-9">
             <!--begin::Col-->
-            @for($i=1;$i<=9;$i++)
+            @foreach ($diklat as $d)
             <div class="col-md-6 col-xl-4">
                 <!--begin::Card-->
                 <a href="/link" class="card border-hover-primary">
@@ -32,7 +32,7 @@
                         <!--end::Car Title-->
                         <!--begin::Card toolbar-->
                         <div class="card-toolbar">
-                            <span class="badge badge-light-primary fw-bolder me-auto px-4 py-3">In Progress</span>
+                            <span class="badge badge-light-primary fw-bolder me-auto px-4 py-3">{{ $d->status_aktif }}</span>
                         </div>
                         <!--end::Card toolbar-->
                     </div>
@@ -40,23 +40,23 @@
                     <!--begin:: Card body-->
                     <div class="card-body p-9">
                         <!--begin::Name-->
-                        <div class="fs-3 fw-bolder text-dark">Kategori Diklat</div>
+                        <div class="fs-3 fw-bolder text-dark">{{ $d->nama_diklat }}</div>
                         <!--end::Name-->
                         <!--begin::Description-->
-                        <p class="text-gray-400 fw-bold fs-5 mt-1 mb-7">Diklat Pemograman Web Dengan Laravel Dan MySQL</p>
+                        <p class="text-gray-400 fw-bold fs-5 mt-1 mb-7">{{ $d->kategori->nama_kategori }}</p>
                         <!--end::Description-->
                         <!--begin::Info-->
                         <div class="d-flex flex-wrap mb-5">
                             <!--begin::Due-->
                             <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
-                                <div class="fs-6 text-gray-800 fw-bolder">10 Desember 2021</div>
+                                <div class="fs-6 text-gray-800 fw-bolder">{{ $d->tanggal_mulai }}</div>
                                 <div class="fw-bold text-gray-400">Tanggal Mulai</div>
                             </div>
 
                             <!--end::Due-->
                             <!--begin::Budget-->
                             <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                                <div class="fs-6 text-gray-800 fw-bolder">10 Desember 2021</div>
+                                <div class="fs-6 text-gray-800 fw-bolder">{{ $d->tanggal_selesai }}</div>
                                 <div class="fw-bold text-gray-400">Tanggal Selesai</div>
                             </div>
                             <!--end::Budget-->
@@ -92,45 +92,13 @@
                 <!--end::Card-->
             </div>
             <!--end::Col-->
-            @endfor
+            @endforeach
 
         </div>
         <!--end::Row-->
         <!--begin::Pagination-->
         <div class="d-flex flex-stack flex-wrap pt-10">
-            <div class="fs-6 fw-bold text-gray-700">Showing 1 to 10 of 50 entries</div>
-            <!--begin::Pages-->
-            <ul class="pagination">
-                <li class="page-item previous">
-                    <a href="#" class="page-link">
-                        <i class="previous"></i>
-                    </a>
-                </li>
-                <li class="page-item active">
-                    <a href="#" class="page-link">1</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link">2</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link">3</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link">4</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link">5</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link">6</a>
-                </li>
-                <li class="page-item next">
-                    <a href="#" class="page-link">
-                        <i class="next"></i>
-                    </a>
-                </li>
-            </ul>
-            <!--end::Pages-->
+            {{ $diklat->links()}}
         </div>
         <!--end::Pagination-->
         <!--begin::Modals-->

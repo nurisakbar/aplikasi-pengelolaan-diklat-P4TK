@@ -1056,7 +1056,7 @@
 												<!--end::Avatar-->
 												<!--begin::Details-->
 												<div class="ms-5">
-													<a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Max Smith</a>
+													<a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Nama User</a>
 													<div class="fw-bold text-muted">max@kt.com</div>
 												</div>
 												<!--end::Details-->
@@ -1735,7 +1735,7 @@
 										<!--end::Avatar-->
 										<!--begin::Details-->
 										<div class="ms-5">
-											<a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Max Smith</a>
+											<a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Nama user</a>
 											<div class="fw-bold text-muted">max@kt.com</div>
 										</div>
 										<!--end::Details-->

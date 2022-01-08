@@ -1575,7 +1575,7 @@
                                 <!--begin::User details-->
                                 <div class="d-flex flex-column">
                                     <a href="https://preview.keenthemes.com/metronic8/demo11/../demo11/apps/user-management/users/view.html" class="text-gray-800 text-hover-primary mb-1">Max Smith</a>
-                                    <span>max@kt.com</span>
+                                    <span>max@kt.comsas</span>
                                 </div>
                                 <!--begin::User details-->
                             </td>
