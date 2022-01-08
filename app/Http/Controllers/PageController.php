@@ -45,40 +45,7 @@ class PageController extends Controller
         return redirect('dashboard');
     }
 
-    public function approve(Request $request)
-    {
-        if ($request->ajax()) {
-            return \DataTables::of(Gtk::where('is_approve', 0)->get())
-                ->addColumn('action', function ($row) {
-                    $btn = \Form::open(['url' => 'daftarApprove/' . $row->id, 'method' => 'POST', 'style' => 'float:right;margin-right:5px']);
-                    $btn .= "<button type='submit' class='btn btn-success btn-sm'>Approve</button>";
-                    $btn .= \Form::close();
-                    $btn .= '<a class="btn btn-danger btn-sm" href="/daftarApprove/' . $row->id . '"><i class="fas fa-eye" aria-hidden="true"></i></a>';
-                    return $btn;
-                })
-                ->rawColumns(['action'])
-                ->addIndexColumn()
-                ->make(true);
-        }
 
-        return view('approve');
-    }
-
-    public function showApprove($id)
-    {
-        $data['gtk'] = Gtk::findOrFail($id);
-
-        return view('detail-approve', $data);
-    }
-
-    public function doApprove($id)
-    {
-        $gtk = Gtk::findOrFail($id);
-        $gtk->update(['is_approve' => 1]);
-
-        \Session::flash('message', 'Akun bernama <strong>' . $gtk->nama_lengkap . '</strong> berhasil diapprove.');
-        return redirect('gtk');
-    }
 
     public function doLogin(LoginRequest $request)
     {

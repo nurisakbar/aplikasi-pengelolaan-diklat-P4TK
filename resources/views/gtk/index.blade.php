@@ -19,10 +19,10 @@
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-gray-600">Apps</li>
+                    <li class="breadcrumb-item text-gray-600">GTK</li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-gray-600">User Management</li>
+                    <li class="breadcrumb-item text-gray-600">Daftar GTK</li>
                     <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->
