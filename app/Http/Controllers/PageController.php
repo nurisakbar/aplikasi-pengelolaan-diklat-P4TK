@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Diklat;
+use Mail;
 
 class PageController extends Controller
 {
@@ -41,8 +42,15 @@ class PageController extends Controller
         $request['nama_lengkap'] = strtoupper($request->nama_lengkap);
         $request['password'] = Hash::make($request->password);
         Gtk::create($request->except(['confirm_password']));
+        $to_name = $request->nama_lengkap;
+        $to_email = $request->email;
+        $data = array('name' => $to_name, "body" => "Konfirmasi Pendaftaran");
+        \Mail::send('emails.konfirmasi_pendaftaran', $data, function ($message) use ($to_name, $to_email) {
+            $message->to($to_email, $to_name)->subject('Konfirmasi Pendaftaran Akun');
+            $message->from(ENV('MAIL_FROM_ADDRESS'), ENV('MAIL_FROM_NAME'));
+        });
         \Session::flash('message', 'Terima kasih akun anda telah berhasil dibuat. Selanjutnya silahkan menunggu akun anda di approve oleh admin');
-        return redirect('dashboard');
+        return redirect('/');
     }
 
     public function approve(Request $request)

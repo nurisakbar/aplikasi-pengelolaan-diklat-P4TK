@@ -170,6 +170,12 @@
                         </a>
                     </div>
                 @endif
+                <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
+                    <a class="menu-link py-3" target="new" href="https://p4tkbmti.kemdikbud.go.id">
+                        <span class="menu-title">Webiste Lembaga</span>
+                        <span class="menu-arrow d-lg-none"></span>
+                    </a>
+                </div>
             @endif
         </div>
         <!--end::Menu-->

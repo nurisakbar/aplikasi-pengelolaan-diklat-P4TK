@@ -195,25 +195,26 @@
                             </div>
                         </div>
                         <div class="fv-row mb-10">
-                            <!--begin::Label-->
-                            <label class="form-label fs-6 fw-bolder text-dark">Captcha</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <div class="captcha mb-3">
-                                <span>{!! captcha_img() !!}</span>
-                                <button type="button" class="btn btn-danger" class="reload" id="reload">
-                                    &#x21bb;
-                                </button>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input name="captcha"
+                                    class="@error('captcha') is-invalid @enderror form-control form-control-lg form-control-solid"
+                                    type="text" placeholder="Kode Captha" name="captcha" />
+                                @error('captcha')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="captcha mb-3">
+                                        <span>{!! captcha_img() !!}</span>
+                                        <button type="button" class="btn btn-danger" class="reload" id="reload">
+                                            &#x21bb;
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            <input name="captcha"
-                                class="@error('captcha') is-invalid @enderror form-control form-control-lg form-control-solid"
-                                type="text" placeholder="Masukan kode captcha diatas" name="captcha" />
-                            @error('captcha')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                            <!--end::Input-->
                         </div>
 
                         <!--begin::Actions-->

@@ -25,7 +25,7 @@
                         <div class="card-title m-0">
                             <!--begin::Avatar-->
                             <div class="symbol symbol-50px w-50px bg-light">
-                                <img src="{{asset('assets/media/svg/brand-logos/plurk.svg')}}" alt="image" class="p-3">
+                                <img src="{{asset('LOGO-BAru-2020.png')}}" alt="image" class="p-3">
                             </div>
                             <!--end::Avatar-->
                         </div>
@@ -49,14 +49,14 @@
                         <div class="d-flex flex-wrap mb-5">
                             <!--begin::Due-->
                             <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
-                                <div class="fs-6 text-gray-800 fw-bolder">{{ $d->tanggal_mulai }}</div>
+                                <div class="fs-6 text-gray-800 fw-bolder">{{ date('d F Y', strtotime($d->tanggal_mulai)) }}</div>
                                 <div class="fw-bold text-gray-400">Tanggal Mulai</div>
                             </div>
 
                             <!--end::Due-->
                             <!--begin::Budget-->
                             <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                                <div class="fs-6 text-gray-800 fw-bolder">{{ $d->tanggal_selesai }}</div>
+                                <div class="fs-6 text-gray-800 fw-bolder">{{ date('d F Y', strtotime($d->tanggal_selesai)) }}</div>
                                 <div class="fw-bold text-gray-400">Tanggal Selesai</div>
                             </div>
                             <!--end::Budget-->
