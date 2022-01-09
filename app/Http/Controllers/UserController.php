@@ -96,7 +96,6 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $data['jabatan'] = $this->jabatan;
         $data['user']   = User::find($id);
         return view('user.edit', $data);
     }
@@ -112,11 +111,13 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $data = $request->all();
+
         if ($request->password != null) {
             $data['password'] = Hash::make($request->password);
         } else {
             unset($data['password']);
         }
+
         $user->update($data);
         \Session::flash('message', 'Berhasil Mengupdate Data ' . $request->name);
         if ($request->has('page')) {
