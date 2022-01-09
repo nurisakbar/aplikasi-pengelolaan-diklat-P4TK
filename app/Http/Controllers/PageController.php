@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Diklat;
 use Mail;
+use App\BidangKeahlian;
 
 class PageController extends Controller
 {
@@ -21,10 +22,6 @@ class PageController extends Controller
     public function dashboard()
     {
         return view('dashboard');
-    }
-
-    public function diklatDetail()
-    {
     }
 
     public function pendaftaran()
@@ -85,7 +82,7 @@ class PageController extends Controller
         $gtk->update(['is_approve' => 1]);
 
         \Session::flash('message', 'Akun bernama <strong>' . $gtk->nama_lengkap . '</strong> berhasil diapprove.');
-        return redirect('gtk');
+        return redirect('daftarApprove');
     }
 
     public function doLogin(LoginRequest $request)
@@ -105,5 +102,40 @@ class PageController extends Controller
     public function reloadCaptcha()
     {
         return response()->json(['captcha' => captcha_img()]);
+    }
+
+
+    public function lupaPassword()
+    {
+        return view('lupa-password');
+    }
+
+    public function lupaPasswordAct(Request $request)
+    {
+        $gtk = Gtk::where('email', $request->email)->first();
+        if ($gtk) {
+            // send email
+            $password = \Str::random(8);
+            $gtk->update(['password' => \Hash::make($password)]);
+            $to_name = $gtk->nama_lengkap;
+            $to_email = $request->email;
+            $data = array('name' => $to_name, "body" => "Konfirmasi Pendaftaran",'password' => $password,'email' => $to_email);
+            \Mail::send('emails.konfirmasi_email_lupa_password', $data, function ($message) use ($to_name, $to_email) {
+                $message->to($to_email, $to_name)->subject('Konfirmasi Lupa Password');
+                $message->from(ENV('MAIL_FROM_ADDRESS'), ENV('MAIL_FROM_NAME'));
+            });
+
+            return redirect('lupa-password')->with('failed', 'Berhasil, Password Baru Sudah Dikirim Ke Email Anda');
+        } else {
+            return back()->with('failed', 'Email anda tidak ditemukan');
+        }
+    }
+
+    public function diklatDetail($slug)
+    {
+        $data['bidangKeahlian'] = BidangKeahlian::all();
+        $data['diklat']         = Diklat::find($slug);
+        $data['diklatTerkait']  = Diklat::all();
+        return view('diklat-detail', $data);
     }
 }

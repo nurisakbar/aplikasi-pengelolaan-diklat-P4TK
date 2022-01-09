@@ -18,7 +18,7 @@
             @foreach ($diklat as $d)
             <div class="col-md-6 col-xl-4">
                 <!--begin::Card-->
-                <a href="/link" class="card border-hover-primary">
+                <a href="/diklat/detail/{{ $d->id}}" class="card border-hover-primary">
                     <!--begin::Card header-->
                     <div class="card-header border-0 pt-9">
                         <!--begin::Card Title-->
@@ -1960,11 +1960,3 @@
     <!--end::Post-->
 </div>
 @endsection
-
-@push('scripts')
-
-@endpush
-
-@push('css')
-
-@endpush

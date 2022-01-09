@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ProgramKeahlian;
 use App\Regency;
+use App\DiklatPeserta;
+use App\DiklatKelas;
 
 class AjaxController extends Controller
 {
@@ -48,5 +50,15 @@ class AjaxController extends Controller
     {
         $regencies = Regency::where('province_id', $request->provinsi)->pluck('name', 'id');
         return \Form::select('regency_id', $regencies, null, ['class' => 'form-select form-select-solid', 'data-kt-select2' => 'true', 'data-placeholder' => 'Select option']);
+    }
+
+    public function daftarDiklatMandiri(Request $request)
+    {
+
+        $kelas = DiklatKelas::where('diklat_id', $request->diklat_id)->firstOrFail();
+        $request['kelas_id'] = $kelas->id;
+        $result      = DiklatPeserta::create($request->all());
+        $result['status'] = "ok";
+        return response()->json($result);
     }
 }

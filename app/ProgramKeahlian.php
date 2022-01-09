@@ -15,4 +15,9 @@ class ProgramKeahlian extends Model
     {
         return $this->belongsTo(\App\BidangKeahlian::class, 'bidang_keahlian_id', 'id');
     }
+
+    public function diklat()
+    {
+        return $this->hasMany(\App\Diklat::class);
+    }
 }
