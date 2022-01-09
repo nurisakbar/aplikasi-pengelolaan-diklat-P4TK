@@ -1,18 +1,16 @@
 @extends('layouts.app')
-@section('title', 'Data Approve')
+@section('title', 'Data Role')
 @section('content')
+    @include('role.toolbar')
     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
         <div class="content flex-row-fluid" id="kt_content">
             @include('alert')
-            <table class="table table-rounded table-striped border gy-7 gs-7" id="approve-table">
+            <table class="table table-rounded table-striped border gy-7 gs-7" id="roles-table">
                 <thead>
                     <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                        <th width="10">Nomor</th>
-                        <th>Nama Lengkap</th>
-                        <th>NIK</th>
-                        <th>NUPTk</th>
-                        <th>Jabatan</th>
-                        <th width="150">#</th>
+                        <th width="10">No</th>
+                        <th>Nama</th>
+                        <th width="120">#</th>
                     </tr>
                 </thead>
             </table>
@@ -23,30 +21,18 @@
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script>
         $(function() {
-            $('#approve-table').DataTable({
+            $('#roles-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '/daftarApprove',
+                ajax: '/role',
                 columns: [{
                         data: 'DT_RowIndex',
                         orderable: false,
                         searchable: false
                     },
                     {
-                        data: 'nama_lengkap',
-                        name: 'nama_lengkap'
-                    },
-                    {
-                        data: 'nik',
-                        name: 'nik'
-                    },
-                    {
-                        data: 'nuptk',
-                        name: 'nuptk'
-                    },
-                    {
-                        data: 'jabatan',
-                        name: 'jabatan'
+                        data: 'name',
+                        name: 'name'
                     },
                     {
                         data: 'action',
