@@ -45,15 +45,14 @@
                 <!--begin::Wrapper-->
                 <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
                     <!--begin::Form-->
-                    <form class="form w-100" method="POST" novalidate="novalidate" id="kt_sign_in_form"
-                        action="{{ route('login.gtk') }}">
+                    <form class="form w-100" method="POST" novalidate="novalidate" id="kt_sign_in_form" action="/lupa-password">
                         @csrf()
                         <!--begin::Heading-->
                         <div class="text-center mb-10">
                             <!--begin::Title-->
-                            <h1 class="text-dark mb-3">Login GTK</h1>
-                            <div class="text-gray-400 fw-bold fs-4">Belum Punya Akun ?
-                                <a href="{{ url('pendaftaran') }}" class="link-primary fw-bolder">Daftar Disini</a>
+                            <h1 class="text-dark mb-3">Lupa Password</h1>
+                            <div class="text-gray-400 fw-bold fs-4">Sudah Punya Akun ?
+                                <a href="{{ url('masuk') }}" class="link-primary fw-bolder">Login Disini</a>
                             </div>
                         </div>
                         @if (session('failed'))
@@ -79,25 +78,6 @@
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-10">
-                            <!--begin::Wrapper-->
-                            <div class="d-flex flex-stack mb-2">
-                                <!--begin::Label-->
-                                <label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
-                            </div>
-                            <!--end::Wrapper-->
-                            <!--begin::Input-->
-                            <input name="password"
-                                class="{{ $errors->has('password') ? 'is-invalid' : '' }} form-control form-control-lg form-control-solid"
-                                type="password" placeholder="Masukan Password" name="password" autocomplete="off" />
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                            <!--end::Input-->
-                        </div>
                         <!--end::Input group-->
                         <div class="fv-row mb-10">
                             <div class="row">
@@ -126,7 +106,7 @@
                         <div class="text-center">
                             <!--begin::Submit button-->
                             <button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
-                                Masuk Ke Sistem
+                                Kirim Password Ke Email Saya
                             </button>
                         </div>
                         <div class="text-center text-muted text-uppercase fw-bolder mb-5">Atau</div>

@@ -188,12 +188,6 @@
                         <span class="menu-arrow d-lg-none"></span>
                     </a>
                 </div>
-                <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
-                    <a class="menu-link py-3" href="{{ url('/list-diklat') }}">
-                        <span class="menu-title">Daftar Diklat</span>
-                        <span class="menu-arrow d-lg-none"></span>
-                    </a>
-                </div>
                 @if (!Auth::guard('gtk')->check())
                     <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
                         <a class="menu-link py-3" href="{{ url('/pendaftaran') }}">
@@ -204,6 +198,12 @@
                     <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
                         <a class="menu-link py-3" href="{{ url('/masuk') }}">
                             <span class="menu-title">Login Pengguna</span>
+                            <span class="menu-arrow d-lg-none"></span>
+                        </a>
+                    </div>
+                    <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
+                        <a class="menu-link py-3" href="{{ url('/lupa-password') }}">
+                            <span class="menu-title">Lupas Password</span>
                             <span class="menu-arrow d-lg-none"></span>
                         </a>
                     </div>

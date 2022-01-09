@@ -111,7 +111,8 @@ class DiklatController extends Controller
             $peserta = $data['diklat']->peserta;
             return \DataTables::of($peserta)
                 ->addColumn('action', function ($row) {
-                    $btn = '<a class="btn btn-danger btn-sm" href="/gtk/' . $row->gtk->id . '"><i class="fas fa-eye" aria-hidden="true"></i></a> ';
+                    $btn = '<button class="btn btn-danger btn-sm" onclick="hapusPeserta(' . $row->id . ')"><i class="fa fa-trash" aria-hidden="true"></i></button> ';
+                    $btn .= '<button class="btn btn-danger btn-sm" onclick="buka_modal_ubah_status(' . $row->id . ')"><i class="fa fa-edit" aria-hidden="true"></i></button> ';
                     return $btn;
                 })
                 ->rawColumns(['action'])
