@@ -167,6 +167,7 @@ return [
         ConsoleTVs\Charts\ChartsServiceProvider::class,
         Sentry\Laravel\ServiceProvider::class,
         Mews\Captcha\CaptchaServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Package Service Providers...
