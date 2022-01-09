@@ -7,14 +7,13 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserCreateRequest;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    protected $jabatan;
     public function __construct()
     {
         $this->middleware('auth');
-        $this->jabatan = ['administrator' => 'Administrator', 'karyawan' => 'Karyawan'];
     }
     /**
      * Display a listing of the resource.
@@ -56,7 +55,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $data['jabatan'] = $this->jabatan;
+        $data['roles'] = Role::pluck('name', 'name');
         return view('user.create', $data);
     }
 
@@ -71,7 +70,9 @@ class UserController extends Controller
         $data               = $request->all();
 
         $data['password']   = Hash::make($request->password);
-        User::create($data);
+        $user = User::create($data);
+        $user->assignRole($request->role);
+
         \Session::flash('message', 'Berhasil Menambahkan Data');
         return redirect('user');
     }
@@ -95,7 +96,6 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $data['jabatan'] = $this->jabatan;
         $data['user']   = User::find($id);
         return view('user.edit', $data);
     }
@@ -111,11 +111,13 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $data = $request->all();
+
         if ($request->password != null) {
             $data['password'] = Hash::make($request->password);
         } else {
             unset($data['password']);
         }
+
         $user->update($data);
         \Session::flash('message', 'Berhasil Mengupdate Data ' . $request->name);
         if ($request->has('page')) {

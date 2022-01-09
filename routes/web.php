@@ -33,6 +33,7 @@ Route::resource('bidangkeahlian', 'BidangKeahlianController');
 Route::resource('programkeahlian', 'ProgramKeahlianController');
 Route::resource('kompetensikeahlian', 'KompetensiKeahlianController');
 Route::resource('departemen', 'DepartemenController');
+Route::resource('role', 'RoleController');
 Route::post('tambah-kelas-diklat', 'DiklatController@tambahKelasDiklat');
 Route::get('logout', 'LogoutController');
 Route::get('list-diklat', 'AccessGtkController@index');
@@ -54,8 +55,14 @@ Route::get('daftarApprove/{id}', 'GtkController@showApprove');
 Route::get('/ajax/select2Daerah', 'AjaxController@select2Daerah');
 Route::get('/pendaftaran', 'PageController@pendaftaran');
 Route::get('/masuk', 'PageController@masuk');
+Route::get('/lupa-password', 'PageController@lupaPassword');
+Route::post('/lupa-password', 'PageController@lupaPasswordAct');
 Route::post('login/gtk', 'PageController@doLogin')->name('login.gtk');
 
 Route::get('/reload-captcha', 'PageController@reloadCaptcha');
-Route::get('socialite/redirect', 'SocialiteController@redirect');
-Route::get('socialite/callback', 'SocialiteController@callback');
+
+Route::get('socialite/redirect','SocialiteController@redirect');
+Route::get('socialite/callback','SocialiteController@callback');
+Route::get('diklat/detail/{slug}','PageCOntroller@diklatDetail');
+Route::get('ajax/daftar-diklat-mandiri','AjaxController@daftarDiklatMandiri');
+

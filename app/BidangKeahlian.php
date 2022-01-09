@@ -9,4 +9,9 @@ class BidangKeahlian extends Model
     protected $table = "bidang_keahlian";
 
     protected $fillable = ['nama_bidang_keahlian'];
+
+    public function programKeahlian()
+    {
+        return $this->hasMany(\App\ProgramKeahlian::class);
+    }
 }
