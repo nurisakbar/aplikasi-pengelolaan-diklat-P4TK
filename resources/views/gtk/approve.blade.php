@@ -1,6 +1,37 @@
 @extends('layouts.app')
-@section('title', 'Data Approve')
+@section('title', 'Daftar Approve')
 @section('content')
+    <!--begin::Toolbar-->
+    <div class="toolbar py-5 py-lg-5" id="kt_toolbar">
+        <!--begin::Container-->
+        <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
+            <!--begin::Page title-->
+            <div class="page-title d-flex flex-column me-3">
+                <!--begin::Title-->
+                <h1 class="d-flex text-dark fw-bolder my-1 fs-3">Daftar GTK</h1>
+                <!--end::Title-->
+                <!--begin::Breadcrumb-->
+                <ul class="breadcrumb breadcrumb-dot fw-bold text-gray-600 fs-7 my-1">
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item text-gray-600">
+                        <a href="https://preview.keenthemes.com/metronic8/demo11/../demo11/index.html"
+                            class="text-gray-600 text-hover-primary">Home</a>
+                    </li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item text-gray-600">GTK</li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item text-gray-600">Daftar Approve</li>
+                    <!--end::Item-->
+                </ul>
+                <!--end::Breadcrumb-->
+            </div>
+            <!--end::Page title-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Toolbar-->
     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
         <div class="content flex-row-fluid" id="kt_content">
             @include('alert')
@@ -12,7 +43,7 @@
                         <th>NIK</th>
                         <th>NUPTk</th>
                         <th>Jabatan</th>
-                        <th width="150">#</th>
+                        <th width="200">#</th>
                     </tr>
                 </thead>
             </table>
