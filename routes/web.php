@@ -34,6 +34,8 @@ Route::resource('programkeahlian', 'ProgramKeahlianController');
 Route::resource('kompetensikeahlian', 'KompetensiKeahlianController');
 Route::resource('departemen', 'DepartemenController');
 Route::resource('role', 'RoleController');
+Route::resource('permission', 'PermissionController');
+Route::post('changePermission', 'RoleController@changePermission');
 Route::post('tambah-kelas-diklat', 'DiklatController@tambahKelasDiklat');
 Route::get('logout', 'LogoutController');
 Route::get('list-diklat', 'AccessGtkController@index');
