@@ -51,7 +51,7 @@ class PageController extends Controller
     }
 
 
-public function showApprove($id)
+    public function showApprove($id)
     {
         $data['gtk'] = Gtk::findOrFail($id);
 

@@ -39,7 +39,7 @@
                     <input type="hidden" value="{{ csrf_token() }}" id="csrf-token">
                 </div>
             </div>
-
+            <a href="{{ url('role?notif=success')}}" class="btn btn-primary">Simpan Perubahan</a>
         </div>
     </div>
 @endsection

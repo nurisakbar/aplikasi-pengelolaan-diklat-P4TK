@@ -32,12 +32,14 @@
                 </div>
 
 
-                <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
-                    <a class="menu-link py-3" href="{{ url('diklat') }}">
-                        <span class="menu-title">Data Diklat</span>
-                        <span class="menu-arrow d-lg-none"></span>
-                    </a>
-                </div>
+                @if(auth()->user()->can('Diklat Lihat Module Diklat'))
+                    <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
+                        <a class="menu-link py-3" href="{{ url('diklat') }}">
+                            <span class="menu-title">Data Diklat</span>
+                            <span class="menu-arrow d-lg-none"></span>
+                        </a>
+                    </div>
+                @endif
 
                 <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
                     <a class="menu-link py-3" href="{{ url('instansi') }}">

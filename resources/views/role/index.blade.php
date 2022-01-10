@@ -5,6 +5,15 @@
     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
         <div class="content flex-row-fluid" id="kt_content">
             @include('alert')
+            @if($notif=='success')
+            <div class="alert alert-primary">
+                <span class="svg-icon svg-icon-2hx svg-icon-primary me-3">...</span>
+                <div class="d-flex flex-column">
+                    <h4 class="mb-1 text-dark">Notifikasi</h4>
+                    <span>Perubahan Permission Berhasil Disimpan</span>
+                </div>
+            </div>
+            @endif
             <table class="table table-rounded table-striped border gy-7 gs-7" id="roles-table">
                 <thead>
                     <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">

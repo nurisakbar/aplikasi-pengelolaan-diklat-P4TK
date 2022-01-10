@@ -30,7 +30,8 @@ class RoleController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        return view('role.index');
+        $data['notif'] = $request->notif;
+        return view('role.index', $data);
     }
 
     /**
