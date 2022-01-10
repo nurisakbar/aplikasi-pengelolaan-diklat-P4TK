@@ -1,16 +1,16 @@
 @extends('layouts.app')
-@section('title', 'Data Role')
+@section('title', 'Data Permission')
 @section('content')
-    @include('role.toolbar')
+    @include('permission.toolbar')
     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
         <div class="content flex-row-fluid" id="kt_content">
             @include('alert')
-            <table class="table table-rounded table-striped border gy-7 gs-7" id="roles-table">
+            <table class="table table-rounded table-striped border gy-7 gs-7" id="permissions-table">
                 <thead>
                     <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                         <th width="10">No</th>
                         <th>Nama</th>
-                        <th width="170">#</th>
+                        <th width="120">#</th>
                     </tr>
                 </thead>
             </table>
@@ -21,10 +21,10 @@
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script>
         $(function() {
-            $('#roles-table').DataTable({
+            $('#permissions-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '/role',
+                ajax: '/permission',
                 columns: [{
                         data: 'DT_RowIndex',
                         orderable: false,

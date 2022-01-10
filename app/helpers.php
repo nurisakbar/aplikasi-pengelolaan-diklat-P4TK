@@ -1,5 +1,7 @@
 <?php
 
+use Spatie\Permission\Models\Role;
+
 function hitung_absensi($user_id, $periode_awal, $periode_akhir, $status_kehadiran)
 {
     $absensi = \App\Absensi::where('user_id', $user_id)
@@ -102,4 +104,13 @@ function tgl_indo($tanggal)
     );
     $pecahkan = explode('-', $tanggal);
     return $pecahkan[2] . ' ' . $bulan[(int)$pecahkan[1]] . ' ' . $pecahkan[0];
+}
+
+function check_access($role_id, $permission)
+{
+    $role = Role::findById($role_id);
+
+    if ($role->hasPermissionTo($permission)) {
+        return 'checked';
+    }
 }

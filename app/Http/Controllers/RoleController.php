@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RoleCreateRequest;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
@@ -22,6 +23,7 @@ class RoleController extends Controller
                     $btn .= "<button type='submit' class='btn btn-danger btn-sm'><i class='fa fa-trash' aria-hidden='true'></i></button>";
                     $btn .= \Form::close();
                     $btn .= '<a class="btn btn-danger btn-sm" href="/role/' . $role->id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a>';
+                    $btn .= '<a class="btn btn-danger btn-sm mx-1" href="/role/' . $role->id . '"><i class="fas fa-eye" aria-hidden="true"></i></a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -62,7 +64,9 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['role'] = Role::findOrFail($id);
+        $data['permissions'] = Permission::all();
+        return view('role.show', $data);
     }
 
     /**
@@ -104,5 +108,17 @@ class RoleController extends Controller
         $role->delete();
         \Session::flash('message', 'Berhasil Menghapus Data Role');
         return redirect('role');
+    }
+
+    public function changePermission(Request $request)
+    {
+        $role = Role::findById($request->role_id);
+        if ($role->hasPermissionTo($request->permission)) {
+            $role->revokePermissionTo($request->permission);
+        } else {
+            $role->givePermissionTo($request->permission);
+        }
+
+        // \Session::flash('message', 'Berhasil Update Permission Role ' . $role->name);
     }
 }
