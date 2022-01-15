@@ -119,7 +119,7 @@ class PageController extends Controller
     {
         $data['bidangKeahlian'] = BidangKeahlian::all();
         $data['diklat']         = Diklat::find($slug);
-        $data['diklatTerkait']  = Diklat::all();
+        $data['diklatTerkait']  = Diklat::limit(5)->get();
         return view('diklat-detail', $data);
     }
 }
