@@ -20,14 +20,6 @@ class DepartemenController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-
-    public function verify()
-    {
-        if (Auth::user()->level != 'administrator') {
-            abort(404);
-        }
-    }
-
     public function index(Request $request)
     {
         $this->verify();
