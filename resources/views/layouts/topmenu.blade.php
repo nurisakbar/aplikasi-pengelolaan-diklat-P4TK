@@ -51,7 +51,7 @@
                 <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start"
                     class="menu-item menu-lg-down-accordion me-lg-1">
                     <a class="menu-link py-3"
-                        href="https://preview.keenthemes.com/metronic8/demo11/../demo11/index.html">
+                        href="#">
                         <span class="menu-title">Data Keahlian</span>
                         <span class="menu-arrow d-lg-none"></span>
                     </a>

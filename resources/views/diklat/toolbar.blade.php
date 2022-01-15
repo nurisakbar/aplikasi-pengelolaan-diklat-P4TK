@@ -78,7 +78,7 @@
           <button type="button" class="btn btn-primary" style="margin-right:10px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Import
           </button> 
-          @if(auth()->user()->can('tambah diklat'))
+          @if(auth()->user()->can('Diklat Tambah Diklat'))
             <a href="{{ url('diklat/create')}}" class="btn btn-primary fw-bolder">Tambah Diklat Baru</a>
          @endif
        </div>
