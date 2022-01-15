@@ -87,9 +87,9 @@ $(function() {
         columns: [
             { data: 'nomor_ukg', name: 'nomor_ukg' },
             { data: 'nama_lengkap', name: 'nama_lengkap' },
-            { data: 'instansi.nama_instansi', name: 'instansi.nama_instansi' },
-            { data: 'instansi.wilayah_administratif.regency_name', name: 'instansi.wilayah_administratif.regency_name' },
-            { data: 'instansi.wilayah_administratif.province_name', name: 'instansi.wilayah_administratif.province_name' },
+            { data: 'nama_instansi', name: 'nama_instansi' },
+            { data: 'nama_kabupaten', name: 'nama_kabupaten' },
+            { data: 'nama_provinsi', name: 'nama_provinsi' },
             { data: 'keterangan', name: 'keterangan' },
             { data: 'pilih', name: 'pilih' }
         ]

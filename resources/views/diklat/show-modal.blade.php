@@ -180,6 +180,14 @@
                    <td>Pilih Kelas</td>
                    <td>{{ Form::select('kelas_id',$kelas,null,['class'=>'form-control','id'=>'kelas'])}}</td>
                </tr>
+               <tr>
+                   <td>Kirim Notifikasi WA</td>
+                   <td>
+                       <input type="radio" name="notif_wa" value="1" checked> Ya
+
+                       <input type="radio" name="notif_wa" value="0"> Tidak
+                   </td>
+               </tr>
            </table>
             </div>
 
