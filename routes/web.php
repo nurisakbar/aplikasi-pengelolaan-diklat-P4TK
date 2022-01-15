@@ -65,6 +65,6 @@ Route::get('/reload-captcha', 'PageController@reloadCaptcha');
 
 Route::get('socialite/redirect','SocialiteController@redirect');
 Route::get('socialite/callback','SocialiteController@callback');
-Route::get('diklat/detail/{slug}','PageCOntroller@diklatDetail');
+Route::get('diklat/detail/{slug}','PageController@diklatDetail');
 Route::get('ajax/daftar-diklat-mandiri','AjaxController@daftarDiklatMandiri');
 
