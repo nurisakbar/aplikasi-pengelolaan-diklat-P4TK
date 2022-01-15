@@ -22,7 +22,6 @@ class DepartemenController extends Controller
 
     public function index(Request $request)
     {
-        $this->verify();
         if ($request->ajax()) {
             return \DataTables::of(Departemen::get())
                 ->addColumn('action', function ($departemen) {
