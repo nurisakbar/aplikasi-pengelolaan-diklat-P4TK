@@ -206,11 +206,11 @@
                             name: 'nomor_hp'
                         },
                         {
-                            data: 'instansi.nama_instansi',
-                            name: 'instansi.nama_instansi'
+                            data: 'nama_instansi',
+                            name: 'nama_instansi'
                         },
                         {
-                            data: 'instansi.wilayah_administratif.province_name'
+                            data: 'nama_provinsi'
                         },
                         {
                             data: 'action',

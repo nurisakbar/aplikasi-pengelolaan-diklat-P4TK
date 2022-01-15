@@ -42,9 +42,9 @@
                 { data: 'jenis_instansi', name: 'jenis_instansi' },
                 { data: 'status', name: 'status' },
                 { data: 'telepon', name: 'telepon' },
-                { data: 'wilayah_administratif.district_name'},
-                { data: 'wilayah_administratif.regency_name' },
-                { data: 'wilayah_administratif.province_name'},
+                { data: 'nama_kecamatan'},
+                { data: 'nama_kabupaten' },
+                { data: 'nama_provinsi'},
                 { data: 'action', name: 'action' }
             ]
         });

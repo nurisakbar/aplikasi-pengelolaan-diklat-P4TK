@@ -11,7 +11,7 @@
                     <th width="10">No</th>
                     <th>Nama</th>
                     <th>Email</th>
-                    <th>Jabatan</th>
+                    <th>Hak Akses</th>
                     <th width="120">#</th>
                 </tr>
             </thead>
@@ -31,7 +31,7 @@
                 {data: 'DT_RowIndex', orderable: false, searchable: false},
                 { data: 'name', name: 'name' },
                 { data: 'email', name: 'email' },
-                { data: 'level', name: 'level' },
+                { data: 'role_name', name: 'role_name' },
                 { data: 'action', name: 'action' }
             ]
         });

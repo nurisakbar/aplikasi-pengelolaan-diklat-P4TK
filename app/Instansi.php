@@ -10,10 +10,10 @@ class Instansi extends Model
 
     protected $guarded = ['id'];
 
-    // public function district()
-    // {
-    //     return $this->belongsTo(\App\District::class);
-    // }
+    public function district()
+    {
+        return $this->belongsTo(\App\District::class);
+    }
 
     public function wilayahAdministratif()
     {

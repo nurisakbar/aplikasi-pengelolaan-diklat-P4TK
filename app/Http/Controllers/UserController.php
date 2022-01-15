@@ -21,19 +21,15 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-
-    public function verify()
-    {
-        if (Auth::user()->level != 'administrator') {
-            abort(404);
-        }
-    }
-
     public function index(Request $request)
     {
-        $this->verify();
+
         if ($request->ajax()) {
-            return \DataTables::of(User::get())
+            $users = User::select('users.*', 'roles.name as role_name')
+                    ->join('model_has_roles', 'model_has_roles.model_id', 'users.id')
+                    ->join('roles', 'roles.id', 'model_has_roles.role_id')
+                    ->get();
+            return \DataTables::of($users)
                 ->addColumn('action', function ($user) {
                     $btn = \Form::open(['url' => 'user/' . $user->id, 'method' => 'DELETE', 'style' => 'float:right;margin-right:5px']);
                     $btn .= "<button type='submit' class='btn btn-danger btn-sm'><i class='fa fa-trash' aria-hidden='true'></i></button>";
@@ -96,6 +92,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $data['roles'] = Role::pluck('name', 'name');
         $data['user']   = User::find($id);
         return view('user.edit', $data);
     }

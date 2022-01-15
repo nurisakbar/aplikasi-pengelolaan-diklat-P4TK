@@ -25,49 +25,28 @@ class InstansiController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            \Log::info($request->all());
-            $search         = $request->input('search.value');
-            $columns        = $request->get('columns');
-            $count_total    = Instansi::count();
-            $count_filter   = Instansi::where('nama_instansi', 'LIKE', '%' . $search . '%')
-                ->orWhere('alamat', 'LIKE', '%' . $search . '%')
-                ->count();
+            $items = Instansi::select('instansi.*', 'districts.name as nama_kecamatan', 'regencies.name as nama_kabupaten', 'provinces.name as nama_provinsi')
+            ->join('districts', 'districts.id', 'instansi.district_id')
+            ->join('regencies', 'regencies.id', 'districts.regency_id')
+            ->join('provinces', 'provinces.id', 'regencies.province_id');
 
-
-            //$items = Instansi::join('view_wilayah_administratif_indonesia', 'view_wilayah_administratif_indonesia.district_id', 'instansi.district_id');
-
-            // if ($request->province_id != '' || $request->province_id!='null') {
-            //     $items = Instansi::with(
-            //         ['wilayahAdministratif' => function ($query) use ($request) {
-            //             $query->where('province_id', $request->province_id);
-            //         }]
-            //     );
-            // } else {
-            //     $items          = Instansi::with('wilayahAdministratif');
-            // }
-
-
-
-            if ($request->has('province_id')) {
-                $province_id = $request->province_id;
-                if (!in_array($province_id, ['null', null])) {
-                    $items = Instansi::with(
-                        ['wilayahAdministratif' => function ($query) use ($request) {
-                            $query->where('province_id', $request->province_id);
-                        }]
-                    );
-                } else {
-                    $items          = Instansi::with('wilayahAdministratif');
-                }
-            }
-
+            // filter berdasarkan pencarian nama instansi
             if ($request->has('nama_instansi')) {
-                if (!in_array($request->nama_instansi, ['null', null])) {
+                if (!in_array($request->nama_instansi, ['null', null,''])) {
                     $items->where('nama_instansi', 'like', "%" . $request->nama_instansi . "%");
                 }
             }
 
+            // filter berdasarkan nama provinsi
+            if ($request->has('province_id')) {
+                if (!in_array($request->province_id, ['null', null,''])) {
+                    $items->where('instansi.province_id', $request->province_id);
+                }
+            }
+
             $count_filter = $items->count();
+            $count_total = $items->count();
+
             $items->take(10);
 
             return \DataTables::of($items)
@@ -111,6 +90,13 @@ class InstansiController extends Controller
     {
         $request['jenis_instansi'] = 'Sekolah';
         $request['nama_instansi'] = strtoupper($request->nama_instansi);
+
+        $wilayahAdministratif = \DB::table('view_wilayah_administratif_indonesia')
+                                ->where('district_id', $request->district_id)
+                                ->limit(1)
+                                ->get();
+        $request['regency_id']  = $wilayahAdministratif[0]->regency_id;
+        $request['province_id'] = $wilayahAdministratif[0]->province_id;
         Instansi::create($request->all());
         \Session::flash('message', 'Data Instansi Berhasil Ditambahkan');
 
@@ -163,6 +149,12 @@ class InstansiController extends Controller
     public function update(InstansiCreateRequest $request, $id)
     {
         $instansi = Instansi::findOrFail($id);
+        $wilayahAdministratif = \DB::table('view_wilayah_administratif_indonesia')
+        ->where('district_id', $request->district_id)
+        ->limit(1)
+        ->get();
+        $request['regency_id']  = $wilayahAdministratif[0]->regency_id;
+        $request['province_id'] = $wilayahAdministratif[0]->province_id;
         $instansi->update($request->all());
         \Session::flash('message', 'Data Instansi Berhasil Diperbaharui');
         return redirect('instansi');

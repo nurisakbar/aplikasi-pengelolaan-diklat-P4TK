@@ -26,6 +26,8 @@ class GtkController extends Controller
 
     public function index(Request $request)
     {
+
+
         if ($request->ajax()) {
             $search         = $request->input('search.value');
             $columns        = $request->get('columns');
@@ -35,7 +37,12 @@ class GtkController extends Controller
                 ->orWhere('gtk.nomor_ukg', 'LIKE', '%' . $search . '%')
                 ->count();
 
-            $items = Gtk::with('instansi.wilayahAdministratif')->orderBy('nomor_ukg', 'ASC')->take(10);
+            $items = GTK::select('gtk.id', 'jenis_kelamin', 'instansi.nama_instansi', 'nomor_hp', 'nama_lengkap', 'nomor_ukg', 'districts.name as nama_kecamatan', 'regencies.name as nama_kabupaten', 'provinces.name as nama_provinsi')
+            ->join('instansi', 'instansi.id', 'gtk.instansi_id')
+            ->join('districts', 'districts.id', 'instansi.district_id')
+            ->join('regencies', 'regencies.id', 'districts.regency_id')
+            ->join('provinces', 'provinces.id', 'regencies.province_id')
+            ->limit(10);
 
             return \DataTables::of($items)
                 ->with([
@@ -88,6 +95,7 @@ class GtkController extends Controller
      */
     public function store(GtkCreateRequest $request)
     {
+        $request['is_approve'] = 1;
         Gtk::create($request->all());
         \Session::flash('message', 'Data Gtk Berhasil Ditambahkan');
         return redirect('gtk');
