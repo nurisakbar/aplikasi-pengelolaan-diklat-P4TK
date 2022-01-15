@@ -249,8 +249,10 @@
     </div>
     <!--end::Post-->
 </div>
-<input type="hidden" id="diklat_id" name="diklat_id" value="{{$diklat->id}}">
-<input type="hidden" id="user_id" name="user_id" value="{{Auth::guard('gtk')->user()->id}}">
+@if(Auth::guard('gtk')->check())
+    <input type="hidden" id="diklat_id" name="diklat_id" value="{{$diklat->id}}">
+    <input type="hidden" id="user_id" name="user_id" value="{{Auth::guard('gtk')->user()->id}}">
+@endif
 @endsection
 
 @push('scripts')
