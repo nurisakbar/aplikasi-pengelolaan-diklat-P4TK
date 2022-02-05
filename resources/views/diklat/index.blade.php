@@ -9,7 +9,7 @@
             <thead>
                 <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                     <th width="10">Nomor</th>
-                    <th>Nama Diklat</th>
+                    <th>Nama Kegiatan/ Diklat</th>
                     <th>Kategori</th>
                     <th>Kompetensi Keahlian</th>
                     <th>Tahun Pelaksaan</th>
@@ -63,8 +63,10 @@
              
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-              <button type="submit" class="btn btn-primary">Upload Dan Proses</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+              <a href="{{asset('Laporan-AJUAN-Pemrograman-CNC-Turning-dan-Milling-241220212013.xlsx')}}" class="btn btn-secondary">Download Template Import</a>
+              
+              <button type="submit" class="btn btn-danger">Upload Dan Proses</button>
             </div>
             {{Form::close()}}
           </div>

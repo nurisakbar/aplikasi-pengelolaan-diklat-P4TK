@@ -31,7 +31,7 @@ class PendaftaranCreateRequest extends FormRequest
             'domisi_alamat_jalan' => 'required',
             'nomor_hp'              => 'required',
             'jabatan'               => 'required',
-            'email'                 => 'required',
+            'email'                 => 'required|unique:gtk,email',
             'password'              => 'required|min:5',
             'confirm_password'      => 'required|same:password',
             'captcha'               => 'required|captcha'

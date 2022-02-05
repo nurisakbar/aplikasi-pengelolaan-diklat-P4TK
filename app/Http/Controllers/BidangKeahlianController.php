@@ -42,6 +42,9 @@ class BidangKeahlianController extends Controller
                 $btn .= '<a class="btn btn-danger btn-sm" href="/bidangkeahlian/' . $row->id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a> ';
                 return $btn;
             })
+            ->addColumn('jenis', function ($row) {
+                return $row->jenis=='adaptif'?'Adaptif':'Produktif';
+            })
             ->rawColumns(['action'])
             ->addIndexColumn()
             ->make(true);

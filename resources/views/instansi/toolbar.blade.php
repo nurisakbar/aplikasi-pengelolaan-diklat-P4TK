@@ -90,6 +90,7 @@
             console.log(response.nopes);
             $('#kabupaten').html(response);
          }
-    })}
+    })
+   }
  </script>
  @endpush

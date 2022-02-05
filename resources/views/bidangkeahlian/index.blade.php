@@ -10,6 +10,7 @@
                 <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                     <th width="10">Nomor</th>
                     <th>Nama Bidang Keahlian</th>
+                    <th Width="200">Jenis Bidang Keahlian</th>
                     <th width="120">#</th>
                 </tr>
             </thead>
@@ -28,6 +29,7 @@
             columns: [
                 {data: 'DT_RowIndex', orderable: false, searchable: false},
                 { data: 'nama_bidang_keahlian', name: 'nama_bidang_keahlian' },
+                { data: 'jenis', name: 'jenis' },
                 { data: 'action', name: 'action' }
             ]
         });

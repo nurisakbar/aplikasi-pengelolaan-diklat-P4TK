@@ -8,6 +8,7 @@ use App\Http\Requests\GtkCreateRequest;
 use App\Gtk;
 use Auth;
 use Storage;
+use App\Provinsi;
 
 class GtkController extends Controller
 {
@@ -32,19 +33,37 @@ class GtkController extends Controller
             $search         = $request->input('search.value');
             $columns        = $request->get('columns');
             $count_total    = Gtk::count();
-            $count_filter   = Gtk::with('instansi.wilayahAdministratif')
-                ->where('gtk.nama_lengkap', 'LIKE', '%' . $search . '%')
-                ->orWhere('gtk.nomor_ukg', 'LIKE', '%' . $search . '%')
-                ->count();
-
             $items = GTK::select('gtk.id', 'jenis_kelamin', 'instansi.nama_instansi', 'nomor_hp', 'nama_lengkap', 'nomor_ukg', 'districts.name as nama_kecamatan', 'regencies.name as nama_kabupaten', 'provinces.name as nama_provinsi')
             ->join('instansi', 'instansi.id', 'gtk.instansi_id')
             ->join('districts', 'districts.id', 'instansi.district_id')
             ->join('regencies', 'regencies.id', 'districts.regency_id')
-            ->join('provinces', 'provinces.id', 'regencies.province_id')
-            ->limit(10);
+            ->join('provinces', 'provinces.id', 'regencies.province_id');
 
-            return \DataTables::of($items)
+            if ($request->nama_gtk != null) {
+                $searchName = $request->nama_gtk;
+                $items->where('gtk.nama_lengkap', 'like', '%' . $searchName . '%');
+            }
+
+            if ($request->nama_instansi != null) {
+                $searchByNameInstansi = $request->nama_instansi;
+                //$items->where('nama_instansi', '=', '' . $searchByNameInstansi . '');
+                $clearStatusInstansi = str_replace(['SMK N ','SMK ','NEGERI '],['','',''],strtoupper($searchByNameInstansi));
+                $items->where('nama_instansi', 'like', '%SMKN ' . $clearStatusInstansi . '%')
+                ->orWhere('nama_instansi', 'like', '%SMK NEGERI ' . $clearStatusInstansi . '%')
+                ->orWhere('nama_instansi', 'like', '%SMK N ' . $clearStatusInstansi . '%');
+            }
+
+            if ($request->province_id != null) {
+                $items->where('instansi.province_id', $request->province_id);
+            }
+
+            if (!in_array($request->regency_id,[null,'undefined'])) {
+                $items->where('instansi.regency_id', $request->regency_id);
+            }
+
+
+            $count_filter  = $items->count();
+            return \DataTables::of($items->limit(10))
                 ->with([
                     'recordsTotal' => $count_total,
                     'recordsFiltered' => $count_filter,
@@ -72,7 +91,7 @@ class GtkController extends Controller
                 ->make(true);
         }
         $data['totalApprove'] = Gtk::where('is_approve', 0)->count();
-
+        $data['provinsi']   = Provinsi::pluck('name', 'id');
         return view('gtk.index', $data);
     }
 

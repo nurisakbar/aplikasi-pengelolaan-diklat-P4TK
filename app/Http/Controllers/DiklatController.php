@@ -120,7 +120,7 @@ class DiklatController extends Controller
                 ->make(true);
         }
         $data['provinsi']   = Provinsi::pluck('name', 'id');
-        $data['kelas']      = DiklatKelas::where('diklat_id',$id)->pluck('nama_kelas', 'id');
+        $data['kelas']      = DiklatKelas::where('diklat_id', $id)->pluck('nama_kelas', 'id');
         return view('diklat.show', $data);
     }
 

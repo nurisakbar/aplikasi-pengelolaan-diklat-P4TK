@@ -80,10 +80,15 @@ $(function() {
         ]
     });
 
+    var province_id     = $(".txt_provinsi").val();
+    var regency_id      = $(".regency_id").val();
+    var nama_instansi   = $('.txt_nama_instansi').val();
+    var nama_gtk        = $('.txt_nama_gtk').val();
+    
     $('#gtk-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '/gtk',
+        ajax: '/gtk?province_id='+province_id+'&regency_id='+regency_id+'&nama_instansi='+nama_instansi+'&nama_gtk='+nama_gtk,
         columns: [
             { data: 'nomor_ukg', name: 'nomor_ukg' },
             { data: 'nama_lengkap', name: 'nama_lengkap' },
@@ -96,6 +101,16 @@ $(function() {
     });
 
 });
+
+
+function filterData(){
+    var province_id     = $(".txt_provinsi").val();
+    var regency_id      = $(".regency_id").val();
+    var nama_instansi   = $('.txt_nama_instansi').val();
+    var nama_gtk        = $('.txt_nama_gtk').val();
+    var params = '/gtk?province_id='+province_id+'&regency_id='+regency_id+'&nama_instansi='+nama_instansi+'&nama_gtk='+nama_gtk;
+    $('#gtk-table').DataTable().ajax.url(params).load();
+}
 
 
 function tutup_modal_gtk(id)
@@ -224,6 +239,21 @@ function tambah_kelas(){
             $('#tambahKelas').modal('hide');
         }
     });
+}
+
+
+function loadKabupaten(){
+    var provinsi= $(".txt_provinsi").val();
+    $.ajax({
+         url: "/ajax/kabupaten",
+         cache: false,
+         data:{provinsi:provinsi},
+         success: function(response){
+            console.log(response.nopes);
+            $('#kabupaten_area').html(response);
+            $(".regency_id").removeClass("form-select-solid");
+         }
+    })
 }
 </script>
 @endpush

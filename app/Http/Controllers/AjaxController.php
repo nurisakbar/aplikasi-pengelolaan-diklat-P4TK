@@ -7,13 +7,19 @@ use App\ProgramKeahlian;
 use App\Regency;
 use App\DiklatPeserta;
 use App\DiklatKelas;
-
+use App\BidangKeahlian;
 class AjaxController extends Controller
 {
     public function programKeahlianDropdown(Request $request)
     {
         $programKeahlian = ProgramKeahlian::where('bidang_keahlian_id', $request->bidang_keahlian_id)->pluck('nama_program_keahlian', 'id');
         return \Form::select('program_keahlian_id', $programKeahlian, null, ['class' => 'form-control program_keahlian_id']);
+    }
+
+    public function bidangKeahlianDropdown(Request $request)
+    {
+        $bidangKeahlian = BidangKeahlian::where('jenis',$request->jenis_bidang_keahlian)->pluck('nama_bidang_keahlian', 'id');
+        return \Form::select('bidang_keahlian', $bidangKeahlian, null, ['class' => 'form-control bidang_keahlian_id','onChange'=>'load_program_keahlian()']);
     }
 
     public function select2Desa(Request $request)
@@ -49,7 +55,7 @@ class AjaxController extends Controller
     public function kabupatenDropdown(Request $request)
     {
         $regencies = Regency::where('province_id', $request->provinsi)->pluck('name', 'id');
-        return \Form::select('regency_id', $regencies, null, ['class' => 'form-select form-select-solid', 'data-kt-select2' => 'true', 'data-placeholder' => 'Select option']);
+        return \Form::select('regency_id', $regencies, null, ['class' => 'regency_id form-select form-select-solid', 'data-kt-select2' => 'true', 'data-placeholder' => 'Select option','placeholder' => 'Semua Kabupaten']);
     }
 
     public function daftarDiklatMandiri(Request $request)

@@ -49,6 +49,18 @@
         {!! Form::number('npsn', null, ['class'=>'form-control','placeholder'=>'NPSN']) !!}
       </div>
     </div>
+    <div class="col-md-6 mb-3">
+      <div class="form-group">
+        <label class="form-label">Nama Kepala Instansi</label>
+        {!! Form::text('nama_kepala_instansi', null, ['class'=>'form-control','placeholder'=>'Nama Kepala Instansi']) !!}
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <div class="form-group">
+        <label class="form-label">Nomor Telepon Kepala Instansi</label>
+        {!! Form::text('telpon_kepala_instansi', null, ['class'=>'form-control','placeholder'=>'Nomor Telpon Kepala Instansi']) !!}
+      </div>
+    </div>
   </div>
 <hr>
 <div class="mb-10">

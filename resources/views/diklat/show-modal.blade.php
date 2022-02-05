@@ -20,13 +20,35 @@
                   <td colspan="2">FILTER DATA PTK</td>
               </tr>
               <tr>
-                  <td>Provinsi</td>
-                  <td>{{Form::select('provinsi',$provinsi,null,['class' => 'form-control','placeholder'=>'-- Semua Provinsi --'])}}</td>
+                  <td width="200">Provinsi</td>
+                  <td>
+                      <div class="row">
+                          <div class="col-md-4">
+                            {{Form::select('provinsi',$provinsi,null,['class' => 'form-control txt_provinsi','placeholder'=>'-- Semua Provinsi --','onChange'=>'loadKabupaten()'])}}
+                          </div>
+                          <div class="col-md-4 kabupaten">
+                              <div id="kabupaten_area"></div>
+                          </div>
+                      </div>
+                  </td>
               </tr>
+              <tr>
+                  <td>Nama Instansi</td>
+                  <td>
+                      {{ Form::text('nama_instansi',null,['class' => 'form-control txt_nama_instansi','placeholder'=>'Nama Instansi/ Sekolah'])}}
+                  </td>
+                </tr>
+              <tr>
+                <td>Nama Calon Peserta</td>
+                <td>
+                    {{ Form::text('nama_gtk',null,['class' => 'form-control txt_nama_gtk','placeholder'=>'Nama Calon Peerta'])}}
+                </td>
+            </tr>
               <tr>
                   <td></td>
                   <td>
-                      <button type="button" class="btn btn-danger">Filter Data</button>
+                      <button type="button" class="btn btn-danger" onclick="filterData()">Filter Data</button>
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tambah Data</button>
                   </td>
               </tr>
           </table>
@@ -44,10 +66,6 @@
                   </tr>
               </thead>
           </table>
-          </div>
-
-          <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tutup</button>
           </div>
       </div>
   </div>
