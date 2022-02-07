@@ -14,6 +14,10 @@ use App\BidangKeahlian;
 
 class PageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only(['dashboard']);
+    }
     public function home()
     {
         $data['diklat'] = Diklat::with('programKeahlian', 'kategori')->paginate(9);

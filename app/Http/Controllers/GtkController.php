@@ -47,7 +47,7 @@ class GtkController extends Controller
             if ($request->nama_instansi != null) {
                 $searchByNameInstansi = $request->nama_instansi;
                 //$items->where('nama_instansi', '=', '' . $searchByNameInstansi . '');
-                $clearStatusInstansi = str_replace(['SMK N ','SMK ','NEGERI '],['','',''],strtoupper($searchByNameInstansi));
+                $clearStatusInstansi = str_replace(['SMK N ','SMK ','NEGERI '], ['','',''], strtoupper($searchByNameInstansi));
                 $items->where('nama_instansi', 'like', '%SMKN ' . $clearStatusInstansi . '%')
                 ->orWhere('nama_instansi', 'like', '%SMK NEGERI ' . $clearStatusInstansi . '%')
                 ->orWhere('nama_instansi', 'like', '%SMK N ' . $clearStatusInstansi . '%');
@@ -57,7 +57,7 @@ class GtkController extends Controller
                 $items->where('instansi.province_id', $request->province_id);
             }
 
-            if (!in_array($request->regency_id,[null,'undefined'])) {
+            if (!in_array($request->regency_id, [null,'undefined'])) {
                 $items->where('instansi.regency_id', $request->regency_id);
             }
 
@@ -77,7 +77,14 @@ class GtkController extends Controller
                     return $btn;
                 })
                 ->addColumn('keterangan', function ($row) {
-                    return '';
+                    // mendapatkan tahun terakhir diklat
+                    $riwayatDiklat = \DB::select("SELECT d.tahun FROM diklat_peserta as dp
+                    join diklat as d on d.id=dp.diklat_id
+                    where dp.peserta_id=" . $row->id . "
+                    order by d.tahun desc limit 1");
+                    // \Log::info($riwayatDiklat);
+                    $tahun = $riwayatDiklat[0]->tahun ?? 'Belum Pernah';
+                    return $tahun;
                 })
                 ->addColumn('umur', function ($row) {
                     return \Carbon\Carbon::parse($row->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y');

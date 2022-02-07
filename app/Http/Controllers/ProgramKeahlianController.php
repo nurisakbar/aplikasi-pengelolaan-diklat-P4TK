@@ -57,7 +57,7 @@ class ProgramKeahlianController extends Controller
      */
     public function create()
     {
-        $data['bidangKeahlian'] = BidangKeahlian::where('jenis','produktif')->pluck('nama_bidang_keahlian', 'id');
+        $data['bidangKeahlian'] = BidangKeahlian::where('jenis', 'produktif')->pluck('nama_bidang_keahlian', 'id');
         return view('programkeahlian.create', $data);
     }
 
@@ -83,7 +83,7 @@ class ProgramKeahlianController extends Controller
     public function edit($id)
     {
         $data['programKeahlian']    = ProgramKeahlian::findOrFail($id);
-        $data['bidangKeahlian'] = BidangKeahlian::where('jenis','produktif')->pluck('nama_bidang_keahlian', 'id');
+        $data['bidangKeahlian'] = BidangKeahlian::where('jenis', 'produktif')->pluck('nama_bidang_keahlian', 'id');
         return view('programkeahlian.edit', $data);
     }
 

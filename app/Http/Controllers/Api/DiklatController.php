@@ -37,7 +37,7 @@ class DiklatController extends Controller
      */
     public function show($id)
     {
-        return Diklat::with('peserta.gtk')->findOrFail($id);
+        return Diklat::with('peserta.gtk.instansi')->findOrFail($id);
     }
 
     /**

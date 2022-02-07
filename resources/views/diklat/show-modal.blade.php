@@ -61,7 +61,7 @@
                       <th>Asal Sekolah</th>
                       <th>Kota</th>
                       <th>Provinsi</th>
-                      <th>Keterangan</th>
+                      <th>Terakhir Diklat</th>
                       <th width="10">#</th>
                   </tr>
               </thead>

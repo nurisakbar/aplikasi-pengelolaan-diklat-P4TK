@@ -43,7 +43,7 @@ class BidangKeahlianController extends Controller
                 return $btn;
             })
             ->addColumn('jenis', function ($row) {
-                return $row->jenis=='adaptif'?'Adaptif':'Produktif';
+                return $row->jenis == 'adaptif' ? 'Adaptif' : 'Produktif';
             })
             ->rawColumns(['action'])
             ->addIndexColumn()

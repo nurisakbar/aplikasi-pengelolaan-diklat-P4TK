@@ -8,6 +8,7 @@ use App\Regency;
 use App\DiklatPeserta;
 use App\DiklatKelas;
 use App\BidangKeahlian;
+
 class AjaxController extends Controller
 {
     public function programKeahlianDropdown(Request $request)
@@ -18,8 +19,8 @@ class AjaxController extends Controller
 
     public function bidangKeahlianDropdown(Request $request)
     {
-        $bidangKeahlian = BidangKeahlian::where('jenis',$request->jenis_bidang_keahlian)->pluck('nama_bidang_keahlian', 'id');
-        return \Form::select('bidang_keahlian', $bidangKeahlian, null, ['class' => 'form-control bidang_keahlian_id','onChange'=>'load_program_keahlian()']);
+        $bidangKeahlian = BidangKeahlian::where('jenis', $request->jenis_bidang_keahlian)->pluck('nama_bidang_keahlian', 'id');
+        return \Form::select('bidang_keahlian', $bidangKeahlian, null, ['class' => 'form-control bidang_keahlian_id','onChange' => 'load_program_keahlian()']);
     }
 
     public function select2Desa(Request $request)
