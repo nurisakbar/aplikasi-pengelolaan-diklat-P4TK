@@ -55,9 +55,13 @@
         {{-- {!! Form::select('bidang_keahlian',$bidangKeahlian, null, ['class'=>'form-control bidang_keahlian_id','onChange'=>'load_program_keahlian()']) !!} --}}
         <div id="bidang_keahlian"></div>
     </div>
-    <div class="col-sm-4 program_keahlian_div">
+    <div class="col-sm-3 program_keahlian_div">
         <label class="form-label">Program Keahlian</label>
         <div id="program_keahlian"></div>
+    </div>
+    <div class="col-sm-2">
+        <label class="form-label">Pola Diklat</label>
+        {!! Form::text('pola_diklat', null, ['class'=>'form-control','placeholder'=>'Pola Diklat']) !!}
     </div>
 </div>
 

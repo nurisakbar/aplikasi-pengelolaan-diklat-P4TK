@@ -47,8 +47,9 @@
               <tr>
                   <td></td>
                   <td>
-                      <button type="button" class="btn btn-danger" onclick="filterData()">Filter Data</button>
+                      <button type="button" class="btn btn-primary" onclick="filterData()">Filter Data</button>
                       <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tambah Data</button>
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tutup</button>
                   </td>
               </tr>
           </table>

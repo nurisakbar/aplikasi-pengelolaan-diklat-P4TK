@@ -25,6 +25,7 @@ class DiklatCreateRequest extends FormRequest
     {
         return [
             'tahun'        =>  'required|integer',
+            'quota'        =>  'required|integer',
             'nama_diklat'  => 'required'
         ];
     }

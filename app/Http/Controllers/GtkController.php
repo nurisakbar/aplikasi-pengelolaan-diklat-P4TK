@@ -46,7 +46,7 @@ class GtkController extends Controller
 
             if ($request->nama_instansi != null) {
                 $searchByNameInstansi = $request->nama_instansi;
-                //$items->where('nama_instansi', '=', '' . $searchByNameInstansi . '');
+                $items->where('nama_instansi', '=', '' . $searchByNameInstansi . '');
                 $clearStatusInstansi = str_replace(['SMK N ','SMK ','NEGERI '], ['','',''], strtoupper($searchByNameInstansi));
                 $items->where('nama_instansi', 'like', '%SMKN ' . $clearStatusInstansi . '%')
                 ->orWhere('nama_instansi', 'like', '%SMK NEGERI ' . $clearStatusInstansi . '%')

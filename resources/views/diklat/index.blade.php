@@ -11,7 +11,7 @@
                     <th width="10">Nomor</th>
                     <th>Nama Kegiatan/ Diklat</th>
                     <th>Kategori</th>
-                    <th>Kompetensi Keahlian</th>
+                    <th>Program Keahlian</th>
                     <th>Tanggal Mulai</th>
                     <th>Tanggal Selesai</th>
                     <th>Jumlah Peserta</th>
