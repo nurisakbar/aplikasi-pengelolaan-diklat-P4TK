@@ -33,15 +33,20 @@ class InstansiController extends Controller
             // filter berdasarkan pencarian nama instansi
             if ($request->has('nama_instansi')) {
                 if (!in_array($request->nama_instansi, ['null', null,''])) {
-                    $items->where('nama_instansi', 'like', "%" . $request->nama_instansi . "%");
+                    $searchByNameInstansi = $request->nama_instansi;
+                    // $items->where('nama_instansi', 'like', '%' . $searchByNameInstansi . '%');
+                    $clearStatusInstansi = str_replace(['SMK N ','SMK ','NEGERI ','SMKN'], ['','','',''], strtoupper($searchByNameInstansi));
+                    $items->where('nama_instansi', 'like', '%' . $clearStatusInstansi . '%');
                 }
             }
 
             // filter berdasarkan nama provinsi
-            if ($request->has('province_id')) {
-                if (!in_array($request->province_id, ['null', null,''])) {
-                    $items->where('instansi.province_id', $request->province_id);
-                }
+            if (!in_array($request->province_id, ['null','undefined'])) {
+                $items->where('instansi.province_id', $request->province_id);
+            }
+
+            if (!in_array($request->regency_id, ['null','undefined'])) {
+                $items->where('instansi.regency_id', $request->regency_id);
             }
 
             $count_filter = $items->count();

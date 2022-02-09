@@ -69,7 +69,7 @@
                 <tr>
                   <td>Nama Calon Peserta</td>
                   <td>
-                      {{ Form::text('nama_gtk',null,['class' => 'form-control txt_nama_gtk','placeholder'=>'Nama Calon Peerta'])}}
+                      {{ Form::text('nama_gtk',null,['class' => 'form-control txt_nama_gtk','placeholder'=>'Nama Guru'])}}
                   </td>
               </tr>
                 <tr>
@@ -106,15 +106,30 @@
 
 @push('scripts')
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-   
-<script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
 
 $(function() {
-    // var province_id     = $(".txt_provinsi").val();
-    // var regency_id      = $(".regency_id").val();
-    // var nama_instansi   = $('.txt_nama_instansi').val();
-    // var nama_gtk        = $('.txt_nama_gtk').val();
+    $('.instansi').select2({
+        placeholder: 'Cari Nama Instansi',
+        ajax: {
+            url: '/ajax/select2Instansi',
+            dataType: 'json',
+            delay: 250,
+            processResults: function(data) {
+                return {
+                    results: $.map(data, function(item) {
+                        return {
+                            text: item.nama_instansi,
+                            id: item.id
+                        }
+                    })
+                };
+            },
+            cache: true
+        }
+    });
     
     $('#gtk-table').DataTable({
         processing: true,

@@ -8,10 +8,11 @@
         <table class="table table-rounded table-striped border gy-7 gs-7" id="users-table">
             <thead>
                 <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                    <th width="10">Nomor</th>
+                    {{-- <th width="10">Nomor</th> --}}
                     <th>Nama Kegiatan/ Diklat</th>
                     <th>Kategori</th>
-                    <th>Program Keahlian</th>
+                    <th>Pola Diklat</th>
+                    <th>Departemen</th>
                     <th>Tanggal Mulai</th>
                     <th>Tanggal Selesai</th>
                     <th>Jumlah Peserta</th>
@@ -85,10 +86,11 @@
             serverSide: true,
             ajax: '/diklat',
             columns: [
-                {data: 'DT_RowIndex', orderable: false, searchable: false},
+                // {data: 'DT_RowIndex', orderable: false, searchable: false},
                 { data: 'nama_diklat', name: 'nama_diklat' },
                 { data: 'kategori.nama_kategori', name: 'kategori.nama_kategori' },
-                { data: 'program_keahlian.nama_program_keahlian', name: 'program_keahlian.nama_program_keahlian' },
+                { data: 'pola_diklat', name: 'pola_diklat' },
+                { data: 'departemen.nama_departemen', name: 'departemen.nama_departemen' },
                 { data: 'tanggal_mulai', name: 'tanggal_mulai' },
                 { data: 'tanggal_selesai', name: 'tanggal_selesai' },
                 { data: 'jumlah_peserta', name: 'jumlah_peserta' },
@@ -103,3 +105,5 @@
 @push('css')
 <link href="{{asset('assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
 @endpush
+
+
