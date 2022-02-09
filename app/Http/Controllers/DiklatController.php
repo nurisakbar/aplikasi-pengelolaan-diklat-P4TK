@@ -59,6 +59,12 @@ class DiklatController extends Controller
                 ->addColumn('jumlah_peserta', function ($row) {
                     return $row->peserta()->count();
                 })
+                ->addColumn('tanggal_mulai', function ($row) {
+                    return date_format(date_create($row->tanggal_mulai),"d/m/Y");
+                })
+                ->addColumn('tanggal_selesai', function ($row) {
+                    return date_format(date_create($row->tanggal_selesai),"d/m/Y");
+                })
                 ->rawColumns(['action'])
                 ->addIndexColumn()
                 ->make(true);

@@ -12,7 +12,8 @@
                     <th>Nama Kegiatan/ Diklat</th>
                     <th>Kategori</th>
                     <th>Kompetensi Keahlian</th>
-                    <th>Tahun Pelaksaan</th>
+                    <th>Tanggal Mulai</th>
+                    <th>Tanggal Selesai</th>
                     <th>Jumlah Peserta</th>
                     <th>Status Aktif</th>
                     <th width="170">#</th>
@@ -88,7 +89,8 @@
                 { data: 'nama_diklat', name: 'nama_diklat' },
                 { data: 'kategori.nama_kategori', name: 'kategori.nama_kategori' },
                 { data: 'program_keahlian.nama_program_keahlian', name: 'program_keahlian.nama_program_keahlian' },
-                { data: 'tahun', name: 'tahun' },
+                { data: 'tanggal_mulai', name: 'tanggal_mulai' },
+                { data: 'tanggal_selesai', name: 'tanggal_selesai' },
                 { data: 'jumlah_peserta', name: 'jumlah_peserta' },
                 { data: 'status_aktif', name: 'status_aktif' },
                 { data: 'action', name: 'action' }
