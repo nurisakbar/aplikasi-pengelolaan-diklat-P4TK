@@ -62,4 +62,9 @@ class DiklatController extends Controller
     {
         //
     }
+
+    public function test(){
+        $data = ['Tahun 2020'=>20,'tahun 2021'=>20,'tahun 2044'=>30];
+        return response()->json(['result'=>$data]);
+    }
 }

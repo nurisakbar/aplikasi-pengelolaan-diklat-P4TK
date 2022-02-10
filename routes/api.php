@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('diklat','Api\DiklatController');
+Route::get('grafik','Api\DiklatController@test');

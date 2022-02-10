@@ -1,6 +1,6 @@
 <div class="mb-6">
     <label class="form-label">Nama Diklat</label>
-    {!! Form::text('nama_diklat', null, ['class'=>'form-control','placeholder'=>'Nama Diklat']) !!}
+    {!! Form::text('nama_diklat', null, ['class'=>'form-control','placeholder'=>'Nama Diklat','required'=>'required']) !!}
 </div>
 
 <div class="mb-6">
@@ -11,12 +11,12 @@
 
 <div class="mb-6">
     <label class="form-label">Tanggal Mulai</label>
-    {!! Form::date('tanggal_mulai', null, ['class'=>'form-control','placeholder'=>'Tanggal Mulai']) !!}
+    {!! Form::date('tanggal_mulai', null, ['class'=>'form-control','placeholder'=>'Tanggal Mulai','required'=>'required']) !!}
 </div>
 
 <div class="mb-6">
     <label class="form-label">Tanggal Selesai</label>
-    {!! Form::date('tanggal_selesai',null, ['class'=>'form-control','placeholder'=>'Tanggal Selesai']) !!}
+    {!! Form::date('tanggal_selesai',null, ['class'=>'form-control','placeholder'=>'Tanggal Selesai','required'=>'required']) !!}
 </div>
 
 
@@ -24,7 +24,7 @@
 <div class="row">
     <div class="col-sm-2">
         <label class="form-label">Tahun Pelaksanaan</label>
-        {!! Form::text('tahun', null, ['class'=>'form-control','placeholder'=>'Tahun']) !!}
+        {!! Form::text('tahun', null, ['class'=>'form-control','placeholder'=>'Tahun','required'=>'required']) !!}
     </div>
     <div class="col-sm-7">
         <label class="form-label">Departemen</label>
@@ -32,7 +32,7 @@
     </div>
     <div class="col-sm-1">
         <label class="form-label">Quota</label>
-        {!! Form::text('quota', null, ['class'=>'form-control','placeholder'=>'Quota']) !!}
+        {!! Form::text('quota', null, ['class'=>'form-control','placeholder'=>'Quota','required'=>'required']) !!}
     </div>
 
     <div class="col-sm-2">
@@ -71,7 +71,7 @@
 <hr>
 <div class="mb-10">
     <label class="form-label">Nama Kelas</label>
-    {!! Form::text('kelas[]', null, ['class'=>'form-control','placeholder'=>'Nama Kelas']) !!}
+    {!! Form::text('kelas[]', null, ['class'=>'form-control','placeholder'=>'Nama Kelas','required'=>'required']) !!}
 </div>
 @endif
 <hr>

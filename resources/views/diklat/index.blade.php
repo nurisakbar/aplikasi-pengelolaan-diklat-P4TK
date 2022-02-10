@@ -16,6 +16,7 @@
                     <th>Tanggal Mulai</th>
                     <th>Tanggal Selesai</th>
                     <th>Jumlah Peserta</th>
+                    <th>Quota</th>
                     <th>Status Aktif</th>
                     <th width="170">#</th>
                 </tr>
@@ -94,6 +95,7 @@
                 { data: 'tanggal_mulai', name: 'tanggal_mulai' },
                 { data: 'tanggal_selesai', name: 'tanggal_selesai' },
                 { data: 'jumlah_peserta', name: 'jumlah_peserta' },
+                { data: 'quota', name: 'qupta' },
                 { data: 'status_aktif', name: 'status_aktif' },
                 { data: 'action', name: 'action' }
             ]
