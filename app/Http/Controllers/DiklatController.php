@@ -254,6 +254,60 @@ class DiklatController extends Controller
         return redirect('diklat/' . $createDiklat->id);
     }
 
+    public function importDiklat(Request $request)
+    {
+        $file = $request->file('file');
+        $nama_file = $file->getClientOriginalName();
+        $destinationPath = 'uploads';
+        $file->move($destinationPath, $nama_file);
+
+        $filePath = $destinationPath . '/' . $nama_file;
+        $reader = ReaderEntityFactory::createXLSXReader();
+        $reader->open($filePath);
+
+        foreach ($reader->getSheetIterator() as $sheet) {
+            $nomor = 1;
+            foreach ($sheet->getRowIterator() as $row) {
+                if ($nomor > 2) {
+                    $cells                      = $row->getCells();
+                    //dd($cells);
+                    $nama_kategori              = $cells[2]->getValue();
+                    $kategori                   = KategoriDiklat::firstOrCreate(['nama_kategori' => $nama_kategori], ['nama_kategori' => $nama_kategori]);
+                    $nama_diklat                = $cells[1]->getValue();
+                    $kompetensi_keahlian        = $cells[3]->getValue();
+                    $durasi                     = $cells[4]->getValue();
+                    $quota                      = $cells[5]->getValue();
+                    $tglMulai                   = (array) $cells[6]->getValue();
+                    $tglAkhir                   = (array) $cells[7]->getValue();
+                    $nama_departemen            = $cells[8]->getValue();
+                    $departemen                 = Departemen::firstOrCreate(['nama_departemen' => $nama_departemen], ['nama_departemen' => $nama_departemen]);
+                    $kelas                      = $cells[9]->getValue();
+                    $tahun                      = $cells[10]->getValue();
+
+                    $data = [
+                        'nama_diklat'           => $nama_diklat,
+                        'tahun'                 => $tahun,
+                        'quota'                 => (int)$quota,
+                        'program_keahlian_id'   => 1,
+                        'status_aktif'          => 'Tidak',
+                        'kategori_diklat_id'    => $kategori->id,
+                        'tanggal_mulai'         => substr($tglMulai['date'], 0, 10),
+                        'tanggal_selesai'       => substr($tglAkhir['date'], 0, 10),
+                        'departemen_id'         => $departemen->id,
+                        'jenis'                 => 'ya',
+                        'bidang_keahlian_id'    => $kompetensi_keahlian,
+                        'pola_diklat'           => (int)$durasi
+                    ];
+
+                    Diklat::create($data);
+                }
+                $nomor++;
+            }
+        }
+
+        return redirect('diklat/')->with('message', 'Import Berhasil');
+    }
+
 
     public function gtkInfo($row)
     {

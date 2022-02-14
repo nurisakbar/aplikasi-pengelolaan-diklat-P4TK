@@ -76,6 +76,38 @@
         </div>
       </div>
 
+
+
+      <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 60%;max-width:600px;">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Import Diklat</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ Form::open(['url'=>'diklat/import-diklat','files'=>true])}}
+              <table class="table table-bordered">
+                  <tr>
+                      <td>File</td>
+                      <td>
+                          <input type="file" name="file" class="form-control">
+                      </td>
+                  </tr>
+              </table>
+             
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+              <a href="{{asset('Form-Import-Data-Kegiatan.xlsx')}}" class="btn btn-secondary">Download Template Import</a>
+              
+              <button type="submit" class="btn btn-danger">Upload Dan Proses</button>
+            </div>
+            {{Form::close()}}
+          </div>
+        </div>
+      </div>
+
 </div>
 @endsection
 @push('scripts')

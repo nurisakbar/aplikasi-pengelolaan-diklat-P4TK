@@ -23,6 +23,7 @@ Route::get('/ajax/kabupaten', 'AjaxController@kabupatenDropdown');
 Route::get('home', 'PageController@home');
 Route::resource('gtk', 'GtkController');
 Route::get('diklat/{id}/export', 'DiklatController@export');
+Route::post('diklat/import-diklat','DiklatController@importDiklat');
 Route::post('diklat/import', 'DiklatController@importRiwayatDiklat');
 Route::resource('diklat', 'DiklatController');
 Route::resource('diklatpeserta', 'DiklatPesertaController');
