@@ -25,12 +25,12 @@ class PendaftaranCreateRequest extends FormRequest
     {
         return [
             'nama_lengkap'          => 'required',
-            'nik'                   => 'required|numeric',
-            'nuptk'                 => 'required',
+            // 'nik'                   => 'required|numeric',
+            // 'nuptk'                 => 'required',
             'instansi_id'           => 'required',
-            'domisi_alamat_jalan' => 'required',
+            'tanggal_lahir'         => 'required',
             'nomor_hp'              => 'required',
-            'jabatan'               => 'required',
+            'kompetensi_keahlian_id'=> 'required',
             'email'                 => 'required|unique:gtk,email',
             'password'              => 'required|min:5',
             'confirm_password'      => 'required|same:password',

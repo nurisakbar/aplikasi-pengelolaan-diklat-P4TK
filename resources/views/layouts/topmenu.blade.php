@@ -234,6 +234,12 @@
                             <span class="menu-arrow d-lg-none"></span>
                         </a>
                     </div>
+                    <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
+                        <a class="menu-link py-3" href="{{ url('/profile/diklatsaya') }}">
+                            <span class="menu-title">Diklat Yang Saya Ikuti</span>
+                            <span class="menu-arrow d-lg-none"></span>
+                        </a>
+                    </div>
                 @endif
                 <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
                     <a class="menu-link py-3" target="new" href="https://p4tkbmti.kemdikbud.go.id">

@@ -64,11 +64,16 @@
                         </div>
                         <!--end::Heading-->
                         <!--end::Separator-->
-                        {{-- @include('validation_error') --}}
+                        @include('validation_error')
                         <!--begin::Input group-->
-                        <div class="fv-row mb-7">
-                            <label class="form-label fw-bolder text-dark fs-6">Nama Lengkap</label>
-                            <input type="text" placeholder="" name="nama_lengkap" autocomplete="off"
+
+
+
+                        <div class="row fv-row mb-7">
+                            <!--begin::Col-->
+                            <div class="col-xl-6">
+                                <label class="form-label fw-bolder text-dark fs-6">Nama Lengkap</label>
+                                <input type="text" placeholder="Nama Lengkap" name="nama_lengkap" autocomplete="off"
                                 class="@error('nama_lengkap') is-invalid @enderror form-control form-control-lg form-control-solid"
                                 value="{{ old('nama_lengkap') }}" />
                             @error('nama_lengkap')
@@ -76,14 +81,30 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
-                        <div class="row fv-row mb-7">
+                            </div>
+                            <!--end::Col-->
                             <!--begin::Col-->
+                            <div class="col-xl-6">
+                                <label class="form-label fw-bolder text-dark fs-6">Tanggal Lahir</label>
+                                <input
+                                    class="@error('tanggal_lahir') is-invalid @enderror form-control form-control-lg form-control-solid"
+                                    type="date" placeholder="Tanggal Lahir" name="tanggal_lahir" 
+                                    value="{{ old('tanggal_lahir') }}" />
+                                @error('tanggal_lahir')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <!--end::Col-->
+                        </div>
+
+                        <div class="row fv-row mb-7">
                             <div class="col-xl-6">
                                 <label class="form-label fw-bolder text-dark fs-6">NIK</label>
                                 <input
                                     class="@error('nik') is-invalid @enderror form-control form-control-lg form-control-solid"
-                                    type="text" placeholder="" name="nik" autocomplete="off"
+                                    type="text" placeholder="Nomor Induk Kewarganegaraan" name="nik" autocomplete="off"
                                     value="{{ old('nik') }}" />
                                 @error('nik')
                                     <span class="invalid-feedback" role="alert">
@@ -91,13 +112,11 @@
                                     </span>
                                 @enderror
                             </div>
-                            <!--end::Col-->
-                            <!--begin::Col-->
                             <div class="col-xl-6">
                                 <label class="form-label fw-bolder text-dark fs-6">NUPTK</label>
                                 <input
                                     class="@error('nuptk') is-invalid @enderror form-control form-control-lg form-control-solid"
-                                    type="text" placeholder="" name="nuptk" autocomplete="off"
+                                    type="text" placeholder="NUPTK" name="nuptk" autocomplete="off"
                                     value="{{ old('nuptk') }}" />
                                 @error('nuptk')
                                     <span class="invalid-feedback" role="alert">
@@ -105,12 +124,13 @@
                                     </span>
                                 @enderror
                             </div>
-                            <!--end::Col-->
                         </div>
+
+
                         <!--end::Input group-->
                         <!--begin::Input group-->
                         <div class="fv-row mb-7">
-                            <label class="form-label fw-bolder text-dark fs-6">Sekolah</label>
+                            <label class="form-label fw-bolder text-dark fs-6">Sekolah/ Instansi</label>
                             <select name="instansi_id" id="instansi"
                                 class="@error('instansi_id') is-invalid @enderror instansi form-control form-control-lg form-control-solid"
                                 style="height: 100px;" placeholder="Masukan Nama Instansi">
@@ -123,22 +143,10 @@
                         </div>
                         <!--end::Input group-->
                         <div class="fv-row mb-7">
-                            <label class="form-label fw-bolder text-dark fs-6">Alamat</label>
-                            <input
-                                class="@error('domisi_alamat_jalan') is-invalid @enderror form-control form-control-lg form-control-solid"
-                                type="text" placeholder="" name="domisi_alamat_jalan" autocomplete="off"
-                                value="{{ old('domisi_alamat_jalan') }}" />
-                            @error('domisi_alamat_jalan')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6">Nomor HP</label>
                             <input
                                 class="@error('nomor_hp') is-invalid @enderror form-control form-control-lg form-control-solid"
-                                type="number" placeholder="" name="nomor_hp" autocomplete="off"
+                                type="number" placeholder="Nomor HP" name="nomor_hp" autocomplete="off"
                                 value="{{ old('nomor_hp') }}" />
                             @error('nomor_hp')
                                 <span class="invalid-feedback" role="alert">
@@ -146,23 +154,34 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="fv-row mb-7">
-                            <label class="form-label fw-bolder text-dark fs-6">Jabatan</label>
-                            <input
-                                class="@error('jabatan') is-invalid @enderror form-control form-control-lg form-control-solid"
-                                type="text" placeholder="" name="jabatan" autocomplete="off"
-                                value="{{ old('jabatan') }}" />
-                            @error('jabatan')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                        <div class="row fv-row mb-7">
+                            <div class="col-xl-6">
+                                <label class="form-label fw-bolder text-dark fs-6">Jenis Bidang Keahlian</label>
+                                <select class="form-control">
+                                    <option value="produktif">Produktif</option>
+                                    <option value="adaptif">Adaptif</option>
+                                </select>
+                            </div>
+                            <div class="col-xl-6">
+                                <label class="form-label fw-bolder text-dark fs-6">Kompetensi Keahlian</label>
+
+                                <select name="kompetensi_keahlian_id" id="kompetensi_keahlian"
+                                class="@error('instansi_id') is-invalid @enderror instansi form-control form-control-lg form-control-solid kompetensi_keahlian"
+                                style="height: 100px;" placeholder="masukan Kompetensi Keahlian">
+                                </select>
+                                @error('nuptk')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
+
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6">Email</label>
                             <input
                                 class="@error('email') is-invalid @enderror form-control form-control-lg form-control-solid"
-                                type="text" placeholder="" name="email" autocomplete="off"
+                                type="text" placeholder="Email" name="email" autocomplete="off"
                                 value="{{ old('email') }}" />
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -175,7 +194,7 @@
                                 <label class="form-label fw-bolder text-dark fs-6">Password</label>
                                 <input
                                     class="@error('password') is-invalid @enderror form-control form-control-lg form-control-solid"
-                                    type="password" placeholder="" name="password" autocomplete="off" />
+                                    type="password" placeholder="Password" name="password" autocomplete="off" />
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -186,7 +205,7 @@
                                 <label class="form-label fw-bolder text-dark fs-6">Konfirmasi Password</label>
                                 <input
                                     class="@error('confirm_password') is-invalid @enderror form-control form-control-lg form-control-solid"
-                                    type="password" placeholder="" name="confirm_password" autocomplete="off" />
+                                    type="password" placeholder="Konfirmasi Password" name="confirm_password" autocomplete="off" />
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -245,18 +264,10 @@
         </div>
         <!--end::Authentication - Sign-up-->
     </div>
-    <!--end::Root-->
-    <!--end::Main-->
-    <!--begin::Javascript-->
-    <!--begin::Global Javascript Bundle(used by all pages)-->
     <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
-    <!--end::Global Javascript Bundle-->
-    <!--begin::Page Custom Javascript(used by this page)-->
     <script src="{{ asset('assets/js/custom/authentication/sign-up/general.js') }}"></script>
-    <!--end::Page Custom Javascript-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
@@ -280,6 +291,27 @@
                     cache: true
                 }
             });
+
+            $('.kompetensi_keahlian').select2({
+                placeholder: 'Cari Kompetensi Keahlian',
+                ajax: {
+                    url: '/ajax/select2KompetensiKeahlian',
+                    dataType: 'json',
+                    delay: 250,
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    text: item.nama_kompetensi_keahlian,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    },
+                    cache: true
+                }
+            });
+
             $('#reload').click(function() {
                 $.ajax({
                     type: 'GET',

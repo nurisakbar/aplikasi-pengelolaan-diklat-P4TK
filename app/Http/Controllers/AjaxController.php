@@ -43,6 +43,16 @@ class AjaxController extends Controller
         return response()->json($data);
     }
 
+    public function select2KompetensiKeahlian(Request $request)
+    {
+        $data = \DB::table('kompetensi_keahlian')
+            ->select('id', 'nama_kompetensi_keahlian')
+            ->where('nama_kompetensi_keahlian', 'like', "%" . $request->q . "%")
+            ->limit(20)
+            ->get();
+        return response()->json($data);
+    }
+
     public function select2Daerah(Request $request)
     {
         $data = \DB::table('districts')

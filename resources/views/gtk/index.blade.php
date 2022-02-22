@@ -67,9 +67,9 @@
                     </td>
                   </tr>
                 <tr>
-                  <td>Nama Calon Peserta</td>
+                  <td>Cari GTK</td>
                   <td>
-                      {{ Form::text('nama_gtk',null,['class' => 'form-control txt_nama_gtk','placeholder'=>'Nama Guru'])}}
+                      {{ Form::text('nama_gtk',null,['class' => 'form-control txt_nama_gtk','placeholder'=>'Masukan Nama, NIK Atau Nomor UKG'])}}
                   </td>
               </tr>
                 <tr>

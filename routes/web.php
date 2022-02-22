@@ -48,6 +48,7 @@ Route::get('/ajax/programkeahlian-dropdown', 'AjaxController@programKeahlianDrop
 Route::get('/ajax/bidangkeakhlian-dropdown', 'AjaxController@bidangKeahlianDropdown');
 Route::get('/ajax/select2Desa', 'AjaxController@select2Desa');
 Route::get('/ajax/select2Instansi', 'AjaxController@select2Instansi');
+Route::get('/ajax/select2KompetensiKeahlian','AjaxController@select2KompetensiKeahlian');
 
 Route::get('/pendaftaran', 'PageController@pendaftaran');
 Route::post('/pendaftaran/create', 'PageController@store');

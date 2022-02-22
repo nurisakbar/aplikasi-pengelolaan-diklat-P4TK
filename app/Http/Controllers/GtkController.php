@@ -42,6 +42,10 @@ class GtkController extends Controller
             if ($request->nama_gtk != null) {
                 $searchName = $request->nama_gtk;
                 $items->where('gtk.nama_lengkap', 'like', '%' . $searchName . '%');
+                $items->orWhere('gtk.nik', 'like', '%' . $searchName . '%');
+                $items->orWhere('gtk.nuptk', 'like', '%' . $searchName . '%');
+                $items->orWhere('gtk.nomor_ukg', 'like', '%' . $searchName . '%');
+                
             }
 
             if ($request->nama_instansi != null) {
