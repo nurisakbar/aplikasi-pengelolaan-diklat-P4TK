@@ -1,4 +1,4 @@
-<div class="d-flex align-items-center">
+{{-- <div class="d-flex align-items-center">
     <!--begin::Topbar-->
     <div class="d-flex align-items-center flex-shrink-0">
         <!--begin::Search-->
@@ -846,4 +846,4 @@
         <!--end::Sidebar Toggler-->
     </div>
     <!--end::Topbar-->
-</div>
+</div> --}}

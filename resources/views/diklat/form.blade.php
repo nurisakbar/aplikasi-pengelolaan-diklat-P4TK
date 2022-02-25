@@ -64,6 +64,15 @@
         {!! Form::text('pola_diklat', null, ['class'=>'form-control','placeholder'=>'Pola Diklat']) !!}
     </div>
 </div>
+<div class="mb-12">
+    <label class="form-label">Deskripsi</label>
+    {!! Form::textarea('description', null, ['class'=>'form-control','placeholder'=>'Deskripsi']) !!}
+</div>
+
+<div class="mb-12">
+    <label class="form-label">Gambar Poster</label>
+    {!! Form::file('image', null, ['class'=>'form-control']) !!}
+</div>
 
 @if(isset($diklat))
 
@@ -82,6 +91,26 @@
 
 
 @push('scripts')
+<script src="https://cdn.ckeditor.com/4.16.2/standard-all/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('description', {
+      extraPlugins: 'embed,autoembed,image2,justify',
+      height: 200,
+      // Load the default contents.css file plus customizations for this sample.
+      contentsCss: [
+        'http://cdn.ckeditor.com/4.16.2/full-all/contents.css',
+        'https://ckeditor.com/docs/ckeditor4/4.16.2/examples/assets/css/widgetstyles.css'
+      ],
+      // Setup content provider. See https://ckeditor.com/docs/ckeditor4/latest/features/media_embed
+      embed_provider: '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}',
+      // Configure the Enhanced Image plugin to use classes instead of styles and to disable the
+      // resizer (because image size is controlled by widget styles or the image takes maximum
+      // 100% of the editor width).
+      image2_alignClasses: ['image-align-left', 'image-align-center', 'image-align-right'],
+      image2_disableResizer: true,
+      removeButtons: 'PasteFromWord'
+    });
+  </script>
 <script>
     $(function() {
         status_berdasarkan_spektrum();

@@ -53,6 +53,7 @@
                         @CSRF
                         <!--begin::Heading-->
                         <div class="mb-10 text-center">
+                            
                             <!--begin::Title-->
                             <h1 class="text-dark mb-3">Pendaftaran Akun Baru</h1>
                             <!--end::Title-->
@@ -60,6 +61,9 @@
                             <div class="text-gray-400 fw-bold fs-4">Sudah Punya Akun ?
                                 <a href="{{ url('masuk') }}" class="link-primary fw-bolder">Login Disini</a>
                             </div>
+                            <div class="alert alert-primary" role="alert" style="margin-top:20px;">
+                                Anda juga bisa melakukan login dengan menggunakan email dapodik, silahkan gunakan fitur <a style="font-weight: bold;color:black;text-decoration: underline;" href="/lupa-password">Lupa Password</a> untuk mendapatkan email dan password untuk login ke aplikasi.
+                              </div>
                             <!--end::Link-->
                         </div>
                         <!--end::Heading-->

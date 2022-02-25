@@ -30,7 +30,7 @@ class PendaftaranCreateRequest extends FormRequest
             'instansi_id'           => 'required',
             'tanggal_lahir'         => 'required',
             'nomor_hp'              => 'required',
-            'kompetensi_keahlian_id'=> 'required',
+            'kompetensi_keahlian_id' => 'required',
             'email'                 => 'required|unique:gtk,email',
             'password'              => 'required|min:5',
             'confirm_password'      => 'required|same:password',

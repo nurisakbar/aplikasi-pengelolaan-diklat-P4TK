@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Diklat;
 use Mail;
 use App\BidangKeahlian;
-
+use App\DiklatPeserta;
 class PageController extends Controller
 {
     public function __construct()
@@ -23,6 +23,14 @@ class PageController extends Controller
         $data['diklat'] = Diklat::with('programKeahlian', 'kategori')->paginate(9);
         return view('home', $data);
     }
+
+    public function diklatByCategory($id)
+    {
+        $data['bidangKeahlian'] = BidangKeahlian::findOrFail($id);
+        $data['diklat'] = Diklat::where('id', $id)->with('programKeahlian', 'kategori')->paginate(9);
+        return view('diklat-berdasarkan-kategori', $data);
+    }
+
     public function dashboard()
     {
         return view('dashboard');
@@ -53,6 +61,7 @@ class PageController extends Controller
         \Session::flash('message', 'Terima kasih akun anda telah berhasil dibuat. Selanjutnya silahkan menunggu akun anda di approve oleh admin');
         return redirect('/');
     }
+
 
 
     public function showApprove($id)
@@ -90,6 +99,18 @@ class PageController extends Controller
     public function reloadCaptcha()
     {
         return response()->json(['captcha' => captcha_img()]);
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        Auth::guard('gtk')->logout();
+        return redirect('/')->with('message', 'Anda Telah Berhasil Logout');
+    }
+
+    public function profileDiklatsaya(){
+        $data['diklat'] = DiklatPeserta::with('diklat')->where('peserta_id', Auth::guard('gtk')->user()->id)->get();
+        return view('diklat-saya',$data);
     }
 
 

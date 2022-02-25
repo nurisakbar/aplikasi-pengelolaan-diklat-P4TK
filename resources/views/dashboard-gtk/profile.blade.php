@@ -61,7 +61,7 @@
                         </div>
                         <div class="col-md-4 mb-5">
                             <label class="form-label">Pendidikan Terakhir</label>
-                            {!! Form::text('pendidikan_terakhir', null, ['class' => 'form-control', 'placeholder' => 'Pendidikan terakhir']) !!}
+                            {!! Form::select('pendidikan_terakhir',['SD'=>'SD','SMP'=>'SMP','SMA','SMA','S1'=>'S1','S2'=>'S2'], null, ['class' => 'form-control']) !!}
                         </div>
                         <div class="col-md-4 mb-5">
                             <label class="form-label">Jurusan Pendidikan Terakhir</label>

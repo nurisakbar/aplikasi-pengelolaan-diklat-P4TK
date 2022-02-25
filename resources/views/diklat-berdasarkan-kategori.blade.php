@@ -1,18 +1,15 @@
 @extends('layouts.app')
-@section('title','Halaman Utama')
+@section('title','Diklat Berdasarkan Kategori : '.$bidangKeahlian->nama_bidang_keahlian)
 @section('content')
 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
 
-    
+    @include('alert')
     <!--begin::Post-->
     <div class="content flex-row-fluid" id="kt_content" style="margin-top:40px;">
-        <div class="col-md-12">
-            @include('alert')
-        </div>
         <!--begin::Toolbar-->
         <div class="d-flex flex-wrap flex-stack mb-6">
             <!--begin::Heading-->
-            <h3 class="fw-bolder my-2">DAFTAR DIKLAT YANG AKAN BERJALAN</h3>
+            <h3 class="fw-bolder my-2">DIKLAT PADA KATEGORI : {{ $bidangKeahlian->nama_bidang_keahlian}}</h3>
             <!--end::Heading-->
   
         </div>

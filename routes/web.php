@@ -16,6 +16,7 @@ use Laravel\Socialite\Facades\Socialite;
 */
 
 Route::get('/', 'PageController@home');
+Route::get('diklat/kategori/{id}','PageController@diklatByCategory');
 Route::get('dashboard', 'PageController@dashboard');
 Auth::routes();
 Route::get('user/dropdown-jabatan', 'UserController@dropdownJabatan');
@@ -70,4 +71,6 @@ Route::get('socialite/redirect','SocialiteController@redirect');
 Route::get('socialite/callback','SocialiteController@callback');
 Route::get('diklat/detail/{slug}','PageController@diklatDetail');
 Route::get('ajax/daftar-diklat-mandiri','AjaxController@daftarDiklatMandiri');
+Route::get('logout','PageController@logout');
+Route::get('profile/diklatsaya','PageController@profileDiklatsaya');
 

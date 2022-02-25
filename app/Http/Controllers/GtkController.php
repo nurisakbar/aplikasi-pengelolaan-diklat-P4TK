@@ -45,7 +45,6 @@ class GtkController extends Controller
                 $items->orWhere('gtk.nik', 'like', '%' . $searchName . '%');
                 $items->orWhere('gtk.nuptk', 'like', '%' . $searchName . '%');
                 $items->orWhere('gtk.nomor_ukg', 'like', '%' . $searchName . '%');
-                
             }
 
             if ($request->nama_instansi != null) {

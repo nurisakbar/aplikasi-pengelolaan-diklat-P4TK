@@ -96,7 +96,16 @@ class DiklatController extends Controller
      */
     public function store(DiklatCreateRequest $request)
     {
-        $diklat = Diklat::create($request->all());
+        $input = $request->all();
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = str_replace(" ", "", $file->getClientOriginalName());
+            $file->move("image", $fileName);
+            $input['image'] = $fileName;
+        }
+
+
+        $diklat = Diklat::create($input);
         \Session::flash('message', 'Data Diklat Berhasil Ditambahkan');
 
         foreach ($request->kelas as $kelasDiklat) {
