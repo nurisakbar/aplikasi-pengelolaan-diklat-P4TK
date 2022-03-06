@@ -25,9 +25,9 @@ class AjaxController extends Controller
 
     public function select2Desa(Request $request)
     {
-        $data = \DB::table('villages')
-            ->select('id', 'name')
-            ->where('name', 'like', "%" . $request->q . "%")
+        $data = \DB::table('view_wilayah_administratif_indonesia')
+            ->select('village_id as id', \DB::raw('CONCAT(village_name, \' , \', district_name, \' , \',province_name) as name'))
+            ->where('village_name', 'like', "%" . $request->q . "%")
             ->limit(20)
             ->get();
         return response()->json($data);

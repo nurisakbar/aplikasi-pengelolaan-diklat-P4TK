@@ -12,6 +12,8 @@ use App\Diklat;
 use Mail;
 use App\BidangKeahlian;
 use App\DiklatPeserta;
+use App\VerifikasiEmail;
+
 class PageController extends Controller
 {
     public function __construct()
@@ -36,9 +38,49 @@ class PageController extends Controller
         return view('dashboard');
     }
 
-    public function pendaftaran()
+    public function pendaftaran(Request $request)
     {
-        return view('pendaftaran');
+        $token = $request->token;
+        if ($token) {
+            $verifikasiEmail = VerifikasiEmail::where('token', $token)->first();
+            if (!$verifikasiEmail) {
+                abort(404);
+            }
+            $data['verifikasi'] = $verifikasiEmail;
+            return view('pendaftaran', $data);
+        } else {
+            return view('verifikasi-email');
+        }
+    }
+
+    public function verifikasiEmail(Request $request)
+    {
+        $verifikasiEmail = VerifikasiEmail::create($request->all());
+        // cek ke gtk apakah sudah ada, jika sudah kirim email dan pass untuk login
+        $gtk = Gtk::where('nik', $request->nik)->first();
+        $to_name = $request->nama_lengkap;
+        $to_email = $request->email;
+        $nik = $request->nik;
+        $token = md5($request->nik);
+        $request['token'] = $token;
+        $id = VerifikasiEmail::create($request->all());
+        $password = \Str::random(6);
+        if ($gtk) {
+            $gtk->update(['password' => $password]);
+            $template_email = "konfirmasi_pendaftaran_exist";
+            $subject = "Konfirmasi Pendaftaran";
+        } else {
+            $template_email = "pendaftaran_daftar_ulang";
+            $subject = "Verifikasi Email";
+        }
+        $data = array('name' => $to_name, "body" => "Konfirmasi Pendaftaran",'email' => $to_email,'password' => $password,'token' => $token);
+
+        \Mail::send('emails.' . $template_email, $data, function ($message) use ($to_name, $to_email, $subject) {
+            $message->to($to_email, $to_name)->subject($subject);
+            $message->from(ENV('MAIL_FROM_ADDRESS'), ENV('MAIL_FROM_NAME'));
+        });
+        \Session::flash('message', 'silahkan cek email anda untuk instruksi selanjutnya');
+            return redirect('/');
     }
 
     public function masuk()
@@ -108,9 +150,10 @@ class PageController extends Controller
         return redirect('/')->with('message', 'Anda Telah Berhasil Logout');
     }
 
-    public function profileDiklatsaya(){
+    public function profileDiklatsaya()
+    {
         $data['diklat'] = DiklatPeserta::with('diklat')->where('peserta_id', Auth::guard('gtk')->user()->id)->get();
-        return view('diklat-saya',$data);
+        return view('diklat-saya', $data);
     }
 
 

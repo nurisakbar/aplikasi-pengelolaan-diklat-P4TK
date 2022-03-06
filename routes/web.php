@@ -53,6 +53,7 @@ Route::get('/ajax/select2KompetensiKeahlian','AjaxController@select2KompetensiKe
 
 Route::get('/pendaftaran', 'PageController@pendaftaran');
 Route::post('/pendaftaran/create', 'PageController@store');
+Route::post('/verifikasi-email', 'PageController@verifikasiEmail');
 Route::get('/masuk', 'PageController@masuk');
 Route::get('daftarApprove', 'GtkController@approve');
 Route::post('daftarApprove/{id}', 'GtkController@doApprove');

@@ -60,7 +60,7 @@
                                         <!--end::Svg Icon-->
                                         <!--end::Icon-->
                                         <!--begin::Label-->
-                                        <span class="fw-bolder text-gray-400">24 Comments</span>
+                                       
                                         <!--end::Label-->
                                     </div>
                                     <!--end::Item-->
@@ -68,7 +68,7 @@
                                 <!--end::Info-->
                                 <!--begin::Title-->
                                 <a href="#" class="text-dark text-hover-primary fs-2 fw-bolder">{{ $diklat->nama_diklat}} 
-                                <span class="fw-bolder text-muted fs-5 ps-1">5 mins read</span></a>
+                               
                                 <!--end::Title-->
                                 <!--begin::Container-->
                                 <div class="overlay mt-8">
@@ -113,14 +113,14 @@
                                     <span class="svg-icon svg-icon-2hx svg-icon-primary me-3">...</span>
                                     <div class="d-flex flex-column">
                                         <h4 class="mb-1 text-dark">Informasi</h4>
-                                        <span>Silahkan Melakukan Login Untuk Mendaftar Pada Diklat Ini.</span>
+                                        <span onClick="redirectToLogin()">Silahkan Melakukan Login Untuk Mendaftar Pada Diklat Ini.</span>
                                     </div>
                                 </div>
                                 @endif
                             </div>
                             <!--end::Description-->
                             <!--begin::Block-->
-                            <div class="d-flex align-items-center border-1 border-dashed card-rounded p-5 p-lg-10 mb-14">
+                            {{-- <div class="d-flex align-items-center border-1 border-dashed card-rounded p-5 p-lg-10 mb-14">
                                 <!--begin::Section-->
                                 <div class="text-center flex-shrink-0 me-7 me-lg-13">
                                     <!--begin::Avatar-->
@@ -142,7 +142,7 @@
                                 </div>
                                 
                                 <!--end::Text-->
-                            </div>
+                            </div> --}}
                             <!--end::Block-->
                             <!--begin::Icons-->
                             <div class="d-flex flex-center">
@@ -219,7 +219,7 @@
                         </div>
                         <!--end::Catigories-->
                         <!--begin::Recent posts-->
-                        <div class="m-0">
+                        {{-- <div class="m-0">
                             <h4 class="text-black mb-7">Diklat Terkait</h4>
                             @foreach($diklatTerkait as $terkait)
                             <div class="d-flex flex-stack mb-7">
@@ -241,7 +241,7 @@
                                 </div>
                             </div>
                             @endforeach
-                        </div>
+                        </div> --}}
                         <!--end::Recent posts-->
                     </div>
                     <!--end::Sidebar-->
@@ -262,6 +262,10 @@
 @push('scripts')
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+
+        function redirectToLogin(){
+            window.location.href = "/masuk";
+        }
 
         function konfirmasi_pendaftaran(){
             Swal.fire({

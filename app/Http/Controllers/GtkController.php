@@ -9,6 +9,8 @@ use App\Gtk;
 use Auth;
 use Storage;
 use App\Provinsi;
+use App\KompetensiKeahlian;
+use App\verifikasiEmail;
 
 class GtkController extends Controller
 {
@@ -111,6 +113,7 @@ class GtkController extends Controller
     public function create()
     {
         $data['agama'] = $this->agama;
+        $data['kompetensiKeahlian'] = KompetensiKeahlian::with('programKeahlian.bidangKeahlian')->get();
         return view('gtk.create', $data);
     }
 
@@ -156,6 +159,7 @@ class GtkController extends Controller
     {
         $data['gtk']   = Gtk::with('village', 'instansi')->findOrFail($id);
         $data['agama'] = $this->agama;
+        $data['kompetensiKeahlian'] = KompetensiKeahlian::with('programKeahlian.bidangKeahlian')->get();
         return view('gtk.edit', $data);
     }
 
@@ -218,9 +222,16 @@ class GtkController extends Controller
     public function doApprove($id)
     {
         $gtk = Gtk::findOrFail($id);
-        $gtk->update(['is_approve' => 1]);
-
+        $to_name = $gtk->nama_lengkap;
+        $to_email = $gtk->email;
         \Session::flash('message', 'Akun bernama <strong>' . $gtk->nama_lengkap . '</strong> berhasil diapprove.');
+        $data = ['name'=>$gtk->nama_lengkap];
+        \Mail::send('emails.approve_pendaftaran', $data, function ($message) use ($to_name, $to_email) {
+            $message->to($to_email, $to_name)->subject("Akun Anda Sudah Aktif");
+            $message->from(ENV('MAIL_FROM_ADDRESS'), ENV('MAIL_FROM_NAME'));
+        });
+        $gtk->update(['is_approve' => 1]);
+        VerifikasiEmail::where('email', $to_email)->delete();
         return redirect('gtk');
     }
 

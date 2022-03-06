@@ -8,12 +8,35 @@
         {!! Form::number('nik', null, ['class'=>'form-control','placeholder'=>'NIK']) !!}
     </div>
     <div class="col-md-4 mb-5">
-        <label class="form-label">Tempat Lahir</label>
-        {!! Form::text('tempat_lahir', null, ['class'=>'form-control','placeholder'=>'Tempat lahir']) !!}
+        <div class="row">
+            <div class="col-md-6 mb-6">
+                <label class="form-label">Tempat Lahir</label>
+                {!! Form::text('tempat_lahir', null, ['class'=>'form-control','placeholder'=>'Tempat lahir']) !!}
+            </div>
+            <div class="col-md-6 mb-6">
+                <label class="form-label">Tanggal Lahir</label>
+                {!! Form::date('tanggal_lahir', null, ['class'=>'form-control']) !!}
+            </div>
+        </div>
+
     </div>
+
+
     <div class="col-md-4 mb-5">
-        <label class="form-label">Tanggal Lahir</label>
-        {!! Form::date('tanggal_lahir', null, ['class'=>'form-control']) !!}
+        <label class="form-label">Kompetensi Keahlian</label>
+        <select name="kompetensi_keahlian_id" class="js-example-basic-single">
+        @foreach($kompetensiKeahlian as $kompetensi)
+            <option 
+
+            @if($gtk)
+                @if($kompetensi->id==$gtk->kompetensi_keahlian_id)
+                selected="selected"
+                @endif
+            @endif
+            
+            value="{{ $kompetensi->id}}">{{ $kompetensi->nama_kompetensi_keahlian}}</option>            
+        @endforeach
+    </select>
     </div>
     <div class="col-md-4 mb-5">
         <div class="mb-4"> 
@@ -120,7 +143,7 @@
 
 <script>
 $( document ).ready(function() {
-
+    $('.js-example-basic-single').select2();
     $('.desa').select2({
         placeholder: 'Masukan Nama Desa',
         ajax: {

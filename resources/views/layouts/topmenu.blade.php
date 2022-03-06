@@ -200,6 +200,12 @@
                         <span class="menu-arrow d-lg-none"></span>
                     </a>
                 </div>
+                <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
+                    <a class="menu-link py-3" href="{{ url('logout') }}">
+                        <span class="menu-title">Logout</span>
+                        <span class="menu-arrow d-lg-none"></span>
+                    </a>
+                </div>
 
             @else
                 <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">

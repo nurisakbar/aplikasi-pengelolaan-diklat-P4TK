@@ -48,7 +48,7 @@
                 <!--begin::Wrapper-->
                 <div class="w-lg-600px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
                     <!--begin::Form-->
-                    <form action="{{ url('pendaftaran/create') }}" method="POST" class="form w-100 needs-validation"
+                    <form action="{{ url('verifikasi-email') }}" method="POST" class="form w-100 needs-validation"
                         novalidate>
                         @CSRF
                         <!--begin::Heading-->
@@ -62,7 +62,7 @@
                                 <a href="{{ url('masuk') }}" class="link-primary fw-bolder">Login Disini</a>
                             </div>
                             <div class="alert alert-primary" role="alert" style="margin-top:20px;">
-                                Anda juga bisa melakukan login dengan menggunakan email dapodik, silahkan gunakan fitur <a style="font-weight: bold;color:black;text-decoration: underline;" href="/lupa-password">Lupa Password</a> untuk mendapatkan email dan password untuk login ke aplikasi.
+                                Silahkan memasukan semua data yang diperlukan dengan valid, instruksi selanjutnya akan dikirim ke email.
                               </div>
                             <!--end::Link-->
                         </div>
@@ -70,14 +70,11 @@
                         <!--end::Separator-->
                         @include('validation_error')
                         <!--begin::Input group-->
-
-
-
                         <div class="row fv-row mb-7">
                             <!--begin::Col-->
                             <div class="col-xl-6">
                                 <label class="form-label fw-bolder text-dark fs-6">Nama Lengkap</label>
-                                <input type="text" value="{{$verifikasi['nama_lengkap']}}" placeholder="Nama Lengkap" name="nama_lengkap" autocomplete="off"
+                                <input type="text" placeholder="Nama Lengkap" name="nama_lengkap" autocomplete="off"
                                 class="@error('nama_lengkap') is-invalid @enderror form-control form-control-lg form-control-solid"
                                 value="{{ old('nama_lengkap') }}" />
                             @error('nama_lengkap')
@@ -92,7 +89,7 @@
                                 <label class="form-label fw-bolder text-dark fs-6">Tanggal Lahir</label>
                                 <input
                                     class="@error('tanggal_lahir') is-invalid @enderror form-control form-control-lg form-control-solid"
-                                    type="date" value="{{$verifikasi['tanggal_lahir']}}" placeholder="Tanggal Lahir" name="tanggal_lahir" 
+                                    type="date" placeholder="Tanggal Lahir" name="tanggal_lahir" 
                                     value="{{ old('tanggal_lahir') }}" />
                                 @error('tanggal_lahir')
                                     <span class="invalid-feedback" role="alert">
@@ -106,7 +103,7 @@
                         <div class="row fv-row mb-7">
                             <div class="col-xl-6">
                                 <label class="form-label fw-bolder text-dark fs-6">NIK</label>
-                                <input value="{{$verifikasi['nik']}}"
+                                <input
                                     class="@error('nik') is-invalid @enderror form-control form-control-lg form-control-solid"
                                     type="text" placeholder="Nomor Induk Kewarganegaraan" name="nik" autocomplete="off"
                                     value="{{ old('nik') }}" />
@@ -117,132 +114,22 @@
                                 @enderror
                             </div>
                             <div class="col-xl-6">
-                                <label class="form-label fw-bolder text-dark fs-6">NUPTK</label>
+                                <label class="form-label fw-bolder text-dark fs-6">Email</label>
                                 <input
-                                    class="@error('nuptk') is-invalid @enderror form-control form-control-lg form-control-solid"
-                                    type="text" placeholder="NUPTK" name="nuptk" autocomplete="off"
-                                    value="{{ old('nuptk') }}" />
-                                @error('nuptk')
+                                    class="@error('email') is-invalid @enderror form-control form-control-lg form-control-solid"
+                                    type="text" placeholder="Email" name="email" autocomplete="off"
+                                    value="{{ old('email') }}" />
+                                @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
-                        </div>
-
-
-                        <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-7">
-                            <label class="form-label fw-bolder text-dark fs-6">Sekolah/ Instansi</label>
-                            <select name="instansi_id" id="instansi"
-                                class="@error('instansi_id') is-invalid @enderror instansi form-control form-control-lg form-control-solid"
-                                style="height: 100px;" placeholder="Masukan Nama Instansi">
-                            </select>
-                            @error('instansi_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <!--end::Input group-->
-                        <div class="fv-row mb-7">
-                            <label class="form-label fw-bolder text-dark fs-6">Nomor HP</label>
-                            <input
-                                class="@error('nomor_hp') is-invalid @enderror form-control form-control-lg form-control-solid"
-                                type="number" placeholder="Nomor HP" name="nomor_hp" autocomplete="off"
-                                value="{{ old('nomor_hp') }}" />
-                            @error('nomor_hp')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="row fv-row mb-7">
-                            {{-- <div class="col-xl-6">
-                                <label class="form-label fw-bolder text-dark fs-6">Jenis Bidang Keahlian</label>
-                                <select class="form-control">
-                                    <option value="produktif">Produktif</option>
-                                    <option value="adaptif">Adaptif</option>
-                                </select>
-                            </div> --}}
-                            <div class="col-xl-12">
-                                <label class="form-label fw-bolder text-dark fs-6">Kompetensi Keahlian</label>
-
-                                <select name="kompetensi_keahlian_id" id="kompetensi_keahlian"
-                                class="@error('instansi_id') is-invalid @enderror instansi form-control form-control-lg form-control-solid kompetensi_keahlian"
-                                style="height: 100px;" placeholder="masukan Kompetensi Keahlian">
-                                </select>
-                                @error('nuptk')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="fv-row mb-7">
-                            <label class="form-label fw-bolder text-dark fs-6">Email</label>
-                            <input value="{{$verifikasi['email']}}"
-                                class="@error('email') is-invalid @enderror form-control form-control-lg form-control-solid"
-                                type="text" placeholder="Email" name="email" autocomplete="off"
-                                value="{{ old('email') }}" />
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="row fv-row mb-7">
-                            <div class="col-xl-6">
-                                <label class="form-label fw-bolder text-dark fs-6">Password</label>
-                                <input
-                                    class="@error('password') is-invalid @enderror form-control form-control-lg form-control-solid"
-                                    type="password" placeholder="Password" name="password" autocomplete="off" />
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="col-xl-6">
-                                <label class="form-label fw-bolder text-dark fs-6">Konfirmasi Password</label>
-                                <input
-                                    class="@error('confirm_password') is-invalid @enderror form-control form-control-lg form-control-solid"
-                                    type="password" placeholder="Konfirmasi Password" name="confirm_password" autocomplete="off" />
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="fv-row mb-10">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input name="captcha"
-                                    class="@error('captcha') is-invalid @enderror form-control form-control-lg form-control-solid"
-                                    type="text" placeholder="Kode Captha" name="captcha" />
-                                @error('captcha')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="captcha mb-3">
-                                        <span>{!! captcha_img() !!}</span>
-                                        <button type="button" class="btn btn-danger" class="reload" id="reload">
-                                            &#x21bb;
-                                        </button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
                         <!--begin::Actions-->
                         <div class="text-center">
-                            <button type="submit" class="btn btn-lg btn-danger">
+                            <button type="submit" class="btn btn-lg btn-danger" style="margin-left:-60px;">
                                 Daftar Sekarang
                             </button>
                             <a href="/" class="btn btn-lg btn-primary">Kembali Ke Halaman Utama</a>
