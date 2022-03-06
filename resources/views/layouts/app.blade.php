@@ -68,7 +68,7 @@
 								<!--end::Heaeder menu toggle-->
 								<a href="#">
 									<img alt="Logo" src="{{asset('LOGO-BAru-2020.png')}}" width="60" />
-									<h1 style="float:right;margin-top:20px;margin-left:10px;">SISTEM INFORMASI DIKLAT BBPPMPV BMTI</h1>
+									<h1 style="float:right;margin-top:20px;margin-left:10px;">SIMDIKLAT BBPPMPV BMTI</h1>
 								</a>
 							</div>
 							<!--end::Header Logo-->
