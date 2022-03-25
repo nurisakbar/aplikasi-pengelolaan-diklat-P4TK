@@ -13,6 +13,7 @@ use Mail;
 use App\BidangKeahlian;
 use App\DiklatPeserta;
 use App\VerifikasiEmail;
+use App\Instansi;
 
 class PageController extends Controller
 {
@@ -35,7 +36,10 @@ class PageController extends Controller
 
     public function dashboard()
     {
-        return view('dashboard');
+        $data['jumlahDiklatAktif'] = Diklat::where('status_aktif', 'Aktif')->count();
+        $data['jumlahGtk'] = Gtk::count();
+        $data['jumlahInstansi'] = Instansi::count();
+        return view('dashboard', $data);
     }
 
     public function pendaftaran(Request $request)
@@ -90,8 +94,10 @@ class PageController extends Controller
 
     public function store(PendaftaranCreateRequest $request)
     {
+        $credentials = $request->only('email', 'password');
         $request['nama_lengkap'] = strtoupper($request->nama_lengkap);
         $request['password'] = Hash::make($request->password);
+        $request['is_approve'] = 1;
         Gtk::create($request->except(['confirm_password']));
         $to_name = $request->nama_lengkap;
         $to_email = $request->email;
@@ -100,8 +106,14 @@ class PageController extends Controller
             $message->to($to_email, $to_name)->subject('Konfirmasi Pendaftaran Akun');
             $message->from(ENV('MAIL_FROM_ADDRESS'), ENV('MAIL_FROM_NAME'));
         });
-        \Session::flash('message', 'Terima kasih akun anda telah berhasil dibuat. Selanjutnya silahkan menunggu akun anda di approve oleh admin');
-        return redirect('/');
+
+        if (Auth::guard('gtk')->attempt($credentials)) {
+            \Session::flash('message', 'Pendaftaran Berhasil');
+            return redirect('/profile');
+        } else {
+            \Session::flash('message', 'Pendaftaran Gagal');
+            return redirect('/');
+        }
     }
 
 

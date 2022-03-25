@@ -62,7 +62,7 @@
                                 <a href="{{ url('masuk') }}" class="link-primary fw-bolder">Login Disini</a>
                             </div>
                             <div class="alert alert-primary" role="alert" style="margin-top:20px;">
-                                Anda juga bisa melakukan login dengan menggunakan email dapodik, silahkan gunakan fitur <a style="font-weight: bold;color:black;text-decoration: underline;" href="/lupa-password">Lupa Password</a> untuk mendapatkan email dan password untuk login ke aplikasi.
+                                Silahkan lengkapi biodata anda dan klik daftar untuk menyelesaikan pendaftaran.
                               </div>
                             <!--end::Link-->
                         </div>

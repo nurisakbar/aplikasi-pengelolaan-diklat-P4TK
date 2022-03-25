@@ -36,7 +36,14 @@
         </table>
 
         <hr>
-        <h3>Daftar Peserta Diklat</h3>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" href="/diklat/{{ $diklat->id}}?tab=pendaftar">Daftar Pendaftar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/diklat/{{ $diklat->id}}?tab=peserta">Daftar Peserta</a>
+            </li>
+          </ul>
         <hr>
 
                 <table class="table table-rounded table-striped border gy-7 gs-7" id="users-table">

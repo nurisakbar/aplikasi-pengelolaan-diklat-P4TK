@@ -55,7 +55,7 @@ class DiklatController extends Controller
                     $btn .= "<button type='submit' class='btn btn-danger btn-sm'><i class='fa fa-trash' aria-hidden='true'></i></button>";
                     $btn .= \Form::close();
                     $btn .= '<a class="btn btn-danger btn-sm" href="/diklat/' . $row->id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a> ';
-                    $btn .= '<a class="btn btn-danger btn-sm" href="/diklat/' . $row->id . '"><i class="fas fa-eye" aria-hidden="true"></i></a>';
+                    $btn .= '<a class="btn btn-danger btn-sm" href="/diklat/' . $row->id . '?tab=pendaftar"><i class="fas fa-eye" aria-hidden="true"></i></a>';
                     return $btn;
                 })
                 ->addColumn('jumlah_peserta', function ($row) {

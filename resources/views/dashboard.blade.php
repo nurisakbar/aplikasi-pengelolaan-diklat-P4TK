@@ -323,7 +323,7 @@
                                     </svg>
                                 </span>
                                 <!--end::Svg Icon-->
-                                <span class="fs-6 fw-bold">30 DIKLAT AKTIF</span>
+                                <span class="fs-6 fw-bold">{{ $jumlahDiklatAktif }} DIKLAT AKTIF</span>
                             </a>
                         </li>
 
@@ -349,7 +349,7 @@
                                     </svg>
                                 </span>
                                 <!--end::Svg Icon-->
-                                <span class="fs-6 fw-bold">400 DATA GTK</span>
+                                <span class="fs-6 fw-bold">{{ $jumlahGtk}} DATA GTK</span>
                             </a>
                         </li>
                         <li class="nav-item col-12 col-lg mb-5 mb-lg-0">
@@ -368,10 +368,10 @@
                                     </svg>
                                 </span>
                                 <!--end::Svg Icon-->
-                                <span class="fs-6 fw-bold">400 DATA INSTANSI</span>
+                                <span class="fs-6 fw-bold">{{ $jumlahInstansi }} DATA INSTANSI</span>
                             </a>
                         </li>
-                        <li class="nav-item col-12 col-lg mb-5 mb-lg-0">
+                        {{-- <li class="nav-item col-12 col-lg mb-5 mb-lg-0">
                             <a class="nav-link btn btn-flex btn-color-gray-400 btn-outline btn-outline-default btn-active-primary d-flex flex-grow-1 flex-column flex-center py-5 h-1250px h-lg-175px"
                                 data-bs-toggle="tab" href="#kt_general_widget_1_4">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen032.svg-->
@@ -409,7 +409,7 @@
                                 <span class="fs-6 fw-bold">Access
                                     <br>Control</span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </div>

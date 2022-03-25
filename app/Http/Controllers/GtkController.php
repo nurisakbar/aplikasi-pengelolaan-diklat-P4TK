@@ -35,7 +35,7 @@ class GtkController extends Controller
             $search         = $request->input('search.value');
             $columns        = $request->get('columns');
             $count_total    = Gtk::count();
-            $items = GTK::select('gtk.id', 'jenis_kelamin', 'instansi.nama_instansi', 'nomor_hp', 'nama_lengkap', 'nomor_ukg', 'districts.name as nama_kecamatan', 'regencies.name as nama_kabupaten', 'provinces.name as nama_provinsi')
+            $items = GTK::select('gtk.id', 'gtk.tanggal_lahir', 'jenis_kelamin', 'instansi.nama_instansi', 'nomor_hp', 'nama_lengkap', 'nomor_ukg', 'districts.name as nama_kecamatan', 'regencies.name as nama_kabupaten', 'provinces.name as nama_provinsi')
             ->join('instansi', 'instansi.id', 'gtk.instansi_id')
             ->join('districts', 'districts.id', 'instansi.district_id')
             ->join('regencies', 'regencies.id', 'districts.regency_id')
@@ -90,7 +90,7 @@ class GtkController extends Controller
                     return $tahun;
                 })
                 ->addColumn('umur', function ($row) {
-                    return \Carbon\Carbon::parse($row->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y');
+                    return \Carbon\Carbon::parse($row->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y') . ' Tahun';
                 })
                 ->addColumn('pilih', function ($row) {
                     $btn = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onClick="tutup_modal_gtk(' . $row->id . ')" data-target="#modalPesertaTerpilih">Pilih</button>';
@@ -225,7 +225,7 @@ class GtkController extends Controller
         $to_name = $gtk->nama_lengkap;
         $to_email = $gtk->email;
         \Session::flash('message', 'Akun bernama <strong>' . $gtk->nama_lengkap . '</strong> berhasil diapprove.');
-        $data = ['name'=>$gtk->nama_lengkap];
+        $data = ['name' => $gtk->nama_lengkap];
         \Mail::send('emails.approve_pendaftaran', $data, function ($message) use ($to_name, $to_email) {
             $message->to($to_email, $to_name)->subject("Akun Anda Sudah Aktif");
             $message->from(ENV('MAIL_FROM_ADDRESS'), ENV('MAIL_FROM_NAME'));
