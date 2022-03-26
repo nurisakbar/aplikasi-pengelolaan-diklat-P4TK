@@ -110,20 +110,32 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($riwayats as $riwayat)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $riwayat->diklat->nama_diklat }}</td>
-                        <td>{{ $riwayat->diklat->departemen->nama_departemen }}</td>
-                        <td>{{ $riwayat->diklat->programKeahlian->nama_program_keahlian }}</td>
-                        <td>{{ $riwayat->diklat->kategori->nama_kategori }}</td>
-                        <td>{{ $riwayat->diklat->tanggal_mulai }}</td>
-                        <td>{{ $riwayat->diklat->tanggal_selesai }}</td>
-                        <td>{{ $riwayat->diklat->tahun }}</td>
-                    </tr>
-                @endforeach
+                @if(count($riwayats)>0)
+                    @foreach ($riwayats as $riwayat)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $riwayat->diklat->nama_diklat }}</td>
+                            <td>{{ $riwayat->diklat->departemen->nama_departemen }}</td>
+                            <td>{{ $riwayat->diklat->programKeahlian->nama_program_keahlian }}</td>
+                            <td>{{ $riwayat->diklat->kategori->nama_kategori }}</td>
+                            <td>{{ $riwayat->diklat->tanggal_mulai }}</td>
+                            <td>{{ $riwayat->diklat->tanggal_selesai }}</td>
+                            <td>{{ $riwayat->diklat->tahun }}</td>
+                        </tr>
+                        <tr class="table-primary">
+                            <td></td>
+                            <td colspan="1">Catatan Khusus</td>
+                            <td colspan="6"><b> : {{ $riwayat->keterangan }}</b></td>
+                        </tr>
+                    @endforeach
+                @else
+                <tr>
+                    <td colspan="8">Belum Ada Riwayat Diklat</td>
+                </tr>
+                @endif
             </tbody>
         </table>
+        
         
     </div>
 

@@ -30,7 +30,9 @@ class DiklatExport extends DefaultValueBinder implements FromView, ShouldAutoSiz
 
     public function registerEvents(): array
     {
-        $jmlData = \App\DiklatPeserta::where('diklat_id', '=', $this->diklat_id)->count() + 1;
+        $jmlData = \App\DiklatPeserta::where('diklat_id', '=', $this->diklat_id)
+                    ->where('status_kehadiran', 'Peserta')
+                    ->count() + 1;
         return [
             AfterSheet::class    => function (AfterSheet $event) use ($jmlData) {
                 $cellRange = 'A1:P1'; // All headers

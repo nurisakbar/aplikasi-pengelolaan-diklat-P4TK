@@ -74,7 +74,7 @@
     {!! Form::file('image', null, ['class'=>'form-control']) !!}
 </div>
 
-@if(isset($diklat))
+{{-- @if(isset($diklat))
 
 @else
 <hr>
@@ -82,7 +82,7 @@
     <label class="form-label">Nama Kelas</label>
     {!! Form::text('kelas[]', null, ['class'=>'form-control','placeholder'=>'Nama Kelas','required'=>'required']) !!}
 </div>
-@endif
+@endif --}}
 <hr>
 <div class="mb-10">
     <button type="submit" class="btn btn-danger">Simpan Diklat</button>

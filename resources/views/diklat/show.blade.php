@@ -5,8 +5,8 @@
 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
     <div class="content flex-row-fluid" id="kt_content">
        
-               @include('alert')
-               <div id="alert"></div>
+        @include('alert')
+        <div id="alert"></div>
 
         <table class="table table-row-bordered">
             <tr>
@@ -26,55 +26,86 @@
                 <td>{{ $diklat->quota }}</td>
             </tr>
             <tr>
-                <td>Jumlah Peserta Terdaftar</td>
-                <td>{{ $diklat->peserta->count() }}</td>
+                <td>Jumlah Pendaftar</td>
+                <td>{{ $diklat->peserta->where('status_kehadiran','Pendaftar')->count() }}</td>
             </tr>
             <tr>
                 <td>Jumlah Peserta Terkonfirmasi</td>
-                <td>{{ $diklat->peserta->where('status','Terkonfirmasi')->count() }}</td>
+                <td>{{ $diklat->peserta->where('status_kehadiran','Peserta')->count() }}</td>
             </tr>
         </table>
 
         <hr>
         <ul class="nav nav-tabs">
             <li class="nav-item">
-              <a class="nav-link active" href="/diklat/{{ $diklat->id}}?tab=pendaftar">Daftar Pendaftar</a>
+              <a class="nav-link {{request('tab')=='pendaftar'?'active':''}}" href="/diklat/{{ $diklat->id}}?tab=pendaftar">Daftar Pendaftar</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/diklat/{{ $diklat->id}}?tab=peserta">Daftar Peserta</a>
+              <a class="nav-link {{request('tab')=='peserta'?'active':''}}" href="/diklat/{{ $diklat->id}}?tab=peserta">Daftar Peserta</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {{request('tab')=='kelas'?'active':''}}" href="/diklat/{{ $diklat->id}}?tab=kelas">Data Kelas</a>
+              </li>
           </ul>
         <hr>
-
-                <table class="table table-rounded table-striped border gy-7 gs-7" id="users-table">
-                    <thead>
-                        <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                            <th width="10">No UKG</th>
-                            <th>Nama Lengkap</th>
-                            <th>Asal Sekolah</th>
-                            <th>Kota</th>
-                            <th>Provinsi</th>
-                            <th>Nomor HP</th>
-                            <th>Status</th>
-                            <th width="110">#</th>
-                        </tr>
-                    </thead>
-                </table>
-        
+        @if(request('tab')=='kelas')
+        <table class="table table-rounded table-striped border gy-7 gs-7" id="kelas-table">
+            <thead>
+                <tr>
+                    <th>Nomor</th>
+                    <th>Nama Kelas</th>
+                    <th>Jumlah Peserta</th>
+                    <th width="260">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($kelas_all as $k)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $k->nama_kelas }}</td>
+                    <td>{{ $k->peserta->count() }} Peserta</td>
+                    <td>
+                        {{-- <button type="button" class="btn btn-danger btn-sm">Edit Kelas</button> --}}
+                        {{ Form::open(['url'=>'kelas-diklat/'.$k->id,'method'=>'delete','style'=>'float:left;margin-right:10px'])}}
+                        <button type="submit" class="btn btn-danger btn-sm">Hapus Kelas</button>
+                        {{ Form::close()}}
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        @else
+        <table class="table table-rounded table-striped border gy-7 gs-7" id="users-table">
+            <thead>
+                <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
+                    <th width="10">No UKG</th>
+                    <th>Nama Lengkap</th>
+                    <th>Asal Sekolah</th>
+                    <th>Kota</th>
+                    <th>Provinsi</th>
+                    <th>Nomor HP</th>
+                    <th>Status</th>
+                    <th width="110">#</th>
+                </tr>
+            </thead>
+        </table>
+        @endif
     </div>
 
     @include('diklat.show-modal')
 </div>
 @endsection
 @push('scripts')
-<script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 $(function() {
+    $('#kela-table').DataTable();
     $('#users-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '/diklat/{{$diklat->id}}',
+        ajax: '/diklat/{{$diklat->id}}?status_kehadiran={{ request('tab') }}',
         columns: [
             { data: 'gtk.nomor_ukg', name: 'gtk.nomor_ukg' },
             { data: 'gtk.nama_lengkap', name: 'gtk.nama_lengkap' },
@@ -136,6 +167,7 @@ function tutup_modal_gtk(id)
         $('#asal_sekolah').html(response.instansi.nama_instansi);
         $('#mapel_ajar_dapodik').html(response.mapel_ukg_ptk);
         $("#peserta_id_txt").val(response.id);
+        $(".link_detail_peserta").attr("href", "/gtk/"+response.id);
     }
 });
 }
@@ -266,5 +298,5 @@ function loadKabupaten(){
 @endpush
 
 @push('css')
-<link href="{{asset('assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
+<link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
 @endpush

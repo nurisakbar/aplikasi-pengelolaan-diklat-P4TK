@@ -51,6 +51,7 @@ Route::get('/ajax/select2Desa', 'AjaxController@select2Desa');
 Route::get('/ajax/select2Instansi', 'AjaxController@select2Instansi');
 Route::get('/ajax/select2KompetensiKeahlian','AjaxController@select2KompetensiKeahlian');
 
+Route::resource('kelas-diklat','DiklatKelasController');
 Route::get('/pendaftaran', 'PageController@pendaftaran');
 Route::post('/pendaftaran/create', 'PageController@store');
 Route::post('/verifikasi-email', 'PageController@verifikasiEmail');

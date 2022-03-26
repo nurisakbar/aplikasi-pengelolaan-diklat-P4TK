@@ -20,3 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('diklat','Api\DiklatController');
 Route::get('grafik','Api\DiklatController@test');
+Route::get('info-umum','Api\ApiController@infoUmum');
+Route::get('jumlah-peserta-diklat-pertahun','Api\ApiController@jumlahPesertaDiklatPertahun');

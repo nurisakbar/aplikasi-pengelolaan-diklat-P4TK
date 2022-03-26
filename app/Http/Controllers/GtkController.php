@@ -144,7 +144,7 @@ class GtkController extends Controller
         }
 
         $data['gtk'] = Gtk::with('instansi')->findOrFail($id);
-        $data['riwayats'] = DiklatPeserta::with('diklat', 'kelas')->where('peserta_id', $id)->get();
+        $data['riwayats'] = DiklatPeserta::with('diklat', 'kelas')->where('peserta_id', $id)->withTrashed()->get();
 
         return view('gtk.show', $data);
     }

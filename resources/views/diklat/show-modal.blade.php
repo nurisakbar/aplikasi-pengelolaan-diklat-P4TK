@@ -89,6 +89,7 @@
         <div class="modal-body">
             <input id="id" type="hidden">
             <input id="diklat_id_txt_gtk" type="hidden" value="{{$diklat->id}}">
+      
          <table class="table table-bordered">
              <tr>
                  <td width="180">Nomor UKG</td>
@@ -112,11 +113,11 @@
             </tr>
              <tr>
                  <td>Kelas</td>
-                 <td>{{ Form::select('kelas_id',$kelas,null,['class'=>'form-control','id'=>'kelas_id_txt'])}}</td>
+                 <td>{{ Form::select('kelas_id',$kelas,null,['class'=>'form-control','id'=>'kelas_id_txt','placeholder'=>'Pilih Kelas'])}}</td>
              </tr>
              <tr>
-                <td>Status Kehadiran</td>
-                <td>{{ Form::select('status_kehadiran',['Menunggu Konfirmasi'=>'Menunggu Konfirmasi','Terkonfirmasi'=>'Terkonfirmasi'],null,['class'=>'form-control','id'=>'status_kehadiran'])}}</td>
+                <td>Status Peserta</td>
+                <td>{{ Form::select('status_kehadiran',['Pendaftar'=>'Pendaftar','Peserta'=>'Peserta'],null,['class'=>'form-control','id'=>'status_kehadiran'])}}</td>
             </tr>
          </table>
         </div>
@@ -172,6 +173,14 @@
             </div>
 
             <div class="modal-body">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="/diklat/{{ $diklat->id}}?tab=pendaftar">Biodata Guru</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link link_detail_peserta" target="new">Riwayat Diklat</a>
+                    </li>
+                  </ul>
               <input id="peserta_id_txt" type="hidden">
               <input id="diklat_id_txt" type="hidden" value="{{$diklat->id}}">
            <table class="table table-bordered">
@@ -216,4 +225,49 @@
             </div>
         </div>
     </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- Modal Tambah Kelas-->
+<div class="modal fade" tabindex="-1" id="exampleModalKelas">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Tambah Kelas Baru</h5>
+
+              <!--begin::Close-->
+              <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                  <span class="svg-icon svg-icon-2x"></span>
+              </div>
+              <!--end::Close-->
+          </div>
+
+          {{ Form::open(['url'=>'kelas-diklat']) }}
+          {{ Form::hidden('diklat_id',$diklat->id) }}
+          <div class="modal-body">
+            <table class="table table-bordered">
+              <tr>
+                  <td>Nama Kelas</td>
+                  <td>
+                      {{ Form::text('nama_kelas',null,['class' => 'form-control','placeholder'=>'Nama Kelas'])}}
+                  </td>
+                </tr>
+              <tr>
+                  <td></td>
+                  <td>
+                      <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Tambah Data</button>
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tutup</button>
+                  </td>
+              </tr>
+          </table>
+          {{ Form::close() }}
+          </div>
+      </div>
+  </div>
 </div>

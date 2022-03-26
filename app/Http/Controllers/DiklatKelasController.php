@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\DiklatPeserta;
+use App\DiklatKelas;
 
-class DiklatPesertaController extends Controller
+class DiklatKelasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,8 +25,11 @@ class DiklatPesertaController extends Controller
      */
     public function store(Request $request)
     {
-        $request['status_kehadiran'] = 'Peserta';
-        return DiklatPeserta::create($request->all());
+        $diklat_id = $request->diklat_id;
+        $request['diklat_id'] = $diklat_id;
+        DiklatKelas::create($request->all());
+        \Session::flash('message', 'Data Kelas Berhasil Ditambahkan');
+        return redirect('diklat/' . $diklat_id . '?tab=kelas');
     }
 
     /**
@@ -37,7 +40,7 @@ class DiklatPesertaController extends Controller
      */
     public function show($id)
     {
-        return DiklatPeserta::with('gtk.instansi.wilayahAdministratif')->where('id', $id)->first();
+        //
     }
 
     /**
@@ -49,9 +52,7 @@ class DiklatPesertaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $diklatPeserta = DiklatPeserta::findOrFail($id);
-        $diklatPeserta->update($request->all());
-        return $request->all();
+        //
     }
 
     /**
@@ -60,10 +61,16 @@ class DiklatPesertaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, Request $request)
+    public function destroy($id)
     {
-        $diklatPeserta = DiklatPeserta::findOrFail($id);
-        $diklatPeserta->update(['keterangan' => $request->keterangan]);
-        $diklatPeserta->delete();
+        $kelas = DiklatKelas::findOrFail($id);
+        if ($kelas->peserta->count() > 0) {
+            $pesan = "Hapus Kelas Gagal, Masih Ada Peserta Pada Kelas Tersebut";
+        } else {
+            $kelas->delete();
+            $pesan = "Hapus Kelas Berhasil";
+        }
+        \Session::flash('message', $pesan);
+        return redirect('diklat/' . $kelas->diklat_id . '?tab=kelas');
     }
 }

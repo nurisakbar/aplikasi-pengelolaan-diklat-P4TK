@@ -108,10 +108,11 @@ class DiklatController extends Controller
         $diklat = Diklat::create($input);
         \Session::flash('message', 'Data Diklat Berhasil Ditambahkan');
 
-        foreach ($request->kelas as $kelasDiklat) {
-            DiklatKelas::create(['diklat_id' => $diklat->id, 'nama_kelas' => $kelasDiklat]);
-        }
-        return redirect('diklat/' . $diklat->id);
+        // foreach ($request->kelas as $kelasDiklat) {
+        //     DiklatKelas::create(['diklat_id' => $diklat->id, 'nama_kelas' => $kelasDiklat]);
+        // }
+        DiklatKelas::create(['diklat_id' => $diklat->id, 'nama_kelas' => 'Kelas A']);
+        return redirect('diklat/' . $diklat->id . '?tab=pendaftar');
     }
 
     /**
@@ -125,7 +126,7 @@ class DiklatController extends Controller
         $data['diklat'] = Diklat::with('peserta.gtk.instansi.wilayahAdministratif')->findOrFail($id);
 
         if ($request->ajax()) {
-            $peserta = $data['diklat']->peserta;
+            $peserta = $data['diklat']->peserta->where('status_kehadiran', ucfirst($request->status_kehadiran));
             return \DataTables::of($peserta)
                 ->addColumn('action', function ($row) {
                     $btn = '<button class="btn btn-danger btn-sm" onclick="hapusPeserta(' . $row->id . ')"><i class="fa fa-trash" aria-hidden="true"></i></button> ';
@@ -138,6 +139,7 @@ class DiklatController extends Controller
         }
         $data['provinsi']   = Provinsi::pluck('name', 'id');
         $data['kelas']      = DiklatKelas::where('diklat_id', $id)->pluck('nama_kelas', 'id');
+        $data['kelas_all']      = DiklatKelas::where('diklat_id', $id)->get();
         return view('diklat.show', $data);
     }
 
