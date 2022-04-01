@@ -423,6 +423,9 @@
             <div class="row gy-0 gx-10">
                 <!--begin::Col-->
                 <div class="col-xl-12">
+                    <div id="chart" style="height: 300px;"></div>
+                </div>
+                <div class="col-xl-12">
                     <h3 class="card-title align-items-start flex-column">
                         <span class="card-label fw-bolder fs-3 mb-1">Daftar Diklat</span>
                         <span class="text-muted mt-1 fw-bold fs-7">Daftar Diklat Yang Aktif</span>
@@ -3996,6 +3999,8 @@
 
 @push('scripts')
 <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
+<script src="https://unpkg.com/echarts/dist/echarts.min.js"></script>
+<script src="https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js"></script>
 <script>
     $(function() {
         $('#users-table').DataTable({
@@ -4014,6 +4019,12 @@
         });
     });
     </script>
+        <script>
+            const chart = new Chartisan({
+              el: '#chart',
+              url: "@chart('chart_diklat_per_departemen')",
+            });
+          </script>
 @endpush
 
 @push('css')

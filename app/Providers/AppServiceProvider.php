@@ -27,8 +27,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(Charts $charts)
     {
         User::observe(UserObserver::class);
+
         $charts->register([
-            \App\Charts\SampleChart::class
+            \App\Charts\ChartDiklatPerDepartemen::class
         ]);
     }
 }
