@@ -45,4 +45,12 @@ class ApiController extends Controller
 
         return response()->json($result, 200);
     }
+
+    public function jumlahPesertaDiklatPerProvince(Request $request)
+    {
+        return \DB::select("select p.name,count(dp.id) as jumlah
+        from provinces as p left join gtk as g on g.province_id=p.id
+        left join diklat_peserta as dp on dp.id=g.id
+        group by p.id");
+    }
 }

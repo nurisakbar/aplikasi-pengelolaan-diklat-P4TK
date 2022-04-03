@@ -423,6 +423,10 @@
             <div class="row gy-0 gx-10">
                 <!--begin::Col-->
                 <div class="col-xl-12">
+                    <h3 class="card-title align-items-start flex-column">
+                        <span class="card-label fw-bolder fs-3 mb-1">Grafik Diklat Perdepartemen</span>
+                        <span class="text-muted mt-1 fw-bold fs-7">Diklat Per Departemen</span>
+                    </h3>
                     <div id="chart" style="height: 300px;"></div>
                 </div>
                 <div class="col-xl-12">
