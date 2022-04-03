@@ -148,9 +148,5 @@ function send_wa($receive, $text)
     ));
 
     $response = curl_exec($curl);
-
     curl_close($curl);
-    dd($response);
-
-    return $response;
 }
