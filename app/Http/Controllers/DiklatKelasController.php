@@ -40,7 +40,7 @@ class DiklatKelasController extends Controller
      */
     public function show($id)
     {
-        //
+        return DiklatKelas::findOrFail($id);
     }
 
     /**

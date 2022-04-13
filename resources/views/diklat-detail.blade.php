@@ -113,7 +113,7 @@
                                     <span class="svg-icon svg-icon-2hx svg-icon-primary me-3">...</span>
                                     <div class="d-flex flex-column">
                                         <h4 class="mb-1 text-dark">Informasi</h4>
-                                        <span onClick="redirectToLogin()">Silahkan Melakukan Login Untuk Mendaftar Pada Diklat Ini.</span>
+                                        <span onClick="redirectToLogin()">Untuk mendaftar diklat ini silahkan melakukan klik tautan berikut.</span>
                                     </div>
                                 </div>
                                 @endif
@@ -201,8 +201,10 @@
                                         <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="black"></path>
                                     </svg>
                                 </span>
+                                {{ Form::open(['url' =>'/','method' => 'get'])}}
                                 <!--end::Svg Icon-->
                                 <input type="text" class="form-control form-control-solid ps-10" name="search" value="" placeholder="Search">
+                                {{ Form::close()}}
                             </div>
                             <!--end::Input group-->
                         </div>
@@ -213,7 +215,7 @@
                             @foreach($bidangKeahlian as $bidangKea)
                                 <div class="d-flex flex-stack fw-bold fs-5 text-muted mb-4">
                                     <a href="/diklat/kategori/{{$bidangKea->id}}" class="text-muted text-hover-primary pe-2">{{ $bidangKea->nama_bidang_keahlian}}</a>
-                                    <div class="m-0">{{ $bidangKea->programKeahlian()->count()}}</div>
+                                    <div class="m-0">{{ $bidangKea->diklat()->count()}}</div>
                                 </div>
                             @endforeach
                         </div>

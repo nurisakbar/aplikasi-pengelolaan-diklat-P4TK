@@ -133,7 +133,10 @@ class DiklatController extends Controller
                     $btn .= '<button class="btn btn-danger btn-sm" onclick="buka_modal_ubah_status(' . $row->id . ')"><i class="fa fa-edit" aria-hidden="true"></i></button> ';
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->addColumn('kelas', function ($row) {
+                    return $row->kelas->nama_kelas;
+                })
+                ->rawColumns(['action','status_kehadiran'])
                 ->addIndexColumn()
                 ->make(true);
         }
@@ -203,7 +206,12 @@ class DiklatController extends Controller
 
     public function tambahKelasDiklat(Request $request)
     {
-        return DiklatKelas::create($request->all());
+        if ($request->kelas_id == '') {
+            return DiklatKelas::create($request->all());
+        } else {
+            $diklatKelas = DiklatKelas::findOrFail($request->kelas_id);
+            return $diklatKelas->update($request->only('nama_kelas'));
+        }
     }
 
     public function importRiwayatDiklat(Request $request)

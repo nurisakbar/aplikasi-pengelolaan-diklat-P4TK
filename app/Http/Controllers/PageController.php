@@ -21,16 +21,20 @@ class PageController extends Controller
     {
         $this->middleware('auth')->only(['dashboard']);
     }
-    public function home()
+    public function home(Request $request)
     {
-        $data['diklat'] = Diklat::with('programKeahlian', 'kategori')->paginate(9);
+        $diklat = Diklat::with('programKeahlian', 'kategori');
+        if ($request->has('search')) {
+            $diklat->where('nama_diklat', 'like', "%" . $request->search . "%");
+        }
+        $data['diklat'] = $diklat->paginate(9);
         return view('home', $data);
     }
 
     public function diklatByCategory($id)
     {
         $data['bidangKeahlian'] = BidangKeahlian::findOrFail($id);
-        $data['diklat'] = Diklat::where('id', $id)->with('programKeahlian', 'kategori')->paginate(9);
+        $data['diklat'] = Diklat::where('bidang_keahlian_id', $id)->with('programKeahlian', 'kategori')->paginate(9);
         return view('diklat-berdasarkan-kategori', $data);
     }
 

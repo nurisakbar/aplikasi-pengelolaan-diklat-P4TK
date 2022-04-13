@@ -38,10 +38,24 @@
                       {{ Form::text('nama_instansi',null,['class' => 'form-control txt_nama_instansi','placeholder'=>'Nama Instansi/ Sekolah'])}}
                   </td>
                 </tr>
+                <tr>
+                    <td>Bidang Keahlian</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ Form::select('bidang_keahlian',\App\BidangKeahlian::pluck('nama_bidang_keahlian', 'id'),null,['class' => 'form-control bidang_keahlian','placeholder'=>'-- Semua Bidang Keahlian --','onChange'=>'show_bidang_keahlian()'])}}
+                            </div>
+                            <div class="col-md-6">
+                                <div id="bidang_keahlian"></div>
+                            </div>
+                        </div>
+                        
+                    </td>
+                  </tr>
               <tr>
                 <td>Nama Calon Peserta</td>
                 <td>
-                    {{ Form::text('nama_gtk',null,['class' => 'form-control txt_nama_gtk','placeholder'=>'Nama Calon Peerta'])}}
+                    {{ Form::text('nama_gtk',null,['class' => 'form-control txt_nama_gtk','placeholder'=>'Nama Calon Peserta'])}}
                 </td>
             </tr>
               <tr>
@@ -59,6 +73,7 @@
                   <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                       <th width="10">Nomor UKG</th>
                       <th>Nama GTK</th>
+                      <th>Umur</th>
                       <th>Asal Sekolah</th>
                       <th>Kota</th>
                       <th>Provinsi</th>
@@ -137,12 +152,13 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Tambah Kelas</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Management Kelas</h5>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
+            <input type="hidden" class="kelas_id">
          <table class="table table-bordered">
              <tr>
                  <td>Nama Kelas</td>

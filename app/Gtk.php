@@ -39,4 +39,13 @@ class Gtk extends Authenticatable
     protected $casts = [
         'nomor_ukg' => 'string'
      ];
+
+
+     protected $appends = ['umur'];
+
+
+    public function getUmurAttribute()
+    {
+        return \Carbon\Carbon::parse($this->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y') . ' Tahun';
+    }
 }

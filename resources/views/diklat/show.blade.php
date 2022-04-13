@@ -65,7 +65,7 @@
                     <td>{{ $k->nama_kelas }}</td>
                     <td>{{ $k->peserta->count() }} Peserta</td>
                     <td>
-                        {{-- <button type="button" class="btn btn-danger btn-sm">Edit Kelas</button> --}}
+                        <button type="button" onclick="ubah_kelas({{ $k->id}})" class="btn btn-danger btn-sm">Edit Kelas</button>
                         {{ Form::open(['url'=>'kelas-diklat/'.$k->id,'method'=>'delete','style'=>'float:left;margin-right:10px'])}}
                         <button type="submit" class="btn btn-danger btn-sm">Hapus Kelas</button>
                         {{ Form::close()}}
@@ -80,11 +80,15 @@
                 <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                     <th width="10">No UKG</th>
                     <th>Nama Lengkap</th>
+                    <th>Umur</th>
                     <th>Asal Sekolah</th>
                     <th>Kota</th>
                     <th>Provinsi</th>
                     <th>Nomor HP</th>
                     <th>Status</th>
+                    @if(request('tab')=='peserta')
+                        <th>Kelas</th>
+                    @endif
                     <th width="110">#</th>
                 </tr>
             </thead>
@@ -96,28 +100,57 @@
 </div>
 @endsection
 @push('scripts')
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap.min.js"></script>
+<script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if(request('tab')=='peserta')
+    <script>
+        $(function() {
+            $('#kela-table').DataTable();
+            $('#users-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '/diklat/{{$diklat->id}}?status_kehadiran={{ request('tab') }}',
+                columns: [
+                    { data: 'gtk.nomor_ukg', name: 'gtk.nomor_ukg' },
+                    { data: 'gtk.nama_lengkap', name: 'gtk.nama_lengkap' },
+                    { data: 'gtk.umur', name: 'gtk.umur' },
+                    { data: 'gtk.instansi.nama_instansi'},
+                    { data: 'gtk.instansi.wilayah_administratif.regency_name'},
+                    { data: 'gtk.instansi.wilayah_administratif.province_name'},
+                    { data: 'gtk.nomor_hp', name: 'gtk.nomor_hp' },
+                    { data: 'status_kehadiran', name: 'status_kehadiran' },
+                    { data: 'kelas', name: 'kelas' },
+                    { data: 'action', name: 'action' }
+                ]
+            });    
+        });
+    </script>
+@else
+<script>
+    $(function() {
+        $('#kela-table').DataTable();
+        $('#users-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '/diklat/{{$diklat->id}}?status_kehadiran={{ request('tab') }}',
+            columns: [
+                { data: 'gtk.nomor_ukg', name: 'gtk.nomor_ukg' },
+                { data: 'gtk.nama_lengkap', name: 'gtk.nama_lengkap' },
+                { data: 'gtk.umur', name: 'gtk.umur' },
+                { data: 'gtk.instansi.nama_instansi'},
+                { data: 'gtk.instansi.wilayah_administratif.regency_name'},
+                { data: 'gtk.instansi.wilayah_administratif.province_name'},
+                { data: 'gtk.nomor_hp', name: 'gtk.nomor_hp' },
+                { data: 'status_kehadiran', name: 'status_kehadiran' },
+                { data: 'action', name: 'action' }
+            ]
+        });    
+    });
+</script>
+@endif
 <script>
 $(function() {
     $('#kela-table').DataTable();
-    $('#users-table').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: '/diklat/{{$diklat->id}}?status_kehadiran={{ request('tab') }}',
-        columns: [
-            { data: 'gtk.nomor_ukg', name: 'gtk.nomor_ukg' },
-            { data: 'gtk.nama_lengkap', name: 'gtk.nama_lengkap' },
-            { data: 'gtk.instansi.nama_instansi'},
-            { data: 'gtk.instansi.wilayah_administratif.regency_name'},
-            { data: 'gtk.instansi.wilayah_administratif.province_name'},
-            { data: 'gtk.nomor_hp', name: 'gtk.nomor_hp' },
-            { data: 'status_kehadiran', name: 'status_kehadiran' },
-            { data: 'action', name: 'action' }
-        ]
-    });
-
     var province_id     = $(".txt_provinsi").val();
     var regency_id      = $(".regency_id").val();
     var nama_instansi   = $('.txt_nama_instansi').val();
@@ -130,6 +163,7 @@ $(function() {
         columns: [
             { data: 'nomor_ukg', name: 'nomor_ukg' },
             { data: 'nama_lengkap', name: 'nama_lengkap' },
+            { data: 'umur', name: 'umur' },
             { data: 'nama_instansi', name: 'nama_instansi' },
             { data: 'nama_kabupaten', name: 'nama_kabupaten' },
             { data: 'nama_provinsi', name: 'nama_provinsi' },
@@ -148,6 +182,19 @@ function filterData(){
     var nama_gtk        = $('.txt_nama_gtk').val();
     var params = '/gtk?province_id='+province_id+'&regency_id='+regency_id+'&nama_instansi='+nama_instansi+'&nama_gtk='+nama_gtk;
     $('#gtk-table').DataTable().ajax.url(params).load();
+}
+
+
+function ubah_kelas(id){
+    $('#tambahKelas').modal('show');
+    $.ajax({
+    url: "/kelas-diklat/"+id,
+    cache: false,
+    success: function(response){
+        console.log(response);
+        $('.nama_kelas').val(response.nama_kelas);
+        $('.kelas_id').val(response.id);
+    }});
 }
 
 
@@ -264,20 +311,36 @@ function hapusPeserta(id){
 
 function tambah_kelas(){
     var nama_kelas = $(".nama_kelas").val();
+    var kelas_id = $(".kelas_id").val();
     $.ajax({
         url: "/tambah-kelas-diklat",
         data: {
             "_token": "{{ csrf_token() }}",
             nama_kelas: nama_kelas,
+            kelas_id:kelas_id,
             diklat_id: {{ $diklat->id }}
         },
         method: 'POST',
         success: function (response) {
             console.log(response);
+            location.reload();
             $("#alert").html('<div class="alert alert-primary" role="alert">Data Kelas Berhasil Ditambahkan</div>');
             $('#tambahKelas').modal('hide');
         }
     });
+}
+
+
+function show_bidang_keahlian(){
+    var bidang_keahlian = $(".bidang_keahlian").val();
+        $.ajax({
+        url: "/ajax/programkeahlian-dropdown",
+        data:{bidang_keahlian_id: bidang_keahlian},
+        success: function(response){
+            console.log(response);
+            $("#bidang_keahlian").html(response);    
+        }
+        });
 }
 
 
@@ -298,5 +361,6 @@ function loadKabupaten(){
 @endpush
 
 @push('css')
-<link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
+{{-- <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" /> --}}
+<link href="{{asset('assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css"/>
 @endpush

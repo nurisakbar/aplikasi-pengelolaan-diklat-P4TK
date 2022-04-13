@@ -14,4 +14,9 @@ class BidangKeahlian extends Model
     {
         return $this->hasMany(\App\ProgramKeahlian::class);
     }
+
+    public function diklat()
+    {
+        return $this->hasMany(\App\Diklat::class, 'bidang_keahlian_id', 'id');
+    }
 }
