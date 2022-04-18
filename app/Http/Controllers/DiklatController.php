@@ -57,7 +57,7 @@ class DiklatController extends Controller
                 $items = $items->where('bidang_keahlian_id', $request->bidang_keahlian_id);
             }
 
-            if ($request->program_keahlian_id != '') {
+            if (!in_array($request->program_keahlian_id, ['undefined',null])) {
                 $items = $items->where('program_keahlian_id', $request->program_keahlian_id);
             }
 
