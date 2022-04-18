@@ -3,7 +3,56 @@
 @section('content')
 @include('diklat.toolbar')
 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
+  {{ Form::open(['url'=>'diklat','method'=>'GET']) }}
     <div class="content flex-row-fluid" id="kt_content">
+      <table class="table table-bordered">
+        <tr class="table-active">
+            <td colspan="2">FILTER DATA DIKLAT</td>
+        </tr>
+        <tr>
+            <td width="200">Tahun Pelaksanaan</td>
+            <td>
+                <select class="form-control txt_tahun">
+                  <option value="0">-- Semua Tahun  --</option>
+                  @for($tahun=2022;$tahun>=2000;$tahun--)
+                  <option value="{{ $tahun}}">{{ $tahun }}</option>
+                  @endfor
+                </select>
+            </td>
+        </tr>
+        <tr>
+          <td>Departemen</td>
+          <td>
+            {{Form::select('departemen_id',$departemen,null,['class' => 'form-control txt_departemen_id','placeholder'=>'-- Semua Departemen --'])}}
+          </td>
+        </tr>
+        <tr>
+          <td>Kategori Diklat</td>
+          <td>
+            {{Form::select('kategori_id',$kategori,null,['class' => 'form-control txt_kategori_diklat_id','placeholder'=>'-- Semua Kategori --'])}}
+          </td>
+        </tr>
+        <tr>
+          <td>Bidang Keahlian</td>
+          <td>
+            <div class="row">
+              <div class="col-md-4">
+                {{Form::select('bidang_keahlian_id',$bidangKeahlian,null,['class' => 'form-control txt_bidang_keahlian','placeholder'=>'-- Semua Bidang Keahlian --','onChange'=>'load_program_keahlian()'])}}
+              </div>
+              <div class="col-md-4">
+                <div id="program_keahlian"></div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button type="button" class="btn btn-danger" onclick="filterData()">Filter Data</button>
+            </td>
+        </tr>
+    </table>
+    {{Form::close()}}
         @include('alert')
         <table class="table table-rounded table-striped border gy-7 gs-7" id="users-table">
             <thead>
@@ -56,6 +105,12 @@
                         {!! Form::select('departemen_id', $departemen, null, ['class'=>'form-control']) !!}
                     </td>
                 </tr>
+                <tr>
+                  <td>Pola Diklat</td>
+                  <td>
+                      {!! Form::text('pola_diklat', null, ['class'=>'form-control','placeholder'=>'Pola Diklat']) !!}
+                  </td>
+              </tr>
                   <tr>
                       <td>File</td>
                       <td>
@@ -99,7 +154,7 @@
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-              <a href="{{asset('Form-Import-Data-Kegiatan.xlsx')}}" class="btn btn-secondary">Download Template Import</a>
+              <a href="{{asset('template-import-diklat.xlsx')}}" class="btn btn-secondary">Download Template Import</a>
               
               <button type="submit" class="btn btn-danger">Upload Dan Proses</button>
             </div>
@@ -133,7 +188,37 @@
             ]
         });
     });
-    </script>
+
+function filterData(){
+    var tahun     = $(".txt_tahun").val();
+    var departemen_id      = $(".txt_departemen_id").val();
+    var kategori_diklat_id   = $('.txt_kategori_diklat_id').val();
+    var bidang_keahlian_id       = $('.txt_bidang_keahlian').val();
+    var program_keahlian_id       = $('.program_keahlian_id').val();
+    var params = '/diklat?tahun='+tahun+'&departemen_id='+departemen_id+'&kategori_diklat_id='+kategori_diklat_id+'&bidang_keahlian_id='+bidang_keahlian_id+"&program_keahlian_id="+program_keahlian_id;
+    $('#users-table').DataTable().ajax.url(params).load();
+}
+
+function load_program_keahlian(){
+    var bidang_keahlian_id = $('.txt_bidang_keahlian').val();
+    if(bidang_keahlian_id>0)
+    {
+      console.log(bidang_keahlian_id);
+      $.ajax({
+        url: "/ajax/programkeahlian-dropdown",
+        
+        data:{bidang_keahlian_id: bidang_keahlian_id},
+        success: function(response){
+            console.log(response);
+            $("#program_keahlian").html(response);
+            $("#program_keahlian").show();
+        }
+        });
+    }else{
+      $("#program_keahlian").hide();
+    }
+}
+</script>
 @endpush
 
 @push('css')

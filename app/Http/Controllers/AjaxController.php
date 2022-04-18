@@ -8,19 +8,26 @@ use App\Regency;
 use App\DiklatPeserta;
 use App\DiklatKelas;
 use App\BidangKeahlian;
+use App\KompetensiKeahlian;
 
 class AjaxController extends Controller
 {
-    public function programKeahlianDropdown(Request $request)
-    {
-        $programKeahlian = ProgramKeahlian::where('bidang_keahlian_id', $request->bidang_keahlian_id)->pluck('nama_program_keahlian', 'id');
-        return \Form::select('program_keahlian_id', $programKeahlian, null, ['class' => 'form-control program_keahlian_id']);
-    }
-
     public function bidangKeahlianDropdown(Request $request)
     {
         $bidangKeahlian = BidangKeahlian::where('jenis', $request->jenis_bidang_keahlian)->pluck('nama_bidang_keahlian', 'id');
-        return \Form::select('bidang_keahlian', $bidangKeahlian, null, ['class' => 'form-control bidang_keahlian_id','onChange' => 'load_program_keahlian()']);
+        return \Form::select('bidang_keahlian_id', $bidangKeahlian, null, ['class' => 'form-control bidang_keahlian_id','onChange' => 'load_program_keahlian()','placeholder' => '-- Semua Bidang Keahlian --']);
+    }
+
+    public function programKeahlianDropdown(Request $request)
+    {
+        $programKeahlian = ProgramKeahlian::where('bidang_keahlian_id', $request->bidang_keahlian_id)->pluck('nama_program_keahlian', 'id');
+        return \Form::select('program_keahlian_id', $programKeahlian, null, ['class' => 'form-control program_keahlian_id','placeholder' => '-- Semua Program Keahlian --','onChange' => 'load_kompetensi_keahlian()']);
+    }
+
+    public function kompetensiKeahlianDropdown(Request $request)
+    {
+        $kompetensiKehalian = KompetensiKeahlian::where('program_keahlian_id', $request->program_keahlian_id)->pluck('nama_kompetensi_keahlian', 'id');
+        return \Form::select('kompetensi_keahlian_id', $kompetensiKehalian, null, ['class' => 'form-control kompetensi_keahlian_id','placeholder' => '-- Semua Kompetensi Keahlian --']);
     }
 
     public function select2Desa(Request $request)

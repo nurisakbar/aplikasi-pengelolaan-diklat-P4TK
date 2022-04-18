@@ -42,14 +42,17 @@
 </div>
 
 <div class="row" style="margin-top:10px">
-    <div class="col-sm-2">
+    {{-- <div class="col-sm-2">
         <label class="form-label">Berdasarkan Spektrum</label>
         {!! Form::select('jenis',['ya'=>'Ya','tidak'=>'Tidak'], null, ['class'=>'form-control jenis','onChange'=>'status_berdasarkan_spektrum()']) !!}
     </div>
     <div class="col-sm-2 jenis_bidang_keahlian_div">
         <label class="form-label">Jenis Bidang Keahlian</label>
         {!! Form::select('',['produktif'=>'Produktif','adaptif'=>'Adaptif'], null, ['class'=>'form-control jenis_bidang_keahlian','onChange'=>'load_bidang_keahlian()']) !!}
-    </div>
+    </div> --}}
+
+    <input type="hidden" class="jenis" value="ya">
+    <input type="hidden" class="jenis_bidang_keahlian" value="produktif">
     <div class="col-sm-3 bidang_keahlian_div">
         <label class="form-label">Bidang Keahlian</label>
         {{-- {!! Form::select('bidang_keahlian',$bidangKeahlian, null, ['class'=>'form-control bidang_keahlian_id','onChange'=>'load_program_keahlian()']) !!} --}}
@@ -58,6 +61,10 @@
     <div class="col-sm-3 program_keahlian_div">
         <label class="form-label">Program Keahlian</label>
         <div id="program_keahlian"></div>
+    </div>
+    <div class="col-sm-3 program_keahlian_div">
+        <label class="form-label">Kompetensi Keahlian</label>
+        <div id="kompetensi_keahlian"></div>
     </div>
     <div class="col-sm-2">
         <label class="form-label">Pola Diklat</label>
@@ -119,7 +126,7 @@
 
     function status_berdasarkan_spektrum(){
         var jenis = $(".jenis").val();
-        console.log(jenis);
+        //console.log(jenis);
         if(jenis=='tidak'){
             $(".bidang_keahlian_div").hide();
             $(".program_keahlian_div").hide();
@@ -139,10 +146,13 @@
         url: "/ajax/bidangkeakhlian-dropdown",
         data:{jenis_bidang_keahlian: jenis_bidang_keahlian},
         success: function(response){
-            console.log(response);
+            //console.log(response);
             $("#bidang_keahlian").html(response);
             if(jenis_bidang_keahlian=='produktif')
             {
+                @if(isset($diklat))
+                    $(".bidang_keahlian_id").val({{$diklat->bidang_keahlian_id}}).trigger('change');
+                @endif
                 load_program_keahlian();
                 $(".program_keahlian_div").show();
             }else{
@@ -155,21 +165,37 @@
 
     function load_program_keahlian(){
         var bidang_keahlian_id = $(".bidang_keahlian_id").val();
-        console.log(bidang_keahlian_id);
+        //console.log(bidang_keahlian_id);
         $.ajax({
         url: "/ajax/programkeahlian-dropdown",
         
         data:{bidang_keahlian_id: bidang_keahlian_id},
         success: function(response){
-            console.log(response);
+            //console.log(response);
             $("#program_keahlian").html(response);
+            load_kompetensi_keahlian()
+            @if(isset($diklat))
+                    $(".program_keahlian_id").val({{$diklat->program_keahlian_id}}).trigger('change');
+            @endif
+        }
+        });
+    }
+
+    function load_kompetensi_keahlian(){
+        var program_keahlian_id = $(".program_keahlian_id").val();
+        console.log(program_keahlian_id);
+        $.ajax({
+        url: "/ajax/kompetensikeakhlian-dropdown",
+        
+        data:{program_keahlian_id: program_keahlian_id},
+        success: function(response){
+            //console.log(response);
+            $("#kompetensi_keahlian").html(response);
+            @if(isset($diklat))
+                    $(".kompetensi_keahlian_id").val({{$diklat->kompetensi_keahlian_id}}).trigger('change');
+            @endif
         }
         });
     }
 </script>
-@if(isset($diklat))
-<script>
-    console.log('ok');
-</script>
-@endif
 @endpush

@@ -47,6 +47,7 @@ Route::get('detailDiklat/{id}', 'AccessGtkController@detailDiklat');
 
 Route::get('/ajax/programkeahlian-dropdown', 'AjaxController@programKeahlianDropdown');
 Route::get('/ajax/bidangkeakhlian-dropdown', 'AjaxController@bidangKeahlianDropdown');
+Route::get('/ajax/kompetensikeakhlian-dropdown', 'AjaxController@kompetensiKeahlianDropdown');
 Route::get('/ajax/select2Desa', 'AjaxController@select2Desa');
 Route::get('/ajax/select2Instansi', 'AjaxController@select2Instansi');
 Route::get('/ajax/select2KompetensiKeahlian','AjaxController@select2KompetensiKeahlian');
