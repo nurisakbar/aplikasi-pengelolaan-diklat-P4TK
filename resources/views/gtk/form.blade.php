@@ -28,7 +28,7 @@
         @foreach($kompetensiKeahlian as $kompetensi)
             <option 
 
-            @if($gtk)
+            @if(isset($gtk))
                 @if($kompetensi->id==$gtk->kompetensi_keahlian_id)
                 selected="selected"
                 @endif
@@ -119,7 +119,7 @@
         <label class="form-label">Desa</label>
         <select name="village_id" id="desa" class="desa form-control" style="height: 100px;" placeholder="Masukan Nama Desa">
         @if(isset($gtk))
-            <option value="{{ $gtk->village_id }}">{{ $gtk->village->name }}</option>
+            <option value="{{ $gtk->village_id }}">{{ $gtk->village->name??'' }}</option>
         @endif
         </select>
     </div>
