@@ -4002,7 +4002,7 @@
 @endsection
 
 @push('scripts')
-<script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
+<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 <script src="https://unpkg.com/echarts/dist/echarts.min.js"></script>
 <script src="https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js"></script>
 <script>
@@ -4032,5 +4032,5 @@
 @endpush
 
 @push('css')
-<link href="{{asset('assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
 @endpush

@@ -46,6 +46,19 @@
           </td>
         </tr>
         <tr>
+          <td>Nama Diklat</td>
+          <td>
+            <div class="row">
+              <div class="col-md-8">
+                {{Form::text('nama_diklat',null,['class' => 'form-control txt_nama_diklat','placeholder'=>'Nama Diklat'])}}
+              </div>
+              <div class="col-md-4">
+                <div id="program_keahlian"></div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
             <td></td>
             <td>
                 <button type="button" class="btn btn-danger" onclick="filterData()">Filter Data</button>
@@ -191,11 +204,12 @@
 
 function filterData(){
     var tahun     = $(".txt_tahun").val();
-    var departemen_id      = $(".txt_departemen_id").val();
-    var kategori_diklat_id   = $('.txt_kategori_diklat_id').val();
-    var bidang_keahlian_id       = $('.txt_bidang_keahlian').val();
+    var departemen_id             = $(".txt_departemen_id").val();
+    var kategori_diklat_id        = $('.txt_kategori_diklat_id').val();
+    var bidang_keahlian_id        = $('.txt_bidang_keahlian').val();
     var program_keahlian_id       = $('.program_keahlian_id').val();
-    var params = '/diklat?tahun='+tahun+'&departemen_id='+departemen_id+'&kategori_diklat_id='+kategori_diklat_id+'&bidang_keahlian_id='+bidang_keahlian_id+"&program_keahlian_id="+program_keahlian_id;
+    var nama_diklat               = $('.txt_nama_diklat').val();
+    var params = '/diklat?tahun='+tahun+'&departemen_id='+departemen_id+'&kategori_diklat_id='+kategori_diklat_id+'&bidang_keahlian_id='+bidang_keahlian_id+"&program_keahlian_id="+program_keahlian_id+'&nama_diklat='+nama_diklat;
     $('#users-table').DataTable().ajax.url(params).load();
 }
 

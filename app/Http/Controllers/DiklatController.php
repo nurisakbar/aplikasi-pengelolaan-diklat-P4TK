@@ -35,6 +35,8 @@ class DiklatController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
+            \Log::info($request->all());
+            \Log::info($request->order[0]['column']);
             $search         = $request->input('search.value');
             $columns        = $request->get('columns');
             $count_total    = Diklat::count();
@@ -42,11 +44,26 @@ class DiklatController extends Controller
                 ->orWhere('tahun', 'LIKE', '%' . $search . '%')
                 ->count();
 
-            $items          = Diklat::with('kategori', 'programKeahlian', 'departemen')
-                            ->orderBy('tanggal_mulai', 'ASC');
+            $items          = Diklat::with('kategori', 'programKeahlian', 'departemen');
+
+
+            if ($request->has('order')) {
+                if ($request->order[0]['column'] == 4) {
+                    $orderColumn = 'tanggal_mulai';
+                } else {
+                    $orderColumn = 'tanggal_selesai';
+                }
+                $direction = $request->order[0]['dir'];
+
+                $items = $items->orderBy($orderColumn, $direction);
+            }
 
             if ($request->departemen_id != '') {
                 $items = $items->where('departemen_id', $request->departemen_id);
+            }
+
+            if (!in_array($request->nama_diklat, ['undefined',null,''])) {
+                $items = $items->where('nama_diklat', 'LIKE', "%" . $request->nama_diklat . "%");
             }
 
             if ($request->kategori_diklat_id != '') {
@@ -384,5 +401,12 @@ class DiklatController extends Controller
     {
         $instansi = Instansi::where('nama_instansi', $nama_instansi)->orWhere('npsn')->first();
         return $instansi->id ?? 0;
+    }
+
+    public function laporanPesertaDiklat(Request $request)
+    {
+        $data['totalApprove']   = Gtk::where('is_approve', 0)->count();
+        $data['provinsi']       = Provinsi::pluck('name', 'id');
+        return view('diklat.laporan-peserta-diklat',$data);
     }
 }

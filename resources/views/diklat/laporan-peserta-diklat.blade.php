@@ -8,7 +8,7 @@
             <!--begin::Page title-->
             <div class="page-title d-flex flex-column me-3">
                 <!--begin::Title-->
-                <h1 class="d-flex text-dark fw-bolder my-1 fs-3">Daftar GTK</h1>
+                <h1 class="d-flex text-dark fw-bolder my-1 fs-3">Laporan Peserta Diklat</h1>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-dot fw-bold text-gray-600 fs-7 my-1">
@@ -19,10 +19,10 @@
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-gray-600">GTK</li>
+                    <li class="breadcrumb-item text-gray-600">Diklat</li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-gray-600">Daftar GTK</li>
+                    <li class="breadcrumb-item text-gray-600">Laporan Peserta Diklat</li>
                     <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->
@@ -35,17 +35,11 @@
 
     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
         <div class="content flex-row-fluid" id="kt_content">
-            @if ($totalApprove != 0)
-                <div class="alert alert-info" role="alert">
-                    Ada <b>{{ $totalApprove }}</b> Data GTK Baru Yang Menunggu Konfirmasi Akun. <a
-                        href="{{ url('daftarApprove') }}" class="text-primary">Lihat daftar
-                        disini</a>
-                </div>
-            @endif
+
 
             <table class="table table-bordered">
                 <tr>
-                    <td colspan="2">FILTER DATA PTK</td>
+                    <td colspan="2">FILTER DATA LAPORAN PESERTA DIKLAT</td>
                 </tr>
                 <tr>
                     <td width="200">Provinsi</td>
@@ -72,6 +66,19 @@
                       {{ Form::text('nama_gtk',null,['class' => 'form-control txt_nama_gtk','placeholder'=>'Masukan Nama, NIK Atau Nomor UKG'])}}
                   </td>
               </tr>
+              <tr>
+                <td>Nama Diklat & Tahun</td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ Form::text('nama_diklat',null,['class' => 'form-control txt_nama_diklat','placeholder'=>'Nama Diklat'])}}
+                        </div>
+                        <div class="col-md-3">
+                            {{ Form::text('tahun',null,['class' => 'form-control txt_tahun','placeholder'=>'Tahun'])}}
+                        </div>
+                    </div>
+                </td>
+            </tr>
                 <tr>
                     <td></td>
                     <td>

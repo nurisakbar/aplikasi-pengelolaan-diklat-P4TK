@@ -23,6 +23,7 @@ Route::get('user/dropdown-jabatan', 'UserController@dropdownJabatan');
 Route::get('/ajax/kabupaten', 'AjaxController@kabupatenDropdown');
 Route::get('home', 'PageController@home');
 Route::resource('gtk', 'GtkController');
+Route::get('diklat/laporan-peserta-diklat','DiklatController@laporanPesertaDiklat');
 Route::get('diklat/{id}/export', 'DiklatController@export');
 Route::post('diklat/import-diklat','DiklatController@importDiklat');
 Route::post('diklat/import', 'DiklatController@importRiwayatDiklat');
@@ -51,6 +52,7 @@ Route::get('/ajax/kompetensikeakhlian-dropdown', 'AjaxController@kompetensiKeahl
 Route::get('/ajax/select2Desa', 'AjaxController@select2Desa');
 Route::get('/ajax/select2Instansi', 'AjaxController@select2Instansi');
 Route::get('/ajax/select2KompetensiKeahlian','AjaxController@select2KompetensiKeahlian');
+
 
 Route::resource('kelas-diklat','DiklatKelasController');
 Route::get('/pendaftaran', 'PageController@pendaftaran');
