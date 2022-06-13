@@ -405,8 +405,67 @@ class DiklatController extends Controller
 
     public function laporanPesertaDiklat(Request $request)
     {
+        if ($request->ajax()) {
+            $filter_nama_diklat     = "";
+            $filter_tahun           = "";
+            $filter_nama_gtk        = "";
+            $filter_nama_instansi   = "";
+            $filter_provinsi        = "";
+            $filter_kabupaten       = "";
+
+            if (!in_array($request->nama_diklat, ['undefined',null])) {
+                $filter_nama_diklat = "and d.nama_diklat like '%" . $request->nama_diklat . "%'";
+            }
+
+            if (!in_array($request->nama_gtk, ['undefined',null])) {
+                $filter_nama_gtk = "and gt.nama_lengkap like '%" . $request->nama_gtk . "%'";
+            }
+
+            if (!in_array($request->tahun, ['undefined',null])) {
+                $filter_tahun = "and d.tahun='".$request->tahun."'";
+            }
+
+
+            if (!in_array($request->nama_instansi, ['undefined',null])) {
+                $filter_nama_instansi = "and i.nama_instansi='".$request->nama_instansi."'";
+            }
+
+            if (!in_array($request->province_id, ['undefined',null])) {
+                $filter_provinsi  = "and i.province_id='".$request->province_id."'";
+            }
+
+            if (!in_array($request->regency_id , ['undefined',null])) {
+                $filter_kabupaten = "and i.regency_id='".$request->regency_id."'";
+            }
+
+            $riwayatDiklat = \DB::select("
+            select gt.nama_lengkap,
+            gt.nik,
+            gt.nomor_ukg,
+            d.nama_diklat,
+            d.tahun,
+            i.nama_instansi,
+            p.name as nama_provinsi,
+            r.name as nama_kabupaten
+            from diklat_peserta as dp join gtk as gt on gt.id=dp.peserta_id $filter_nama_gtk 
+            join diklat as d on d.id=dp.diklat_id $filter_nama_diklat $filter_tahun
+            join instansi as i on i.id=gt.instansi_id $filter_nama_instansi
+            join provinces as p on p.id=i.province_id $filter_provinsi
+            join regencies as r on i.regency_id=r.id $filter_kabupaten");
+            
+            $count_total = count($riwayatDiklat);
+            $count_filter = count($riwayatDiklat);
+
+            return \DataTables::of($riwayatDiklat)
+                ->with([
+                    'recordsTotal' => $count_total,
+                    'recordsFiltered' => $count_filter,
+                ])
+                ->addIndexColumn()
+                ->make(true);
+        }
         $data['totalApprove']   = Gtk::where('is_approve', 0)->count();
         $data['provinsi']       = Provinsi::pluck('name', 'id');
-        return view('diklat.laporan-peserta-diklat',$data);
+        return view('diklat.laporan-peserta-diklat', $data);
     }
 }

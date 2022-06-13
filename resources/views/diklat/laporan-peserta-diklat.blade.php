@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Data GTK')
+@section('title', 'Laporan Peserta Diklat')
 @section('content')
     <!--begin::Toolbar-->
     <div class="toolbar py-5 py-lg-5" id="kt_toolbar">
@@ -83,7 +83,6 @@
                     <td></td>
                     <td>
                         <button type="button" class="btn btn-danger" onclick="filterData()">Filter Data</button>
-                        <a class="btn btn-primary" href="/gtk/create">Tambah Data</a>
                     </td>
                 </tr>
             </table>
@@ -96,12 +95,12 @@
                     <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                         <th width="10">No UKG</th>
                         <th>Nama Lengkap</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Umur</th>
-                        <th>Nomor HP</th>
                         <th>Asal instansi</th>
-                        <th>Provinsi - Kota</th>
-                        <th width="170">#</th>
+                        <th>Provinsi</th>
+                        <th>Kabupaten</th>
+                        <th>Nama Diklat</th>
+                        <th>Tahun</th>
+                        
                     </tr>
                 </thead>
             </table>
@@ -137,10 +136,11 @@ $(function() {
         }
     });
     
+
     $('#gtk-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '/gtk',
+        ajax: '/diklat/laporan-peserta-diklat',
         columns: [{
             data: 'nomor_ukg',
             name: 'nomor_ukg'
@@ -150,28 +150,26 @@ $(function() {
             name: 'nama_lengkap'
         },
         {
-            data: 'jenis_kelamin',
-            name: 'jenis_kelamin'
-        },
-        {
-            data: 'umur',
-            name: 'umur'
-        },
-        {
-            data: 'nomor_hp',
-            name: 'nomor_hp'
-        },
-        {
             data: 'nama_instansi',
             name: 'nama_instansi'
         },
         {
-            data: 'nama_provinsi'
+            data: 'nama_provinsi',
+            name: 'nama_provinsi'
         },
         {
-            data: 'action',
-            name: 'action'
+            data: 'nama_kabupaten',
+            name: 'nama_kabupaten',
+        },
+        {
+            data: 'nama_diklat',
+            name: 'nama_diklat'
+        },
+        {
+            data: 'tahun',
+            name: 'tahun'
         }
+
     ]
     });
 
@@ -182,7 +180,9 @@ function filterData(){
     var regency_id      = $(".regency_id").val();
     var nama_instansi   = $('.txt_nama_instansi').val();
     var nama_gtk        = $('.txt_nama_gtk').val();
-    var params = '/gtk?province_id='+province_id+'&regency_id='+regency_id+'&nama_instansi='+nama_instansi+'&nama_gtk='+nama_gtk;
+    var nama_diklat     = $('.txt_nama_diklat').val();
+    var tahun           = $('.txt_tahun').val();
+    var params = '/diklat/laporan-peserta-diklat?province_id='+province_id+'&regency_id='+regency_id+'&nama_instansi='+nama_instansi+'&nama_gtk='+nama_gtk+'&nama_diklat='+nama_diklat+'&tahun='+tahun;
     $('#gtk-table').DataTable().ajax.url(params).load();
 }
 
