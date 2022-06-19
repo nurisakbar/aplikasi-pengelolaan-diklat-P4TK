@@ -16,6 +16,7 @@ use App\ProgramKeahlian;
 use App\KompetensiKeahlian;
 use App\BidangKeahlian;
 use App\Exports\DiklatExport;
+use App\Exports\LaporanPesertaDiklat;
 use App\Instansi;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 use Maatwebsite\Excel\Facades\Excel;
@@ -467,5 +468,11 @@ class DiklatController extends Controller
         $data['totalApprove']   = Gtk::where('is_approve', 0)->count();
         $data['provinsi']       = Provinsi::pluck('name', 'id');
         return view('diklat.laporan-peserta-diklat', $data);
+    }
+
+    public function laporanPesertaDiklatExcel(Request $request)
+    {
+
+        return Excel::download(new LaporanPesertaDiklat($request->all()), 'Laporan-Peserta-Diklat.xlsx');
     }
 }

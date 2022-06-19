@@ -37,6 +37,7 @@
         <div class="content flex-row-fluid" id="kt_content">
 
 
+            {{ Form::open(['url'=>'laporan-peserta-diklat-excel'])}}
             <table class="table table-bordered">
                 <tr>
                     <td colspan="2">FILTER DATA LAPORAN PESERTA DIKLAT</td>
@@ -83,9 +84,12 @@
                     <td></td>
                     <td>
                         <button type="button" class="btn btn-danger" onclick="filterData()">Filter Data</button>
+                        <button type="submit" class="btn btn-danger">Export Excel</button>
                     </td>
                 </tr>
             </table>
+
+            {{ Form::close() }}
 
             @include('alert')
 

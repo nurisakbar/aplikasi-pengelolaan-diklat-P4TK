@@ -24,6 +24,7 @@ Route::get('/ajax/kabupaten', 'AjaxController@kabupatenDropdown');
 Route::get('home', 'PageController@home');
 Route::resource('gtk', 'GtkController');
 Route::get('diklat/laporan-peserta-diklat','DiklatController@laporanPesertaDiklat');
+Route::post('laporan-peserta-diklat-excel','DiklatController@laporanPesertaDiklatExcel');
 Route::get('diklat/{id}/export', 'DiklatController@export');
 Route::post('diklat/import-diklat','DiklatController@importDiklat');
 Route::post('diklat/import', 'DiklatController@importRiwayatDiklat');
