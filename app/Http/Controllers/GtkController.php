@@ -11,6 +11,7 @@ use Storage;
 use App\Provinsi;
 use App\KompetensiKeahlian;
 use App\verifikasiEmail;
+use App\DiklatPeserta;
 
 class GtkController extends Controller
 {
@@ -187,6 +188,7 @@ class GtkController extends Controller
     public function destroy($id)
     {
         $gtk = Gtk::findOrFail($id);
+        DiklatPeserta::where('peserta_id', $id)->delete();
         $gtk->delete();
         \Session::flash('message', 'Data Gtk Berhasil Dihapus');
         return redirect('gtk');
