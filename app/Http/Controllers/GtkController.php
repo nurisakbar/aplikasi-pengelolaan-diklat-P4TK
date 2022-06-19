@@ -11,7 +11,6 @@ use Storage;
 use App\Provinsi;
 use App\KompetensiKeahlian;
 use App\verifikasiEmail;
-use App\DiklatPeserta;
 
 class GtkController extends Controller
 {
