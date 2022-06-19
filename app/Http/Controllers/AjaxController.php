@@ -78,9 +78,9 @@ class AjaxController extends Controller
 
     public function daftarDiklatMandiri(Request $request)
     {
-
-        $kelas = DiklatKelas::where('diklat_id', $request->diklat_id)->firstOrFail();
-        $request['kelas_id'] = $kelas->id;
+        $kelas = DiklatKelas::firstOrCreate(['diklat_id' => $request->diklat_id], ['diklat_id' => $request->diklat_id,'nama_kelas' => 'Kelas A']);
+        $request['diklat_kelas_id'] = $kelas->id;
+        $request['status_kehadiran'] = "Pendaftar";
         $result      = DiklatPeserta::create($request->all());
         $result['status'] = "ok";
         return response()->json($result);

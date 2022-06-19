@@ -260,12 +260,6 @@
                         </div>
                     </div>
                 </div>
-                <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
-                    <a class="menu-link py-3" href="{{ url('logout') }}">
-                        <span class="menu-title">Logout</span>
-                        <span class="menu-arrow d-lg-none"></span>
-                    </a>
-                </div>
 
             @else
                 <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
@@ -296,19 +290,13 @@
                 @else
                     <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
                         <a class="menu-link py-3" href="{{ url('/profile') }}">
-                            <span class="menu-title">Profile</span>
+                            <span class="menu-title">Profile Saya</span>
                             <span class="menu-arrow d-lg-none"></span>
                         </a>
                     </div>
                     <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
                         <a class="menu-link py-3" href="{{ url('/profile/diklatsaya') }}">
                             <span class="menu-title">Diklat Yang Saya Ikuti</span>
-                            <span class="menu-arrow d-lg-none"></span>
-                        </a>
-                    </div>
-                    <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
-                        <a class="menu-link py-3" href="{{ url('/logout') }}">
-                            <span class="menu-title">Logout</span>
                             <span class="menu-arrow d-lg-none"></span>
                         </a>
                     </div>
@@ -322,7 +310,26 @@
                 </div>
             @endif
         </div>
-        <!--end::Menu-->
+        @if (Auth::check())
+            <div style="float:left;color:#5e6278;width:400px">
+                Selamat Datang : <b>{{ Auth::user()->name }}</b> | <b onClick="logout()">Logout</b>
+            </div>
+        @endif
+        @if (Auth::guard('gtk')->check())
+            <div style="float:left;color:#5e6278;width:400px">
+                Selamat Datang : <b>{{ Auth::guard('gtk')->user()->nama_lengkap }}</b> | <b onClick="logout()">Logout</b>
+            </div>
+        @endif
     </div>
     <!--end::Menu wrapper-->
 </div>
+
+@push('scripts')
+<script>
+    function logout() {
+        console.log('logout');
+        location.href = "/logout";
+    }
+</script>
+@endpush
+
