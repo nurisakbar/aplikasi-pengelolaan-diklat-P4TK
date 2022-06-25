@@ -31,6 +31,11 @@ class Gtk extends Authenticatable
         return $this->belongsTo(Village::class);
     }
 
+    public function kompetensiKeahlian()
+    {
+        return $this->belongsTo(KompetensiKeahlian::class);
+    }
+
     public function getAuthPassword()
     {
         return $this->password;

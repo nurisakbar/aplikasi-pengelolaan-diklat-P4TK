@@ -106,9 +106,41 @@
                                     </tr>
                                 </table>
                                 <hr>
+                                
                                 @if (Auth::guard('gtk')->check())
-                                    @if(\App\DiklatPeserta::where('diklat_id', $diklat->id)->where('peserta_id',Auth::guard('gtk')->user()->id)->count()<=0)
-                                        <a href="http://" class="btn btn-primary" onClick="konfirmasi_pendaftaran()" style="margin-bottom:20px;">Mendaftar Sebagai Peserta</a>
+                                
+                                <?php
+                                $apakahMemenuhiKriteria   = false;
+                                $gtk_id     = Auth::guard('gtk')->user()->id;
+                                if($diklat->kompetensi_keahlian_id!=null)
+                                {
+                                    if(!empty(\DB::table('view_gtk_keahlian')->where('kompetensi_keahlian_id',$diklat->kompetensi_keahlian_id)->first())){
+                                        $apakahMemenuhiKriteria =true;
+                                    }
+                                }
+
+                                if($diklat->program_keahlian_id!=null)
+                                {
+                                    if(!empty(\DB::table('view_gtk_keahlian')->where('program_keahlian_id',$diklat->program_keahlian_id)->first())){
+                                        $apakahMemenuhiKriteria =true;
+                                    }
+                                }
+
+                                if($diklat->bidang_keahlian_id!=null)
+                                {
+                                    if(!empty(\DB::table('view_gtk_keahlian')->where('bidang_keahlian_id',$diklat->bidang_keahlian_id)->first())){
+                                        $apakahMemenuhiKriteria =true;
+                                    }
+                                }
+                                ?>
+
+                                
+                                    @if(\App\DiklatPeserta::where('diklat_id', $diklat->id)->where('peserta_id',Auth::guard('gtk')->user()->id)->count()==0)
+                                        @if($apakahMemenuhiKriteria)
+                                            <a href="http://" class="btn btn-primary" onClick="konfirmasi_pendaftaran()" style="margin-bottom:20px;">Mendaftar Sebagai Peserta</a>
+                                        @else
+                                            <a href="#" class="btn btn-primary" style="margin-bottom:20px;">Anda Tidak Memenuhi Kriteria Untuk Mengikuti Diklat Ini</a>
+                                        @endif
                                     @else
                                         <a href="#" class="btn btn-primary" style="margin-bottom:20px;">Anda Sudah Mendaftar Pada Diklat Ini</a>
                                     @endif

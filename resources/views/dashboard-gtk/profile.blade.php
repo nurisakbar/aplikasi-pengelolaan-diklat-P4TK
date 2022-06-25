@@ -96,19 +96,21 @@
                         </div>
                         <div class="col-md-4 mb-5">
                             <div class="row">
+                                <div class="col-md-7">
+                                    <label class="form-label">Agama</label>
+                                    {!! Form::select('agama', $agama, null, ['class' => 'form-control']) !!}
+                                </div>
                                 <div class="col-md-5">
                                     <label class="form-label">Pendidikan Terakhir</label>
                                     {!! Form::select('pendidikan_terakhir',['SD'=>'SD','SMP'=>'SMP','SMA','SMA','S1'=>'S1','S2'=>'S2'], null, ['class' => 'form-control']) !!}
                                 </div>
-                                <div class="col-md-7">
-                                    <label class="form-label">Jurusan Pendidikan Terakhir</label>
-                                    {!! Form::text('jurusan_pendidikan_terakhir', null, ['class' => 'form-control', 'placeholder' => 'Jurusan pendidikan terakhir']) !!}
-                                </div>
                             </div>
                         </div>
+
                         <div class="col-md-4 mb-5">
-                            <label class="form-label">Agama</label>
-                            {!! Form::select('agama', $agama, null, ['class' => 'form-control']) !!}
+                            <label class="form-label">Jurusan Pendidikan Terakhir</label>
+                                    {!! Form::text('jurusan_pendidikan_terakhir', null, ['class' => 'form-control', 'placeholder' => 'Jurusan pendidikan terakhir']) !!}
+   
                         </div>
 
                         <div class="col-md-4 mb-5">
@@ -150,15 +152,34 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 mb-5">
-                            <label class="form-label">Nomor HP</label>
-                            {!! Form::text('nomor_hp', null, ['class' => 'form-control', 'placeholder' => 'Nomor HP']) !!}
-                        </div>
-                        <div class="col-md-4 mb-5">
-                            <label class="form-label">Email</label>
-                            {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) !!}
-                        </div>
 
+                        <div class="col-md-4 mb-3">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label class="form-label">Nomor HP</label>
+                                    {!! Form::text('nomor_hp', null, ['class' => 'form-control', 'placeholder' => 'Nomor HP']) !!}
+              
+                                </div>
+                                <div class="col-md-7">
+                                    <label class="form-label">Email</label>
+                                    {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) !!}
+        
+                                </div>
+                            </div>
+                        </div>
+   
+
+                        <div class="col-md-4 mb-4">
+                            <label class="form-label">Kompetensi Keahlian</label>
+                            <select name="kompetensi_keahlian_id" id="kompetensi_keahlian" class="kompetensi_keahlian form-control" style="height: 100px;"
+                                placeholder="Masukan Nama Instansi">
+                                @if (isset($gtk))
+                                    <option value="{{ $gtk->kompetensi_keahlian_id }}">
+                                        {{ $gtk->kompetensiKeahlian->nama_kompetensi_keahlian }}
+                                    </option>
+                                @endif
+                            </select>
+                        </div>
                         <div class="col-md-4 mb-5">
                             <label class="form-label">Instansi</label>
                             <select name="instansi_id" id="instansi" class="instansi form-control" style="height: 100px;"
@@ -226,10 +247,41 @@
                     cache: true
                 }
             });
+
+            $('.kompetensi_keahlian').select2({
+                placeholder: 'Cari Kompetensi Keahlian',
+                ajax: {
+                    url: '/ajax/select2KompetensiKeahlian',
+                    dataType: 'json',
+                    delay: 250,
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    text: item.nama_kompetensi_keahlian,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    },
+                    cache: true
+                }
+            });
         });
     </script>
 @endpush
 
 @push('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .select2-container .select2-choice, .select2-result-label {
+        font-size: 1.5em;
+        height: 41px; 
+        overflow: auto;
+        }
+
+        .select2-arrow, .select2-chosen {
+        padding-top: 6px;
+        }
+    </style>
 @endpush
