@@ -107,7 +107,11 @@
                                 </table>
                                 <hr>
                                 @if (Auth::guard('gtk')->check())
-                                    <a href="http://" class="btn btn-primary" onClick="konfirmasi_pendaftaran()" style="margin-bottom:20px;">Mendaftar Sebagai Peserta</a>
+                                    @if(\App\DiklatPeserta::where('diklat_id', $diklat->id)->where('peserta_id',Auth::guard('gtk')->user()->id)->count()<=0)
+                                        <a href="http://" class="btn btn-primary" onClick="konfirmasi_pendaftaran()" style="margin-bottom:20px;">Mendaftar Sebagai Peserta</a>
+                                    @else
+                                        <a href="#" class="btn btn-primary" style="margin-bottom:20px;">Anda Sudah Mendaftar Pada Diklat Ini</a>
+                                    @endif
                                 @else
                                 <div class="alert alert-primary">
                                     <span class="svg-icon svg-icon-2hx svg-icon-primary me-3">...</span>
@@ -297,6 +301,8 @@
                                 'Admin akan mengkonfirmasi secepatnya untuk status pendaftaran anda',
                                 'success'
                             )
+                            setTimeout(function() { location.reload(); }, 5000);
+                             
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             console.log(textStatus, errorThrown);

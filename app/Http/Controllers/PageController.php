@@ -63,7 +63,6 @@ class PageController extends Controller
 
     public function verifikasiEmail(Request $request)
     {
-        $verifikasiEmail = VerifikasiEmail::create($request->all());
         // cek ke gtk apakah sudah ada, jika sudah kirim email dan pass untuk login
         $gtk = Gtk::where('nik', $request->nik)->first();
         $to_name = $request->nama_lengkap;
@@ -71,13 +70,13 @@ class PageController extends Controller
         $nik = $request->nik;
         $token = md5($request->nik);
         $request['token'] = $token;
-        $id = VerifikasiEmail::create($request->all());
         $password = \Str::random(6);
         if ($gtk) {
             $gtk->update(['password' => $password]);
             $template_email = "konfirmasi_pendaftaran_exist";
             $subject = "Konfirmasi Pendaftaran";
         } else {
+            $id = VerifikasiEmail::create($request->all());
             $template_email = "pendaftaran_daftar_ulang";
             $subject = "Verifikasi Email";
         }
