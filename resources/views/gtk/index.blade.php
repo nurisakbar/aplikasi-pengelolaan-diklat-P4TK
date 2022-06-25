@@ -8,7 +8,7 @@
             <!--begin::Page title-->
             <div class="page-title d-flex flex-column me-3">
                 <!--begin::Title-->
-                <h1 class="d-flex text-dark fw-bolder my-1 fs-3">Daftar GTK</h1>
+                <h1 class="d-flex text-dark fw-bolder my-1 fs-3">Daftar GTK {{ $_GET['status']=='approve'?'YANG SUDAH TERKONFIRMASI':'YANG BELUM TERKONFIRMASI' }}</h1>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-dot fw-bold text-gray-600 fs-7 my-1">
@@ -19,10 +19,10 @@
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-gray-600">GTK</li>
+                    <li class="breadcrumb-item text-gray-600">GTK </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-gray-600">Daftar GTK</li>
+                    <li class="breadcrumb-item text-gray-600">Daftar GTK {{ $_GET['status']=='approve'?'YANG SUDAH TERKONFIRMASI':'YANG BELUM TERKONFIRMASI' }}</li>
                     <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->
@@ -35,12 +35,19 @@
 
     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
         <div class="content flex-row-fluid" id="kt_content">
-            @if ($totalApprove != 0)
-                <div class="alert alert-info" role="alert">
-                    Ada <b>{{ $totalApprove }}</b> Data GTK Baru Yang Menunggu Konfirmasi Akun. <a
-                        href="{{ url('daftarApprove') }}" class="text-primary">Lihat daftar
-                        disini</a>
-                </div>
+            @if($_GET['status']=='approve')
+                @if ($totalApprove != 0)
+                    {{-- <div class="alert alert-info" role="alert">
+                        Ada <b>{{ $totalApprove }}</b> Data GTK Baru Yang Menunggu Konfirmasi Akun. <a
+                            href="{{ url('daftarApprove') }}" class="text-primary">Lihat daftar
+                            disini</a>
+                    </div> --}}
+                    <div class="alert alert-info" role="alert">
+                        Ada <b>{{ $totalApprove }}</b> Data GTK Baru Yang Menunggu Konfirmasi Akun. <a
+                            href="{{ url('gtk?status=not_approve') }}" class="text-primary">Lihat daftar
+                            disini</a>
+                    </div>
+                @endif
             @endif
 
             <table class="table table-bordered">
@@ -133,7 +140,7 @@ $(function() {
     $('#gtk-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '/gtk',
+        ajax: '/gtk?status={{ $_GET['status']}}',
         columns: [{
             data: 'nomor_ukg',
             name: 'nomor_ukg'
@@ -175,7 +182,7 @@ function filterData(){
     var regency_id      = $(".regency_id").val();
     var nama_instansi   = $('.txt_nama_instansi').val();
     var nama_gtk        = $('.txt_nama_gtk').val();
-    var params = '/gtk?province_id='+province_id+'&regency_id='+regency_id+'&nama_instansi='+nama_instansi+'&nama_gtk='+nama_gtk;
+    var params = '/gtk?province_id='+province_id+'&regency_id='+regency_id+'&nama_instansi='+nama_instansi+'&nama_gtk='+nama_gtk+'&status={{ $_GET['status'] }}';
     $('#gtk-table').DataTable().ajax.url(params).load();
 }
 

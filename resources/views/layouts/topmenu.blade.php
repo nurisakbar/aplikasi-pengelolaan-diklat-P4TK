@@ -18,7 +18,7 @@
                     </a>
                 </div>
                 <div data-kt-menu-placement="bottom-start" class="menu-item me-lg-1">
-                    <a class="menu-link py-3" href="{{ url('gtk') }}">
+                    <a class="menu-link py-3" href="{{ url('gtk?status=approve') }}">
                         <span class="menu-title">Data GTK</span>
                         <span class="menu-arrow d-lg-none"></span>
                     </a>

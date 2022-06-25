@@ -29,17 +29,18 @@ class GtkController extends Controller
 
     public function index(Request $request)
     {
-
-
         if ($request->ajax()) {
             $search         = $request->input('search.value');
             $columns        = $request->get('columns');
+
+            $status = $request->status == 'approve' ? 1 : 0;
             $count_total    = Gtk::count();
             $items = GTK::select('gtk.id', 'gtk.tanggal_lahir', 'jenis_kelamin', 'instansi.nama_instansi', 'nomor_hp', 'nama_lengkap', 'nomor_ukg', 'districts.name as nama_kecamatan', 'regencies.name as nama_kabupaten', 'provinces.name as nama_provinsi')
             ->join('instansi', 'instansi.id', 'gtk.instansi_id')
             ->join('districts', 'districts.id', 'instansi.district_id')
             ->join('regencies', 'regencies.id', 'districts.regency_id')
-            ->join('provinces', 'provinces.id', 'regencies.province_id');
+            ->join('provinces', 'provinces.id', 'regencies.province_id')
+            ->where('gtk.is_approve', $status);
 
             if ($request->nama_gtk != null) {
                 $searchName = $request->nama_gtk;
