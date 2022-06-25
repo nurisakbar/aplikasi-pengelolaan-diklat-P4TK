@@ -64,7 +64,7 @@ class PageController extends Controller
     public function verifikasiEmail(Request $request)
     {
         // cek ke gtk apakah sudah ada, jika sudah kirim email dan pass untuk login
-        $gtk = Gtk::where('nik', $request->nik)->first();
+        $gtk = Gtk::where('nik', $request->nik)->orWhere('email', $request->email)->first();
         $to_name = $request->nama_lengkap;
         $to_email = $request->email;
         $nik = $request->nik;
