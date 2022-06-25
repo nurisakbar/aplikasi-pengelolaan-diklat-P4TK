@@ -147,7 +147,7 @@ class PageController extends Controller
             if ($gtk->is_approve == 0) {
                 return back()->with('failed', 'Akun anda belum diapprove oleh admin. Silahkan tunggu beberapa waktu');
             } else {
-                return redirect('list-diklat')->with('message', 'Selamat datang, ' . $gtk->nama_lengkap);
+                return redirect('/')->with('message', 'Selamat datang, ' . $gtk->nama_lengkap);
             }
         } else {
             return back()->with('failed', 'Akun belum terdaftar atau kesalahan dalam input.');
