@@ -40,9 +40,10 @@ class PageController extends Controller
 
     public function dashboard()
     {
-        $data['jumlahDiklatAktif'] = Diklat::where('status_aktif', 'Aktif')->count();
-        $data['jumlahGtk'] = Gtk::count();
-        $data['jumlahInstansi'] = Instansi::count();
+        $data['jumlahDiklatAktif']  = Diklat::where('status_aktif', 'Aktif')->count();
+        $data['jumlahGtk']          = Gtk::count();
+        $data['jumlahInstansi']     = Instansi::count();
+        $data['jumlahPesertaDiklat']= DiklatPeserta::where('status_kehadiran','peserta')->count();
         return view('dashboard', $data);
     }
 
