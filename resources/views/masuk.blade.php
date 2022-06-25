@@ -43,7 +43,7 @@
                 </a>
                 <!--end::Logo-->
                 <!--begin::Wrapper-->
-                <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
+                <div class="w-lg-700px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
                     <!--begin::Form-->
                     <form class="form w-100" method="POST" novalidate="novalidate" id="kt_sign_in_form"
                         action="{{ route('login.gtk') }}">
@@ -130,9 +130,18 @@
                             </button>
                         </div>
                         <div class="text-center text-muted text-uppercase fw-bolder mb-5">Atau</div>
-                        <a href="/socialite/redirect" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
-                            <img alt="Logo" src="{{ asset('assets/media/svg/brand-logos/google-icon.svg') }}"
-                                class="h-20px me-3">Login Dengan Google</a>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a href="/socialite/redirect" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
+                                    <img alt="Logo" src="{{ asset('assets/media/svg/brand-logos/google-icon.svg') }}"
+                                        class="h-20px me-3">Login Dengan Google</a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="/lupa-password" class="btn btn-danger" style="width:100%">Lupa Password</a>
+                            </div>
+                        </div>
+                    
                         <!--end::Actions-->
                     </form>
                     <!--end::Form-->
