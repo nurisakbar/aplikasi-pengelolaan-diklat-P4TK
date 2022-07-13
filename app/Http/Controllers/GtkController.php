@@ -157,8 +157,8 @@ class GtkController extends Controller
             return Gtk::with('instansi.wilayahAdministratif')->findOrFail($id);
         }
 
-        $data['gtk'] = Gtk::with('instansi')->findOrFail($id);
-        $data['riwayats'] = DiklatPeserta::with('diklat', 'kelas')->where('peserta_id', $id)->withTrashed()->get();
+        $data['gtk']        = Gtk::with('instansi')->findOrFail($id);
+        $data['riwayats']   = DiklatPeserta::with('diklat', 'kelas')->where('peserta_id', $id)->where('status_kehadiran','Peserta')->withTrashed()->get();
 
         return view('gtk.show', $data);
     }
