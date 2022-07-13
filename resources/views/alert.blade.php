@@ -2,7 +2,6 @@
     <!--begin::Alert-->
     <div class="alert alert-primary">
         <!--begin::Icon-->
-        <span class="svg-icon svg-icon-2hx svg-icon-primary me-3">...</span>
         <!--end::Icon-->
 
         <!--begin::Wrapper-->

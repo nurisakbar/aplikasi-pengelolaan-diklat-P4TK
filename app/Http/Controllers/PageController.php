@@ -44,6 +44,7 @@ class PageController extends Controller
         $data['jumlahGtk']          = Gtk::count();
         $data['jumlahInstansi']     = Instansi::count();
         $data['jumlahPesertaDiklat'] = DiklatPeserta::where('status_kehadiran', 'peserta')->count();
+        $data['jumlahPendaftarDiklat'] = DiklatPeserta::where('status_kehadiran', 'Pendaftar')->count();
         return view('dashboard', $data);
     }
 
@@ -65,15 +66,15 @@ class PageController extends Controller
     public function verifikasiEmail(Request $request)
     {
         // cek ke gtk apakah sudah ada, jika sudah kirim email dan pass untuk login
-        $gtk = Gtk::where('nik', $request->nik)->orWhere('email', $request->email)->first();
-        $to_name = $request->nama_lengkap;
-        $to_email = $request->email;
-        $nik = $request->nik;
-        $token = md5($request->nik);
-        $request['token'] = $token;
+        $gtk                = Gtk::where('nik', $request->nik)->orWhere('email', $request->email)->first();
+        $to_name            = $request->nama_lengkap;
+        $to_email           = $request->email;
+        $nik                = $request->nik;
+        $token              = md5($request->nik);
+        $request['token']   = $token;
         $password = \Str::random(6);
         if ($gtk) {
-            $gtk->update(['password' => $password]);
+            $gtk->update(['password' => Hash::make($password)]);
             $template_email = "konfirmasi_pendaftaran_exist";
             $subject = "Konfirmasi Pendaftaran";
         } else {
@@ -87,7 +88,7 @@ class PageController extends Controller
             $message->to($to_email, $to_name)->subject($subject);
             $message->from(ENV('MAIL_FROM_ADDRESS'), ENV('MAIL_FROM_NAME'));
         });
-        \Session::flash('message', 'silahkan cek email anda untuk instruksi selanjutnya');
+        \Session::flash('message', 'Kami sudah mengirimkan email konfirmasi ke email anda untuk instruksi ke tahap selanjutnya');
             return redirect('/');
     }
 
@@ -148,7 +149,9 @@ class PageController extends Controller
             if ($gtk->is_approve == 0) {
                 return back()->with('failed', 'Akun anda belum diapprove oleh admin. Silahkan tunggu beberapa waktu');
             } else {
-                return redirect('/')->with('message', 'Selamat datang, ' . $gtk->nama_lengkap);
+                // check apakah profile sudah lengkap, kalau belum maka isi profile dulu
+
+                return redirect('/')->with('message', 'Selamat datang, ' . $gtk->nama_lengkap . ' silahkan pilih diklat yang ingin anda ikuti');
             }
         } else {
             return back()->with('failed', 'Akun belum terdaftar atau kesalahan dalam input.');
@@ -199,11 +202,12 @@ class PageController extends Controller
         }
     }
 
-    public function diklatDetail($slug)
+    public function diklatDetail($slug, Request $request)
     {
         $data['bidangKeahlian'] = BidangKeahlian::all();
         $data['diklat']         = Diklat::find($slug);
         $data['diklatTerkait']  = Diklat::limit(3)->get();
+        \Session::flash('url', $request->server('HTTP_REFERER'));
         return view('diklat-detail', $data);
     }
 }

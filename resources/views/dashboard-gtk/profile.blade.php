@@ -4,7 +4,19 @@
     @include('dashboard-gtk.toolbar')
     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
         <div class="content flex-row-fluid" id="kt_content">
-            @include('alert')
+
+            {{-- @include('alert') --}}
+            @if(count($gtk->is_profile_complate)>0)
+            <div class="alert alert-primary" role="alert" style="margin-top:20px;text-align:left;font-weight:bold;font-size:14px">
+                Tahap 3 Dari 3 :  Silahkan lengkapi profile anda dengan mengisi formulir dibawah ini agar bisa mendaftar pada diklat.<br>
+                <hr>
+                <ul>
+                    @foreach($gtk->is_profile_complate as $profileNull)
+                        <li>{{ $profileNull }}</li>
+                    @endforeach
+                </ul>
+              </div>
+            @endif
             <div class="card">
                 <div class="card-body py-4">
                     @include('validation_error')

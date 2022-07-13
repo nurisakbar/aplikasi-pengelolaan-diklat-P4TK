@@ -2,21 +2,8 @@
 <html lang="en">
 
 <head>
-    <title>Form Pendaftaran</title>
+    <title>Tahap 2 : Pembuatan Akun Login</title>
     <meta charset="utf-8" />
-    <meta name="description"
-        content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
-    <meta name="keywords"
-        content="Metronic, bootstrap, bootstrap 5, Angular, VueJs, React, Laravel, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title"
-        content="Metronic - Bootstrap 5 HTML, VueJS, React, Angular &amp; Laravel Admin Dashboard Theme" />
-    <meta property="og:url" content="https://keenthemes.com/metronic" />
-    <meta property="og:site_name" content="Keenthemes | Metronic" />
-    <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    <link rel="shortcut icon" href="/metronic8/demo11/assets/media/logos/favicon.ico" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
@@ -55,14 +42,14 @@
                         <div class="mb-10 text-center">
                             
                             <!--begin::Title-->
-                            <h1 class="text-dark mb-3">Pendaftaran Akun Baru</h1>
+                            <h1 class="text-dark mb-3">Tahap 2 Dari 3 : Pembuatan Akun Login</h1>
                             <!--end::Title-->
                             <!--begin::Link-->
                             <div class="text-gray-400 fw-bold fs-4">Sudah Punya Akun ?
                                 <a href="{{ url('masuk') }}" class="link-primary fw-bolder">Login Disini</a>
                             </div>
-                            <div class="alert alert-primary" role="alert" style="margin-top:20px;">
-                                Silahkan lengkapi biodata anda dan klik daftar untuk menyelesaikan pendaftaran.
+                            <div class="alert alert-primary" role="alert" style="margin-top:20px;text-align:left;font-weight:bold">
+                                Silahkan lengkapi form dibawah ini untuk pembuatan akun login.
                               </div>
                             <!--end::Link-->
                         </div>
@@ -79,7 +66,7 @@
                                 <label class="form-label fw-bolder text-dark fs-6">Nama Lengkap</label>
                                 <input type="text" value="{{$verifikasi['nama_lengkap']}}" placeholder="Nama Lengkap" name="nama_lengkap" autocomplete="off"
                                 class="@error('nama_lengkap') is-invalid @enderror form-control form-control-lg form-control-solid"
-                                value="{{ old('nama_lengkap') }}" />
+                                value="{{ old('nama_lengkap') }}" readonly />
                             @error('nama_lengkap')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -93,7 +80,7 @@
                                 <input
                                     class="@error('tanggal_lahir') is-invalid @enderror form-control form-control-lg form-control-solid"
                                     type="date" value="{{$verifikasi['tanggal_lahir']}}" placeholder="Tanggal Lahir" name="tanggal_lahir" 
-                                    value="{{ old('tanggal_lahir') }}" />
+                                    value="{{ old('tanggal_lahir') }}" readonly />
                                 @error('tanggal_lahir')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -109,7 +96,7 @@
                                 <input value="{{$verifikasi['nik']}}"
                                     class="@error('nik') is-invalid @enderror form-control form-control-lg form-control-solid"
                                     type="text" placeholder="Nomor Induk Kewarganegaraan" name="nik" autocomplete="off"
-                                    value="{{ old('nik') }}" />
+                                    value="{{ old('nik') }}" readonly />
                                 @error('nik')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -186,7 +173,7 @@
                             <input value="{{$verifikasi['email']}}"
                                 class="@error('email') is-invalid @enderror form-control form-control-lg form-control-solid"
                                 type="text" placeholder="Email" name="email" autocomplete="off"
-                                value="{{ old('email') }}" />
+                                value="{{ old('email') }}" readonly />
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

@@ -67,20 +67,12 @@
                                 </div>
                                 <!--end::Info-->
                                 <!--begin::Title-->
-                                <a href="#" class="text-dark text-hover-primary fs-2 fw-bolder">{{ $diklat->nama_diklat}} 
+                                <a href="#" class="text-dark text-hover-primary fs-2 fw-bolder">{{ $diklat->nama_diklat}}</a> 
                                
                                 <!--end::Title-->
                                 <!--begin::Container-->
                                 <div class="overlay mt-8">
-                                    <!--begin::Image-->
                                     <div class="bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-350px" style="background-image:url('{{ $diklat->image!=null?asset('image/'.$diklat->image):'https://www.bimteknasional.id/wp-content/uploads/2019/12/d-1024x683.jpg'}}')"></div>
-                                    <!--end::Image-->
-                                    <!--begin::Links-->
-                                    {{-- <div class="overlay-layer card-rounded bg-dark bg-opacity-25">
-                                        <a href="/metronic8/demo11/../demo11/pages/about.html" class="btn btn-primary">Tanya Admin</a>
-                                        <a href="/metronic8/demo11/../demo11/pages/careers/apply.html" class="btn btn-light-primary ms-3">Join Us</a>
-                                    </div> --}}
-                                    <!--end::Links-->
                                 </div>
                                 <!--end::Container-->
                             </div>
@@ -105,34 +97,42 @@
                                         <td> : {{$diklat->pola_diklat }} Jam</td>
                                     </tr>
                                 </table>
+
+
+   
                                 <hr>
                                 
                                 @if (Auth::guard('gtk')->check())
-                                
                                 <?php
-                                $apakahMemenuhiKriteria   = false;
+                                $apakahMemenuhiKriteria   = true;
                                 $gtk_id     = Auth::guard('gtk')->user()->id;
+                                $gtkData    = \DB::table('view_gtk_keahlian')->where('id',$gtk_id)->first();
+
+
                                 if($diklat->kompetensi_keahlian_id!=null)
                                 {
-                                    if(!empty(\DB::table('view_gtk_keahlian')->where('kompetensi_keahlian_id',$diklat->kompetensi_keahlian_id)->first())){
-                                        $apakahMemenuhiKriteria =true;
+                                    if(empty(\DB::table('view_gtk_keahlian')->where('kompetensi_keahlian_id',$diklat->kompetensi_keahlian_id)->where('kompetensi_keahlian_id',$gtkData->kompetensi_keahlian_id)->first())){
+                                        $apakahMemenuhiKriteria =false;
                                     }
                                 }
 
                                 if($diklat->program_keahlian_id!=null)
                                 {
-                                    if(!empty(\DB::table('view_gtk_keahlian')->where('program_keahlian_id',$diklat->program_keahlian_id)->first())){
-                                        $apakahMemenuhiKriteria =true;
+                                    if(empty(\DB::table('view_gtk_keahlian')->where('program_keahlian_id',$diklat->program_keahlian_id)->where('program_keahlian_id',$gtkData->program_keahlian_id)->first())){
+                                        $apakahMemenuhiKriteria =false;
                                     }
+                                    
                                 }
 
-                                if($diklat->bidang_keahlian_id!=null)
-                                {
-                                    if(!empty(\DB::table('view_gtk_keahlian')->where('bidang_keahlian_id',$diklat->bidang_keahlian_id)->first())){
-                                        $apakahMemenuhiKriteria =true;
-                                    }
-                                }
+                                // if($diklat->bidang_keahlian_id!=null)
+                                // {
+                                //     if(empty(\DB::table('view_gtk_keahlian')->where('bidang_keahlian_id',$diklat->bidang_keahlian_id)->where('bidang_keahlian_id',$gtkData->bidang_keahlian_id)->first())){
+                                //         $apakahMemenuhiKriteria =false;
+                                //     }
+                                // }
                                 ?>
+
+                             
 
                                 
                                     @if(\App\DiklatPeserta::where('diklat_id', $diklat->id)->where('peserta_id',Auth::guard('gtk')->user()->id)->count()==0)
@@ -142,17 +142,39 @@
                                             <a href="#" class="btn btn-primary" style="margin-bottom:20px;">Anda Tidak Memenuhi Kriteria Untuk Mengikuti Diklat Ini</a>
                                         @endif
                                     @else
-                                        <a href="#" class="btn btn-primary" style="margin-bottom:20px;">Anda Sudah Mendaftar Pada Diklat Ini</a>
+                                        <a href="#" class="btn btn-danger" style="margin-bottom:20px;">Anda Sudah Mendaftar Pada Diklat Ini</a>
                                     @endif
                                 @else
                                 <div class="alert alert-primary">
-                                    <span class="svg-icon svg-icon-2hx svg-icon-primary me-3">...</span>
                                     <div class="d-flex flex-column">
-                                        <h4 class="mb-1 text-dark">Informasi</h4>
-                                        <span onClick="redirectToLogin()">Untuk mendaftar diklat ini silahkan melakukan klik tautan berikut.</span>
+                                        <span>Untuk mendaftar pada diklat ini silahkan melakukan login pada tombol dibawah ini.</span>
                                     </div>
                                 </div>
+                                <button onClick="redirectToLogin()" class="btn btn-danger">Login</button>
                                 @endif
+
+                                {{-- <table class="table">
+                                    <tr>
+                                        <th>Parameters</th>
+                                        <th>Diklat</th>
+                                        <th>GTK</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Kompetensi Keahlian</td>
+                                        <td>{{ $diklat->kompetensi_keahlian_id }}</td>
+                                        <td>{{ $gtkData->kompetensi_keahlian_id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bidang Keahlian</td>
+                                        <td>{{ $diklat->bidang_keahlian_id }}</td>
+                                        <td>{{ $gtkData->bidang_keahlian_id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Program Keahlian</td>
+                                        <td>{{ $diklat->program_keahlian_id }}</td>
+                                        <td>{{ $gtkData->program_keahlian_id }}</td>
+                                    </tr>
+                                </table> --}}
                             </div>
                             <!--end::Description-->
                             <!--begin::Block-->
@@ -333,7 +355,7 @@
                                 'Admin akan mengkonfirmasi secepatnya untuk status pendaftaran anda',
                                 'success'
                             )
-                            setTimeout(function() { location.reload(); }, 5000);
+                            setTimeout(function() { location.reload(); }, 3000);
                              
                         },
                         error: function (jqXHR, textStatus, errorThrown) {

@@ -85,6 +85,8 @@ class LaporanPesertaDiklat extends DefaultValueBinder implements FromView, Shoul
             }
         }
 
+        $status = $this->request['status'] == 'peserta' ? 'Peserta' : 'Pendaftar';
+
         return \DB::select("
         select gt.nama_lengkap,
         gt.nik,
@@ -94,7 +96,7 @@ class LaporanPesertaDiklat extends DefaultValueBinder implements FromView, Shoul
         i.nama_instansi,
         p.name as nama_provinsi,
         r.name as nama_kabupaten
-        from diklat_peserta as dp join gtk as gt on gt.id=dp.peserta_id and dp.status_kehadiran='Peserta' $filter_nama_gtk 
+        from diklat_peserta as dp join gtk as gt on gt.id=dp.peserta_id and dp.status_kehadiran='" . $status . "' $filter_nama_gtk 
         join diklat as d on d.id=dp.diklat_id $filter_nama_diklat $filter_tahun
         join instansi as i on i.id=gt.instansi_id $filter_nama_instansi
         join provinces as p on p.id=i.province_id $filter_provinsi

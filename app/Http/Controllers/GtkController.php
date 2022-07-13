@@ -35,35 +35,48 @@ class GtkController extends Controller
 
             $status = $request->status == 'approve' ? 1 : 0;
             $count_total    = Gtk::count();
-            $items = GTK::select('gtk.id', 'gtk.tanggal_lahir', 'jenis_kelamin', 'instansi.nama_instansi', 'nomor_hp', 'nama_lengkap', 'nomor_ukg', 'districts.name as nama_kecamatan', 'regencies.name as nama_kabupaten', 'provinces.name as nama_provinsi')
-            ->join('instansi', 'instansi.id', 'gtk.instansi_id')
-            ->join('districts', 'districts.id', 'instansi.district_id')
-            ->join('regencies', 'regencies.id', 'districts.regency_id')
-            ->join('provinces', 'provinces.id', 'regencies.province_id')
-            ->where('gtk.is_approve', $status);
+            // $items = GTK::select(
+            //     'gtk.id',
+            //     'gtk.tanggal_lahir',
+            //     'jenis_kelamin',
+            //     'instansi.nama_instansi',
+            //     'nomor_hp',
+            //     'nama_lengkap',
+            //     'nomor_ukg',
+            //     'districts.name as nama_kecamatan',
+            //     'regencies.name as nama_kabupaten',
+            //     'provinces.name as nama_provinsi')
+            // ->leftJoin('instansi', 'instansi.id', 'gtk.instansi_id')
+            // ->leftJoin('districts', 'districts.id', 'instansi.district_id')
+            // ->leftJoin('regencies', 'regencies.id', 'districts.regency_id')
+            // ->leftJoin('provinces', 'provinces.id', 'regencies.province_id')
+            // ->where('gtk.is_approve', $status);
 
-            if ($request->nama_gtk != null) {
-                $searchName = $request->nama_gtk;
-                $items->where('gtk.nama_lengkap', 'like', '%' . $searchName . '%');
-                $items->orWhere('gtk.nik', 'like', '%' . $searchName . '%');
-                $items->orWhere('gtk.nuptk', 'like', '%' . $searchName . '%');
-                $items->orWhere('gtk.nomor_ukg', 'like', '%' . $searchName . '%');
+            $items = \App\ViewGtk::query();
+            if ($request->province_id) {
+                $items->where('instansi_province_id', $request->province_id);
             }
 
-            if ($request->nama_instansi != null) {
+            if (!in_array($request->regency_id, ['undefined',null])) {
+                $items->where('instansi_regency_id', $request->regency_id);
+            }
+
+            if ($request->nama_gtk) {
+                $searchName = $request->nama_gtk;
+                $items->where('nama_lengkap', 'like', '%' . $searchName . '%');
+                // $items->orWhere('nik', 'like', '%' . $searchName . '%');
+                // $items->orWhere('nuptk', 'like', '%' . $searchName . '%');
+                // $items->orWhere('nomor_ukg', 'like', '%' . $searchName . '%');
+            }
+
+            if (!in_array($request->nama_instansi, ['undefined',null])) {
                 $searchByNameInstansi = $request->nama_instansi;
-                // $items->where('nama_instansi', 'like', '%' . $searchByNameInstansi . '%');
                 $clearStatusInstansi = str_replace(['SMK N ','SMK ','NEGERI ','SMKN'], ['','','',''], strtoupper($searchByNameInstansi));
                 $items->where('nama_instansi', 'like', '%' . $clearStatusInstansi . '%');
             }
 
-            if ($request->province_id != null) {
-                $items->where('instansi.province_id', $request->province_id);
-            }
 
-            if (!in_array($request->regency_id, [null,'undefined'])) {
-                $items->where('instansi.regency_id', $request->regency_id);
-            }
+
 
 
             $count_filter  = $items->count();

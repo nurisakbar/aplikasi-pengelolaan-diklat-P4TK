@@ -95,6 +95,12 @@
             </div>
             <div class="modal-body">
                 {{ Form::open(['url'=>'diklat/import','files'=>true])}}
+                <div class="alert alert-primary">
+                  <div class="d-flex flex-column">
+                      <h4 class="mb-1 text-dark">Informasi</h4>
+                      <span>Digunakan untuk melakukan import data diklat beserta dengan data peserta</span>
+                  </div>
+              </div>
               <table class="table table-bordered">
                 <tr>
                     <td>Periode</td>
@@ -155,6 +161,13 @@
             </div>
             <div class="modal-body">
                 {{ Form::open(['url'=>'diklat/import-diklat','files'=>true])}}
+
+                <div class="alert alert-primary">
+                  <div class="d-flex flex-column">
+                      <h4 class="mb-1 text-dark">Informasi</h4>
+                      <span>Fitur ini digunakan untuk melakukan import data diklat</span>
+                  </div>
+              </div>
               <table class="table table-bordered">
                   <tr>
                       <td>File</td>

@@ -309,7 +309,7 @@
                     <ul class="nav row mb-10">
                         <li class="nav-item col-12 col-lg mb-5 mb-lg-0">
                             <a class="nav-link btn btn-flex btn-color-gray-400 btn-outline btn-outline-default btn-active-primary d-flex flex-grow-1 flex-column flex-center py-5 h-1250px h-lg-175px"
-                                data-bs-toggle="tab" href="#kt_general_widget_1_1">
+                                data-bs-toggle="tab">
                                 <!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
                                 <span class="svg-icon svg-icon-3x mb-5 mx-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -372,8 +372,8 @@
                             </a>
                         </li>
                         <li class="nav-item col-12 col-lg mb-5 mb-lg-0">
-                            <a class="nav-link btn btn-flex btn-color-gray-400 btn-outline btn-outline-default btn-active-primary d-flex flex-grow-1 flex-column flex-center py-5 h-1250px h-lg-175px"
-                                data-bs-toggle="tab" href="#kt_general_widget_1_4">
+                            <a href="/diklat/laporan-peserta-diklat?status=peserta" class="nav-link btn btn-flex btn-color-gray-400 btn-outline btn-outline-default btn-active-primary d-flex flex-grow-1 flex-column flex-center py-5 h-1250px h-lg-175px"
+                                data-bs-toggle="tab">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen032.svg-->
                                 <span class="svg-icon svg-icon-3x mb-5 mx-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -389,8 +389,8 @@
                                 <span class="fs-6 fw-bold">{{ $jumlahPesertaDiklat }} PESERTA PADA SEMUA DIKLAT
                             </a>
                         </li>
-                        {{-- <li class="nav-item col-12 col-lg mb-5 mb-lg-0">
-                            <a class="nav-link btn btn-flex btn-color-gray-400 btn-outline btn-outline-default btn-active-primary d-flex flex-grow-1 flex-column flex-center py-5 h-1250px h-lg-175px"
+                        <li class="nav-item col-12 col-lg mb-5 mb-lg-0">
+                            <a href="/diklat/laporan-peserta-diklat?status=pendaftar" class="nav-link btn btn-flex btn-color-gray-400 btn-outline btn-outline-default btn-active-primary d-flex flex-grow-1 flex-column flex-center py-5 h-1250px h-lg-175px"
                                 data-bs-toggle="tab" href="#kt_general_widget_1_5">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen048.svg-->
                                 <span class="svg-icon svg-icon-3x mb-5 mx-0">
@@ -405,10 +405,9 @@
                                     </svg>
                                 </span>
                                 <!--end::Svg Icon-->
-                                <span class="fs-6 fw-bold">Access
-                                    <br>Control</span>
+                                <span class="fs-6 fw-bold">{{ $jumlahPendaftarDiklat}} PESERTA PADA SEMUA DIKLAT
                             </a>
-                        </li> --}}
+                        </li>
                     </ul>
                 </div>
             </div>

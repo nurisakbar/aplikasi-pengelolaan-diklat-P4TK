@@ -8,7 +8,7 @@
             <!--begin::Page title-->
             <div class="page-title d-flex flex-column me-3">
                 <!--begin::Title-->
-                <h1 class="d-flex text-dark fw-bolder my-1 fs-3">Daftar GTK {{ $_GET['status']=='approve'?'YANG SUDAH TERKONFIRMASI':'YANG BELUM TERKONFIRMASI' }}</h1>
+                <h1 class="d-flex text-dark fw-bolder my-1 fs-3">Daftar GTK</h1>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-dot fw-bold text-gray-600 fs-7 my-1">
@@ -22,7 +22,7 @@
                     <li class="breadcrumb-item text-gray-600">GTK </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-gray-600">Daftar GTK {{ $_GET['status']=='approve'?'YANG SUDAH TERKONFIRMASI':'YANG BELUM TERKONFIRMASI' }}</li>
+                    <li class="breadcrumb-item text-gray-600">Daftar GTK</li>
                     <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->
@@ -35,20 +35,6 @@
 
     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
         <div class="content flex-row-fluid" id="kt_content">
-            @if($_GET['status']=='approve')
-                @if ($totalApprove != 0)
-                    {{-- <div class="alert alert-info" role="alert">
-                        Ada <b>{{ $totalApprove }}</b> Data GTK Baru Yang Menunggu Konfirmasi Akun. <a
-                            href="{{ url('daftarApprove') }}" class="text-primary">Lihat daftar
-                            disini</a>
-                    </div> --}}
-                    <div class="alert alert-info" role="alert">
-                        Ada <b>{{ $totalApprove }}</b> Data GTK Baru Yang Menunggu Konfirmasi Akun. <a
-                            href="{{ url('gtk?status=not_approve') }}" class="text-primary">Lihat daftar
-                            disini</a>
-                    </div>
-                @endif
-            @endif
 
             <table class="table table-bordered">
                 <tr>
@@ -76,7 +62,7 @@
                 <tr>
                   <td>Cari GTK</td>
                   <td>
-                      {{ Form::text('nama_gtk',null,['class' => 'form-control txt_nama_gtk','placeholder'=>'Masukan Nama, NIK Atau Nomor UKG'])}}
+                      {{ Form::text('nama_gtk',null,['class' => 'form-control txt_nama_gtk','placeholder'=>'Masukan Nama GTK'])}}
                   </td>
               </tr>
                 <tr>
@@ -101,7 +87,7 @@
                         <th>Nomor HP</th>
                         <th>Asal instansi</th>
                         <th>Provinsi - Kota</th>
-                        <th width="170">#</th>
+                        <th width="180">#</th>
                     </tr>
                 </thead>
             </table>
@@ -166,7 +152,7 @@ $(function() {
             name: 'nama_instansi'
         },
         {
-            data: 'nama_provinsi'
+            data: 'instansi_province'
         },
         {
             data: 'action',

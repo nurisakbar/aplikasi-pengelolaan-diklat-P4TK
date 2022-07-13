@@ -414,6 +414,8 @@ class DiklatController extends Controller
             $filter_provinsi        = "";
             $filter_kabupaten       = "";
 
+            $status = $request->status == 'peserta' ? 'Peserta' : 'Pendaftar';
+
             if (!in_array($request->nama_diklat, ['undefined',null])) {
                 $filter_nama_diklat = "and d.nama_diklat like '%" . $request->nama_diklat . "%'";
             }
@@ -448,7 +450,7 @@ class DiklatController extends Controller
             i.nama_instansi,
             p.name as nama_provinsi,
             r.name as nama_kabupaten
-            from diklat_peserta as dp join gtk as gt on gt.id=dp.peserta_id and dp.status_kehadiran='Peserta' $filter_nama_gtk 
+            from diklat_peserta as dp join gtk as gt on gt.id=dp.peserta_id and dp.status_kehadiran='" . $status . "' $filter_nama_gtk 
             join diklat as d on d.id=dp.diklat_id $filter_nama_diklat $filter_tahun
             join instansi as i on i.id=gt.instansi_id $filter_nama_instansi
             join provinces as p on p.id=i.province_id $filter_provinsi
@@ -472,7 +474,6 @@ class DiklatController extends Controller
 
     public function laporanPesertaDiklatExcel(Request $request)
     {
-
-        return Excel::download(new LaporanPesertaDiklat($request->all()), 'Laporan-Peserta-Diklat.xlsx');
+        return Excel::download(new LaporanPesertaDiklat($request->all()), 'Laporan-' . $request->status . '-Diklat.xlsx');
     }
 }

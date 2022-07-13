@@ -8,7 +8,7 @@
             <!--begin::Page title-->
             <div class="page-title d-flex flex-column me-3">
                 <!--begin::Title-->
-                <h1 class="d-flex text-dark fw-bolder my-1 fs-3">Laporan Peserta Diklat</h1>
+                <h1 class="d-flex text-dark fw-bolder my-1 fs-3">Laporan {{ $_GET['status']=='peserta'?'Peserta':'Pendaftar'}} Pada Semua Diklat</h1>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-dot fw-bold text-gray-600 fs-7 my-1">
@@ -22,7 +22,7 @@
                     <li class="breadcrumb-item text-gray-600">Diklat</li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-gray-600">Laporan Peserta Diklat</li>
+                    <li class="breadcrumb-item text-gray-600">Laporan {{ $_GET['status']=='peserta'?'Peserta':'Pendaftar'}} Diklat</li>
                     <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->
@@ -38,6 +38,7 @@
 
 
             {{ Form::open(['url'=>'laporan-peserta-diklat-excel'])}}
+            {{ Form::hidden('status',$_GET['status'])}}
             <table class="table table-bordered">
                 <tr>
                     <td colspan="2">FILTER DATA LAPORAN PESERTA DIKLAT</td>
@@ -186,7 +187,8 @@ function filterData(){
     var nama_gtk        = $('.txt_nama_gtk').val();
     var nama_diklat     = $('.txt_nama_diklat').val();
     var tahun           = $('.txt_tahun').val();
-    var params = '/diklat/laporan-peserta-diklat?province_id='+province_id+'&regency_id='+regency_id+'&nama_instansi='+nama_instansi+'&nama_gtk='+nama_gtk+'&nama_diklat='+nama_diklat+'&tahun='+tahun;
+    var status          = "{{ $_GET['status'] }}";
+    var params = '/diklat/laporan-peserta-diklat?province_id='+province_id+'&regency_id='+regency_id+'&nama_instansi='+nama_instansi+'&nama_gtk='+nama_gtk+'&nama_diklat='+nama_diklat+'&tahun='+tahun+'&status='+status;
     $('#gtk-table').DataTable().ajax.url(params).load();
 }
 
