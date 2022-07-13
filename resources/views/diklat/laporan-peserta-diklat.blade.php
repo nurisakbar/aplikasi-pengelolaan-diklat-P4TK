@@ -142,10 +142,11 @@ $(function() {
     });
     
 
+    var status          = "{{ $_GET['status'] }}";
     $('#gtk-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '/diklat/laporan-peserta-diklat',
+        ajax: '/diklat/laporan-peserta-diklat?status='+status,
         columns: [{
             data: 'nomor_ukg',
             name: 'nomor_ukg'
