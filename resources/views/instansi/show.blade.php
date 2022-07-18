@@ -9,32 +9,24 @@
                @include('alert')
                <div id="alert"></div>
 
-        {{-- <table class="table table-row-bordered">
+        <table class="table table-row-bordered">
             <tr>
-                <td width="300">Nama Diklat</td>
-                <td>{{ $diklat->nama_diklat }}</td>
+                <td width="300">Nama Instansi</td>
+                <td>{{ $instansi->nama_instansi }}</td>
             </tr>
             <tr>
-                <td>Tahun Pelaksanaan</td>
-                <td>{{ $diklat->tahun }}</td>
+                <td>Provinsi</td>
+                <td>{{ $instansi->wilayahAdministratif->province_name }}</td>
             </tr>
             <tr>
-                <td>Departemen</td>
-                <td>{{ $diklat->departement }}</td>
+                <td>Kabupaten</td>
+                <td>{{ $instansi->wilayahAdministratif->regency_name }}</td>
             </tr>
             <tr>
-                <td>Quota</td>
-                <td>{{ $diklat->quota }}</td>
+                <td>Alamat</td>
+                <td>{{ $instansi->alamat }}</td>
             </tr>
-            <tr>
-                <td>Jumlah Peserta Terdaftar</td>
-                <td>{{ $diklat->peserta->count() }}</td>
-            </tr>
-            <tr>
-                <td>Jumlah Peserta Terkonfirmasi</td>
-                <td>{{ $diklat->peserta->where('status','Terkonfirmasi')->count() }}</td>
-            </tr>
-        </table> --}}
+        </table>
 
         <hr>
         <h3>Daftar Guru {{ $instansi->nama_instansi }}</h3>
@@ -44,13 +36,12 @@
                     <thead>
                         <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                             <th width="10">No</th>
-                            <th width="150">Nama Guru</th>
-                            <th>NIK</th>
                             <th>Nomor UKG</th>
-                            <th>NUPTK</th>
-                            <th>NPWP</th>
-                            <th>Jabatan</th>
+                            <th width="150">Nama Guru</th>
+                            <th>Mapel Dapodik</th>
                             <th>Email</th>
+                            <th>HP</th>
+                            <th>NIK</th>                        
                             <th width="30">#</th>
                         </tr>
                     </thead>
@@ -71,13 +62,12 @@ $(function() {
         ajax: '/instansi/{{$instansi->id}}',
         columns: [
             { data: 'DT_RowIndex', orderable: false, searchable: false},
-            { data: 'nama_lengkap', name: 'nama_lengkap' },
-            { data: 'nik', name: 'nik' },
             { data: 'nomor_ukg', name: 'nomor_ukg' },
-            { data: 'nuptk', name: 'nuptk' },
-            { data: 'npwp', name: 'npwp' },
-            { data: 'jabatan', name: 'jabatan' },
+            { data: 'nama_lengkap', name: 'nama_lengkap' },
+            { data: 'mapel_ukg_ptk', name: 'mapel_ukg_ptk' },
             { data: 'email', name: 'email' },
+            { data: 'nomor_hp', name: 'nomor_hp' },
+            { data: 'nik', name: 'nik' },
             { data: 'action', name: 'action' }
         ]
     });

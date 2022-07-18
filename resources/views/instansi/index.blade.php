@@ -5,6 +5,8 @@
 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
     <div class="content flex-row-fluid" id="kt_content">
         @include('alert')
+        {{ Form::open(['url'=>'instansi','method'=>'GET'])}}
+        {{ Form::hidden('type', 'download_excel')}}
         <table class="table table-bordered">
             <tr>
                 <td colspan="2">FILTER DATA PTK</td>
@@ -14,7 +16,7 @@
                 <td>
                     <div class="row">
                         <div class="col-md-4">
-                          {{Form::select('provinsi',$provinsi,null,['class' => 'form-control txt_provinsi','placeholder'=>'-- Semua Provinsi --','onChange'=>'loadKabupaten()'])}}
+                          {{Form::select('provinsi',$provinsi,$_GET['provinsi']??null,['class' => 'form-control txt_provinsi','placeholder'=>'-- Semua Provinsi --','onChange'=>'loadKabupaten()'])}}
                         </div>
                         <div class="col-md-4 kabupaten">
                             <div id="kabupaten_area"></div>
@@ -33,9 +35,11 @@
                 <td>
                     <button type="button" class="btn btn-danger" onclick="filterData()">Filter Data</button>
                     <a class="btn btn-primary" href="/gtk/create">Tambah Data</a>
+                    <button type="submit" class="btn btn-danger">Export Excel</button>
                 </td>
             </tr>
         </table>
+        <form>
         <table class="table table-rounded table-striped border gy-7 gs-7" id="users-table">
             <thead>
                 <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">

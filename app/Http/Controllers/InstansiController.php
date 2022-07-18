@@ -9,6 +9,9 @@ use App\Http\Requests\InstansiCreateRequest;
 use App\Instansi;
 use App\Provinsi;
 use Auth;
+use App\Exports\InstansiExport;
+use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InstansiController extends Controller
 {
@@ -24,6 +27,13 @@ class InstansiController extends Controller
 
     public function index(Request $request)
     {
+        if ($request->has('type')) {
+            if ($request->type == 'download_excel') {
+                return Excel::download(new InstansiExport($request->all()), 'Laporan-Instansi-ALL.xlsx');
+            }
+        }
+
+
         if ($request->ajax()) {
             $items = Instansi::select('instansi.*', 'districts.name as nama_kecamatan', 'regencies.name as nama_kabupaten', 'provinces.name as nama_provinsi')
             ->join('districts', 'districts.id', 'instansi.district_id')
@@ -34,18 +44,17 @@ class InstansiController extends Controller
             if ($request->has('nama_instansi')) {
                 if (!in_array($request->nama_instansi, ['null', null,''])) {
                     $searchByNameInstansi = $request->nama_instansi;
-                    // $items->where('nama_instansi', 'like', '%' . $searchByNameInstansi . '%');
                     $clearStatusInstansi = str_replace(['SMK N ','SMK ','NEGERI ','SMKN'], ['','','',''], strtoupper($searchByNameInstansi));
                     $items->where('nama_instansi', 'like', '%' . $clearStatusInstansi . '%');
                 }
             }
 
             // filter berdasarkan nama provinsi
-            if (!in_array($request->province_id, ['null','undefined'])) {
+            if (!in_array($request->province_id, [null,'undefined'])) {
                 $items->where('instansi.province_id', $request->province_id);
             }
 
-            if (!in_array($request->regency_id, ['null','undefined'])) {
+            if (!in_array($request->regency_id, [null,'undefined'])) {
                 $items->where('instansi.regency_id', $request->regency_id);
             }
 

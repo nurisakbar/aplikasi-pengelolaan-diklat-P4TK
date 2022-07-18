@@ -11,6 +11,9 @@ use Storage;
 use App\Provinsi;
 use App\KompetensiKeahlian;
 use App\verifikasiEmail;
+use App\Exports\GtkExport;
+use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
+use Maatwebsite\Excel\Facades\Excel;
 
 class GtkController extends Controller
 {
@@ -29,6 +32,12 @@ class GtkController extends Controller
 
     public function index(Request $request)
     {
+
+        if ($request->has('type')) {
+            if ($request->type == 'download_excel') {
+                return Excel::download(new GtkExport($request->all()), 'Laporan-GTK-ALL.xlsx');
+            }
+        }
         if ($request->ajax()) {
             $search         = $request->input('search.value');
             $columns        = $request->get('columns');
@@ -64,12 +73,9 @@ class GtkController extends Controller
             if ($request->nama_gtk) {
                 $searchName = $request->nama_gtk;
                 $items->where('nama_lengkap', 'like', '%' . $searchName . '%');
-                // $items->orWhere('nik', 'like', '%' . $searchName . '%');
-                // $items->orWhere('nuptk', 'like', '%' . $searchName . '%');
-                // $items->orWhere('nomor_ukg', 'like', '%' . $searchName . '%');
             }
 
-            if (!in_array($request->nama_instansi, ['undefined',null])) {
+            if ($request->nama_instansi) {
                 $searchByNameInstansi = $request->nama_instansi;
                 $clearStatusInstansi = str_replace(['SMK N ','SMK ','NEGERI ','SMKN'], ['','','',''], strtoupper($searchByNameInstansi));
                 $items->where('nama_instansi', 'like', '%' . $clearStatusInstansi . '%');
@@ -158,7 +164,7 @@ class GtkController extends Controller
         }
 
         $data['gtk']        = Gtk::with('instansi')->findOrFail($id);
-        $data['riwayats']   = DiklatPeserta::with('diklat', 'kelas')->where('peserta_id', $id)->where('status_kehadiran','Peserta')->withTrashed()->get();
+        $data['riwayats']   = DiklatPeserta::with('diklat', 'kelas')->where('peserta_id', $id)->where('status_kehadiran', 'Peserta')->withTrashed()->get();
 
         return view('gtk.show', $data);
     }

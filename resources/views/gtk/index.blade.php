@@ -36,6 +36,9 @@
     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
         <div class="content flex-row-fluid" id="kt_content">
 
+            {{ Form::open(['url'=>'gtk','method'=>'GET'])}}
+            {{ Form::hidden('type', 'download_excel')}}
+            {{ Form::hidden('status', $_GET['status'])}}
             <table class="table table-bordered">
                 <tr>
                     <td colspan="2">FILTER DATA PTK</td>
@@ -70,9 +73,11 @@
                     <td>
                         <button type="button" class="btn btn-danger" onclick="filterData()">Filter Data</button>
                         <a class="btn btn-primary" href="/gtk/create">Tambah Data</a>
+                        <button type="submit" class="btn btn-danger">Export Excel</button>
                     </td>
                 </tr>
             </table>
+        </form>
 
             @include('alert')
 
