@@ -79,4 +79,5 @@ Route::get('diklat/detail/{slug}','PageController@diklatDetail');
 Route::get('ajax/daftar-diklat-mandiri','AjaxController@daftarDiklatMandiri');
 Route::get('logout','PageController@logout');
 Route::get('profile/diklatsaya','PageController@profileDiklatsaya');
+Route::get('test','TestController@upload');
 
