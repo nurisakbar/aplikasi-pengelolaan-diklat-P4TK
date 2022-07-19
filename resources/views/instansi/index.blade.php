@@ -30,6 +30,16 @@
                     {{ Form::text('nama_instansi',null,['class' => 'form-control txt_nama_instansi','placeholder'=>'Nama Instansi/ Sekolah'])}}
                 </td>
               </tr>
+              <tr>
+                <td>Kompetensi Keahlian</td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{Form::select('kompetensi_keahlian_id',$kompetensi,$_GET['kompetensi_keahlian_id']??null,['class' => 'form-control komepetensi_keahlian_id','placeholder'=>'-- Semua Kompetensi --'])}}
+                          </div>
+                    </div>
+                </td>
+              </tr>
             <tr>
                 <td></td>
                 <td>
@@ -65,12 +75,13 @@
         var province_id     = getParameterByName('province_id');
         var regency_id      = getParameterByName('regency_id');
         var nama_instansi   = getParameterByName('nama_instansi');
+        var kompetensi_keahlian_id   = getParameterByName('kompetensi_keahlian_id');
 
         $('#users-table').DataTable({
             processing: true,
             serverSide: true,
             processData: true,
-            ajax: '/instansi?province_id='+province_id+'&regency_id='+regency_id+'&nama_instansi='+nama_instansi,
+            ajax: '/instansi?province_id='+province_id+'&regency_id='+regency_id+'&nama_instansi='+nama_instansi+'&kompetensi_keahlian_id='+kompetensi_keahlian_id,
             columns: [
                 {data: 'DT_RowIndex', orderable: false, searchable: false},
                 { data: 'nama_instansi', name: 'nama_instansi' },
@@ -103,7 +114,8 @@ function filterData(){
     var province_id     = $(".txt_provinsi").val();
     var regency_id      = $(".regency_id").val();
     var nama_instansi   = $('.txt_nama_instansi').val();
-    var params = '/instansi?province_id='+province_id+'&regency_id='+regency_id+'&nama_instansi='+nama_instansi;
+    var kompetensi_keahlian_id   = $('.komepetensi_keahlian_id').val();
+    var params = '/instansi?province_id='+province_id+'&regency_id='+regency_id+'&nama_instansi='+nama_instansi+'&kompetensi_keahlian_id='+kompetensi_keahlian_id;
     $('#users-table').DataTable().ajax.url(params).load();
 }
 

@@ -9,4 +9,9 @@ class InstansiKeahlian extends Model
     protected $table = 'instansi_keahlian';
 
     protected $fillable = ['instansi_id','kompetensi_keahlian_id'];
+
+    public function kompetensiKeahlian()
+    {
+        return $this->belongsTo(\App\KompetensiKeahlian::class);
+    }
 }

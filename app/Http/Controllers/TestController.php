@@ -28,7 +28,7 @@ class TestController extends Controller
                     $nama_sekolah   = $cells[2]->getValue();
                     // return $nama_sekolah;
                     $instansi       = Instansi::where('nama_instansi', $nama_sekolah)->first();
-                    if (!empty($cells[6]->getValue())) {
+                if (!empty($cells[6]->getValue())) {
                     $bidang         = BidangKeahlian::firstOrCreate(['nama_bidang_keahlian' => $cells[6]->getValue()], ['nama_bidang_keahlian' => $cells[6]->getValue()]);
                     $program        = ProgramKeahlian::firstOrCreate(['nama_program_keahlian' => $cells[7]->getValue(),'bidang_keahlian_id' => $bidang->id], ['nama_program_keahlian' => $cells[7]->getValue(),'bidang_keahlian_id' => $bidang->id]);
                     $kompetensi     = kompetensiKeahlian::firstOrCreate(['nama_kompetensi_keahlian' => $cells[8]->getValue(),'program_keahlian_id' => $program->id], ['nama_kompetensi_keahlian' => $cells[7]->getValue(),'program_keahlian_id' => $program->id]);

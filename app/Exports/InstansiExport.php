@@ -12,6 +12,7 @@ use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
 use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
+use App\InstansiKeahlian;
 
 class InstansiExport extends DefaultValueBinder implements FromView, ShouldAutoSize, WithCustomValueBinder, WithEvents
 {
@@ -46,7 +47,12 @@ class InstansiExport extends DefaultValueBinder implements FromView, ShouldAutoS
             $data->where('nama_instansi', 'like', '%' . $clearStatusInstansi . '%');
         }
 
-        return $data->limit(20)->get();
+        if ($this->request['kompetensi_keahlian_id'] != null) {
+            $instansiKeahlian = InstansiKeahlian::select('instansi_id')->where('kompetensi_keahlian_id', $request->kompetensi_keahlian_id)->get();
+            $items->whereIn('instansi.id', $instansiKeahlian);
+        }
+
+        return $data->get();
     }
 
     public function registerEvents(): array

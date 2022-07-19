@@ -19,4 +19,9 @@ class Instansi extends Model
     {
         return $this->belongsTo(\App\WilayahAdministratif::class, 'district_id', 'district_id');
     }
+
+    public function kompetensiKeahlian()
+    {
+        return $this->hasMany(\App\InstansiKeahlian::class);
+    }
 }

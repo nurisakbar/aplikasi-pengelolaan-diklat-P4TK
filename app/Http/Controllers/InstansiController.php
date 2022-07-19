@@ -8,10 +8,12 @@ use App\Http\Requests\DiklatCreateRequest;
 use App\Http\Requests\InstansiCreateRequest;
 use App\Instansi;
 use App\Provinsi;
+use App\KompetensiKeahlian;
 use Auth;
 use App\Exports\InstansiExport;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 use Maatwebsite\Excel\Facades\Excel;
+use App\InstansiKeahlian;
 
 class InstansiController extends Controller
 {
@@ -50,12 +52,18 @@ class InstansiController extends Controller
             }
 
             // filter berdasarkan nama provinsi
-            if (!in_array($request->province_id, [null,'undefined'])) {
+            if (!in_array($request->province_id, [null,'undefined','null'])) {
                 $items->where('instansi.province_id', $request->province_id);
             }
 
-            if (!in_array($request->regency_id, [null,'undefined'])) {
+            if (!in_array($request->regency_id, [null,'undefined','null'])) {
                 $items->where('instansi.regency_id', $request->regency_id);
+            }
+
+            // filter berdasarkan keahlian
+            if (!in_array($request->kompetensi_keahlian_id, [null,'undefined','null'])) {
+                $instansiKeahlian = InstansiKeahlian::select('instansi_id')->where('kompetensi_keahlian_id', $request->kompetensi_keahlian_id)->get();
+                $items->whereIn('instansi.id', $instansiKeahlian);
             }
 
             $count_filter = $items->count();
@@ -73,7 +81,7 @@ class InstansiController extends Controller
                     $btn .= "<button type='submit' class='btn btn-danger btn-sm'><i class='fa fa-trash' aria-hidden='true'></i></button>";
                     $btn .= \Form::close();
                     $btn .= '<a class="btn btn-danger btn-sm mx-1" href="/instansi/' . $row->id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a> ';
-                    $btn .= '<a class="btn btn-danger btn-sm" href="/instansi/' . $row->id . '"><i class="fas fa-eye" aria-hidden="true"></i></a>';
+                    $btn .= '<a class="btn btn-danger btn-sm" href="/instansi/' . $row->id . '?tab=guru"><i class="fas fa-eye" aria-hidden="true"></i></a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -81,6 +89,7 @@ class InstansiController extends Controller
                 ->make(true);
         }
         $data['provinsi']   = Provinsi::pluck('name', 'id');
+        $data['kompetensi'] = KompetensiKeahlian::pluck('nama_kompetensi_keahlian', 'id');
         return view('instansi.index', $data);
     }
 
@@ -125,7 +134,7 @@ class InstansiController extends Controller
      */
     public function show($id, Request $request)
     {
-        $data['instansi'] = Instansi::findOrFail($id);
+        $data['instansi'] = Instansi::with('kompetensiKeahlian')->findOrFail($id);
 
         if ($request->ajax()) {
             return \DataTables::of(Gtk::where('instansi_id', $id)->get())
