@@ -147,6 +147,7 @@ class InstansiController extends Controller
                 ->make(true);
         }
 
+        $data['kompetensi'] = KompetensiKeahlian::pluck('nama_kompetensi_keahlian', 'id');
         return view('instansi.show', $data);
     }
 

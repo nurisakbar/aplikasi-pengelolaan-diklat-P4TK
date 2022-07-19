@@ -36,12 +36,16 @@
           </ul>
         <hr>
         @if($_GET['tab']=='keahlian')
-        <h3>Kompetensi Keahlian {{ $instansi->nama_instansi }}</h3>
+        <h3>Kompetensi Keahlian {{ $instansi->nama_instansi }} 
+            <button style="float: right" type="button" class="btn btn-danger fw-bolder btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModalKelas">
+            <i class="far fa-plus-square"></i> Tambah Kompetensi
+          </button></h3>
         <table class="table table-rounded table-striped border gy-7 gs-7" id="keahlian-table">
             <thead>
                 <tr>
                     <td>Nomor</td>
-                    <td>Nama Kompetensi</td>
+                    <td>Nama Kompetensi Keahlian</td>
+                    <td width="100">Action</td>
                 </tr>
             </thead>
                 <tbody>
@@ -49,6 +53,11 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $row->kompetensiKeahlian->nama_kompetensi_keahlian}}</td>
+                            <td>
+                                {{ Form::open(['url'=>'instansi-kompetensi-keahlian/'.$row->id,'method'=>'delete'])}}
+                                <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                {{ Form::close()}}
+                            </td>
                         </tr>
                     @endforeach
         </tbody>
@@ -75,13 +84,51 @@
             </div>
         </div>
     </div>
-
 </div>
+<!-- Modal Tambah Kelas-->
+<div class="modal fade" tabindex="-1" id="exampleModalKelas">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah Kompetensi Keahlian</h5>
+  
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-2x"></span>
+                </div>
+                <!--end::Close-->
+            </div>
+  
+            {{ Form::open(['url'=>'instansi-kompetensi-keahlian']) }}
+            {{ Form::hidden('instansi_id',$instansi->id) }}
+            <div class="modal-body">
+              <table class="table table-bordered">
+                <tr>
+                    <td>Pilih Kompetensi Keahlian</td>
+                    <td>
+                        {{Form::select('kompetensi_keahlian_id',$kompetensi,$_GET['kompetensi_keahlian_id']??null,['class' => 'form-control komepetensi_keahlian_id','placeholder'=>'-- Semua Kompetensi --'])}}
+                    </td>
+                  </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Tambah Data</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tutup</button>
+                    </td>
+                </tr>
+            </table>
+            {{ Form::close() }}
+            </div>
+        </div>
+    </div>
+  </div>
 @endsection
 @push('scripts')
 <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
 $(function() {
+    // $('.komepetensi_keahlian_id').select2();
     $('#instansi-table').DataTable({
         processing: true,
         serverSide: true,
@@ -105,4 +152,5 @@ $(function() {
 
 @push('css')
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
