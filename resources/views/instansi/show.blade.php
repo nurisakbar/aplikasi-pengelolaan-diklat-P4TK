@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title','Data Instansi')
 @section('content')
-@include('instansi.toolbar')
 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
     <div class="content flex-row-fluid" id="kt_content">
         <div class="card">
