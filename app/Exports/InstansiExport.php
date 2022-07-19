@@ -48,7 +48,7 @@ class InstansiExport extends DefaultValueBinder implements FromView, ShouldAutoS
         }
 
         if ($this->request['kompetensi_keahlian_id'] != null) {
-            $instansiKeahlian = InstansiKeahlian::select('instansi_id')->where('kompetensi_keahlian_id', $request->kompetensi_keahlian_id)->get();
+            $instansiKeahlian = InstansiKeahlian::select('instansi_id')->where('kompetensi_keahlian_id', $this->request['kompetensi_keahlian_id'])->get();
             $items->whereIn('instansi.id', $instansiKeahlian);
         }
 
