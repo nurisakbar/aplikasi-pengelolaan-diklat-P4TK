@@ -43,6 +43,12 @@ class KompetensiKeahlianController extends Controller
                 $btn .= '<a class="btn btn-danger btn-sm" href="/kompetensikeahlian/' . $row->id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a> ';
                 return $btn;
             })
+            ->addColumn('nama_program_keahlian', function ($row) {
+                return $row->programKeahlian->nama_program_keahlian ?? '-';
+            })
+            ->addColumn('nama_bidang_keahlian', function ($row) {
+                return $row->programKeahlian->bidangKeahlian->nama_bidang_keahlian ?? '-';
+            })
             ->rawColumns(['action'])
             ->addIndexColumn()
             ->make(true);

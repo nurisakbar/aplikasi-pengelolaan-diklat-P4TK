@@ -36,8 +36,6 @@ class DiklatController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            \Log::info($request->all());
-            \Log::info($request->order[0]['column']);
             $search         = $request->input('search.value');
             $columns        = $request->get('columns');
             $count_total    = Diklat::count();
@@ -352,6 +350,7 @@ class DiklatController extends Controller
                     $quota                      = $cells[7]->getValue();
                     $tglMulai                   = $cells[8]->getValue();
                     $tglAkhir                   = $cells[9]->getValue();
+                    \Log::info($nama_kategori);
                     $nama_departemen            = $cells[11]->getValue();
                     $departemen                 = Departemen::firstOrCreate(['nama_departemen' => $nama_departemen], ['nama_departemen' => $nama_departemen]);
                     $tahun                      = $cells[10]->getValue();
@@ -364,7 +363,8 @@ class DiklatController extends Controller
                         'program_keahlian_id'       => $program_keahlian->id,
                         'status_aktif'              => 'Tidak',
                         'kategori_diklat_id'        => $kategori->id,
-                        'tanggal_mulai'             => $tglAkhir,
+                        'tanggal_mulai'             => $tglMulai,
+                        'tanggal_selesai'           => $tglAkhir,
                         'departemen_id'             => $departemen->id,
                         'jenis'                     => 'ya',
                         'bidang_keahlian_id'        => $bidangKeahlian->id,

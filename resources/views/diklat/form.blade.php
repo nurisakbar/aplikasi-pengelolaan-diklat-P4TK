@@ -9,14 +9,23 @@
 </div>
 
 
-<div class="mb-6">
-    <label class="form-label">Tanggal Mulai</label>
-    {!! Form::date('tanggal_mulai', null, ['class'=>'form-control','placeholder'=>'Tanggal Mulai','required'=>'required']) !!}
-</div>
 
-<div class="mb-6">
-    <label class="form-label">Tanggal Selesai</label>
-    {!! Form::date('tanggal_selesai',null, ['class'=>'form-control','placeholder'=>'Tanggal Selesai','required'=>'required']) !!}
+
+<div class="row" style="margin-top:10px;margin-bottom:10px">
+    <div class="col-sm-3">
+        <label class="form-label">Tanggal Mulai</label>
+        {!! Form::date('tanggal_mulai', null, ['class'=>'form-control','placeholder'=>'Tanggal Mulai','required'=>'required']) !!}
+    </div>
+    
+    <div class="col-sm-3">
+        <label class="form-label">Tanggal Selesai</label>
+        {!! Form::date('tanggal_selesai',null, ['class'=>'form-control','placeholder'=>'Tanggal Selesai','required'=>'required']) !!}
+    </div>
+    
+    <div class="col-sm-6">
+        <label class="form-label">Tempat Pelaksanaan</label>
+        {!! Form::text('tempat',null, ['class'=>'form-control','placeholder'=>'Lokasi','required'=>'required']) !!}
+    </div>
 </div>
 
 

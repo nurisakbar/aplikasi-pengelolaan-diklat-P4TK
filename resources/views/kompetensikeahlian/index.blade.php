@@ -30,8 +30,8 @@
             columns: [
                 {data: 'DT_RowIndex', orderable: false, searchable: false},
                 { data: 'nama_kompetensi_keahlian', name: 'nama_kompetensi_keahlian' },
-                { data: 'program_keahlian.nama_program_keahlian', name: 'program_keahlian.nama_program_keahlian' },
-                { data: 'program_keahlian.bidang_keahlian.nama_bidang_keahlian', name: 'program_keahlian.bidang_keahlian.nama_bidang_keahlian' },
+                { data: 'nama_program_keahlian', name: 'nama_program_keahlian',searchable: false  },
+                { data: 'nama_bidang_keahlian', name: 'nama_bidang_keahlian',searchable: false  },
                 { data: 'action', name: 'action' }
             ]
         });

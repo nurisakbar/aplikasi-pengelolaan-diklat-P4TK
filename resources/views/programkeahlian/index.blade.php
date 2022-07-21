@@ -29,7 +29,7 @@
             columns: [
                 {data: 'DT_RowIndex', orderable: false, searchable: false},
                 { data: 'nama_program_keahlian', name: 'nama_program_keahlian' },
-                { data: 'bidang_keahlian.nama_bidang_keahlian', name: 'bidang_keahlian.nama_bidang_keahlian' },
+                { data: 'nama_bidang_keahlian', name: 'nama_bidang_keahlian', searchable: false },
                 { data: 'action', name: 'action' }
             ]
         });

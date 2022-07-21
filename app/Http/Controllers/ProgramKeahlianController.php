@@ -29,7 +29,7 @@ class ProgramKeahlianController extends Controller
             $count_total    = ProgramKeahlian::count();
             $count_filter   = ProgramKeahlian::where('nama_program_keahlian', 'LIKE', '%' . $search . '%')
                             ->count();
-            $items          = ProgramKeahlian::with('bidangKeahlian')->take(10);
+            $items          = ProgramKeahlian::with('bidangKeahlian');
 
             return \DataTables::of($items)
             ->with([
@@ -42,6 +42,10 @@ class ProgramKeahlianController extends Controller
                 $btn .= \Form::close();
                 $btn .= '<a class="btn btn-danger btn-sm" href="/programkeahlian/' . $row->id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a> ';
                 return $btn;
+            })
+
+            ->addColumn('nama_bidang_keahlian', function ($row) {
+                return $row->bidangKeahlian->nama_bidang_keahlian ?? '-';
             })
             ->rawColumns(['action'])
             ->addIndexColumn()
