@@ -22,7 +22,7 @@
     </div>
 
 
-    <div class="col-md-4 mb-5">
+    <div class="col-md-5 mb-6">
         <label class="form-label">Kompetensi Keahlian</label>
         <select name="kompetensi_keahlian_id" class="js-example-basic-single">
         @foreach($kompetensiKeahlian as $kompetensi)
@@ -38,7 +38,7 @@
         @endforeach
     </select>
     </div>
-    <div class="col-md-4 mb-5">
+    <div class="col-md-3 mb-5">
         <div class="mb-4"> 
             <label for="" class="form-label">Jenis Kelamin</label>
         </div>

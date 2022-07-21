@@ -89,7 +89,7 @@ class InstansiController extends Controller
                 ->make(true);
         }
         $data['provinsi']   = Provinsi::pluck('name', 'id');
-        $data['kompetensi'] = KompetensiKeahlian::pluck('nama_kompetensi_keahlian', 'id');
+        $data['kompetensi'] = KompetensiKeahlian::orderBy('nama_kompetensi_keahlian', 'ASC')->pluck('nama_kompetensi_keahlian', 'id');
         return view('instansi.index', $data);
     }
 
@@ -147,7 +147,7 @@ class InstansiController extends Controller
                 ->make(true);
         }
 
-        $data['kompetensi'] = KompetensiKeahlian::pluck('nama_kompetensi_keahlian', 'id');
+        $data['kompetensi'] = KompetensiKeahlian::orderBy('nama_kompetensi_keahlian', 'ASC')->pluck('nama_kompetensi_keahlian', 'id');
         return view('instansi.show', $data);
     }
 

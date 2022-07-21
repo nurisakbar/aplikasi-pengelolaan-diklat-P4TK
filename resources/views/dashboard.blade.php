@@ -349,7 +349,7 @@
                                     </svg>
                                 </span>
                                 <!--end::Svg Icon-->
-                                <span class="fs-6 fw-bold">{{ $jumlahGtk}} DATA GTK</span>
+                                <span class="fs-6 fw-bold">{{ rupiah($jumlahGtk)}} DATA GTK</span>
                             </a>
                         </li>
                         <li class="nav-item col-12 col-lg mb-5 mb-lg-0">
@@ -368,7 +368,7 @@
                                     </svg>
                                 </span>
                                 <!--end::Svg Icon-->
-                                <span class="fs-6 fw-bold">{{ $jumlahInstansi }} DATA INSTANSI</span>
+                                <span class="fs-6 fw-bold">{{ rupiah($jumlahInstansi) }} DATA INSTANSI</span>
                             </a>
                         </li>
                         <li class="nav-item col-12 col-lg mb-5 mb-lg-0">
@@ -386,7 +386,7 @@
                                     </svg>
                                 </span>
                                 <!--end::Svg Icon-->
-                                <span class="fs-6 fw-bold">{{ $jumlahPesertaDiklat }} PESERTA PADA SEMUA DIKLAT
+                                <span class="fs-6 fw-bold">{{ rupiah($jumlahPesertaDiklat) }} PESERTA PADA SEMUA DIKLAT
                             </a>
                         </li>
                         <li class="nav-item col-12 col-lg mb-5 mb-lg-0">
@@ -405,7 +405,7 @@
                                     </svg>
                                 </span>
                                 <!--end::Svg Icon-->
-                                <span class="fs-6 fw-bold">{{ $jumlahPendaftarDiklat}} PESERTA PADA SEMUA DIKLAT
+                                <span class="fs-6 fw-bold">{{ rupiah($jumlahPendaftarDiklat)}} CALON PESERTA PADA SEMUA DIKLAT
                             </a>
                         </li>
                     </ul>

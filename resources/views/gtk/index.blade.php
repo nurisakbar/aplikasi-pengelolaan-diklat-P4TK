@@ -71,7 +71,7 @@
                 <tr>
                     <td></td>
                     <td>
-                        <button type="button" class="btn btn-danger" onclick="filterData()">Filter Data</button>
+                        <button type="button" class="btn btn-danger" onclick="filterData()">Cari Data</button>
                         <a class="btn btn-primary" href="/gtk/create">Tambah Data</a>
                         <button type="submit" class="btn btn-danger">Export Excel</button>
                     </td>

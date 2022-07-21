@@ -125,10 +125,10 @@
 @endsection
 @push('scripts')
 <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="{{asset('asset/custom/documentation/forms/select2.js')}}"></script>
 <script>
 $(function() {
-    // $('.komepetensi_keahlian_id').select2();
+    $('.komepetensi_keahlian_id').select2({ dropdownParent: "#exampleModalKelas" });
     $('#instansi-table').DataTable({
         processing: true,
         serverSide: true,
@@ -152,5 +152,4 @@ $(function() {
 
 @push('css')
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush

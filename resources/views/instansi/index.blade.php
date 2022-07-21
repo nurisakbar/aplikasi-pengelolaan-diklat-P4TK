@@ -43,8 +43,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <button type="button" class="btn btn-danger" onclick="filterData()">Filter Data</button>
-                    <a class="btn btn-primary" href="/gtk/create">Tambah Data</a>
+                    <button type="button" class="btn btn-danger" onclick="filterData()">Cari Data</button>
                     <button type="submit" class="btn btn-danger">Export Excel</button>
                 </td>
             </tr>
@@ -54,12 +53,13 @@
             <thead>
                 <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                     <th width="10">No</th>
+                    <th>NPSN</th>
                     <th>Nama Sekolah</th>
-                    <th>Jenis Instansi</th>
+                    {{-- <th>Jenis Instansi</th>
                     <th>Status</th>
                     <th>Telepon</th>
-                    <th>Kecamatan</th>
-                    <th>Kabupaten</th>
+                    <th>Kecamatan</th> --}}
+                    <th>Kabupaten/ Kota</th>
                     <th>Provinsi</th>
                     <th width="180">#</th>
                 </tr>
@@ -70,6 +70,7 @@
 @endsection
 @push('scripts')
 <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<script src="{{asset('asset/custom/documentation/forms/select2.js')}}"></script>
 <script>
     $(function() {
         var province_id     = getParameterByName('province_id');
@@ -77,6 +78,7 @@
         var nama_instansi   = getParameterByName('nama_instansi');
         var kompetensi_keahlian_id   = getParameterByName('kompetensi_keahlian_id');
 
+        $('.komepetensi_keahlian_id').select2();
         $('#users-table').DataTable({
             processing: true,
             serverSide: true,
@@ -84,11 +86,12 @@
             ajax: '/instansi?province_id='+province_id+'&regency_id='+regency_id+'&nama_instansi='+nama_instansi+'&kompetensi_keahlian_id='+kompetensi_keahlian_id,
             columns: [
                 {data: 'DT_RowIndex', orderable: false, searchable: false},
+                { data: 'npsn', name: 'npsn' },
                 { data: 'nama_instansi', name: 'nama_instansi' },
-                { data: 'jenis_instansi', name: 'jenis_instansi' },
-                { data: 'status', name: 'status' },
-                { data: 'telepon', name: 'telepon' },
-                { data: 'nama_kecamatan'},
+                // { data: 'jenis_instansi', name: 'jenis_instansi' },
+                // { data: 'status', name: 'status' },
+                // { data: 'telepon', name: 'telepon' },
+                // { data: 'nama_kecamatan'},
                 { data: 'nama_kabupaten' },
                 { data: 'nama_provinsi'},
                 { data: 'action', name: 'action' }

@@ -61,7 +61,7 @@
         <tr>
             <td></td>
             <td>
-                <button type="button" class="btn btn-danger" onclick="filterData()">Filter Data</button>
+                <button type="button" class="btn btn-danger" onclick="filterData()">Cari Data</button>
             </td>
         </tr>
     </table>

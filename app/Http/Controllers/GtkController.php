@@ -44,23 +44,6 @@ class GtkController extends Controller
 
             $status = $request->status == 'approve' ? 1 : 0;
             $count_total    = Gtk::count();
-            // $items = GTK::select(
-            //     'gtk.id',
-            //     'gtk.tanggal_lahir',
-            //     'jenis_kelamin',
-            //     'instansi.nama_instansi',
-            //     'nomor_hp',
-            //     'nama_lengkap',
-            //     'nomor_ukg',
-            //     'districts.name as nama_kecamatan',
-            //     'regencies.name as nama_kabupaten',
-            //     'provinces.name as nama_provinsi')
-            // ->leftJoin('instansi', 'instansi.id', 'gtk.instansi_id')
-            // ->leftJoin('districts', 'districts.id', 'instansi.district_id')
-            // ->leftJoin('regencies', 'regencies.id', 'districts.regency_id')
-            // ->leftJoin('provinces', 'provinces.id', 'regencies.province_id')
-            // ->where('gtk.is_approve', $status);
-
             $items = \App\ViewGtk::query();
             if ($request->province_id) {
                 $items->where('instansi_province_id', $request->province_id);
@@ -111,6 +94,12 @@ class GtkController extends Controller
                 })
                 ->addColumn('umur', function ($row) {
                     return \Carbon\Carbon::parse($row->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y') . ' Tahun';
+                })
+                ->addColumn('nama_kabupaten', function ($row) {
+                    return 'asas';
+                })
+                ->addColumn('nama_provinsi', function ($row) {
+                    return 'asas';
                 })
                 ->addColumn('pilih', function ($row) {
                     $btn = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onClick="tutup_modal_gtk(' . $row->id . ')" data-target="#modalPesertaTerpilih">Pilih</button>';

@@ -33,13 +33,16 @@ class InstansiExport extends DefaultValueBinder implements FromView, ShouldAutoS
     {
         $data = Instansi::query();
 
-        if ($this->request['provinsi'] != null) {
+        if (!in_array($this->request['provinsi'], ['undefined',null])) {
             $data->where('province_id', $this->request['provinsi']);
         }
 
-        if ($this->request['regency_id'] != null) {
-            $data->where('regency_id', $this->request['regency_id']);
+        if (isset($this->request['regency_id'])) {
+            if (!in_array($this->request['regency_id'], ['undefined',null])) {
+                $data->where('regency_id', $this->request['regency_id']);
+            }
         }
+
 
         if ($this->request['nama_instansi']) {
             $searchByNameInstansi = $this->request['nama_instansi'];
