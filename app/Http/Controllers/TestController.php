@@ -55,7 +55,7 @@ class TestController extends Controller
                 $bulan = substr($nik, 8, 2);
                 $tahun = '19' . substr($nik, 10, 2);
                 $tanggal_lahir = $tahun . '-' . $bulan . '-' . $tanggal;
-                $gtk = \App\Gtk::find($row->id)->update(['tanggal_lahir',$tanggal_lahir]);
+                $gtk = \App\Gtk::find($row->id)->update(['tanggal_lahir'=>$tanggal_lahir]);
             }
         }
     }
