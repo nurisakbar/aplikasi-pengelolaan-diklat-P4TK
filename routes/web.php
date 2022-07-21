@@ -80,4 +80,5 @@ Route::get('ajax/daftar-diklat-mandiri','AjaxController@daftarDiklatMandiri');
 Route::get('logout','PageController@logout');
 Route::get('profile/diklatsaya','PageController@profileDiklatsaya');
 Route::resource('instansi-kompetensi-keahlian','InstansiKompetensiKeahlian');
+Route::get('perbaikan-tanggal-lahir','TestController@perbaikanTanggalLahir');
 

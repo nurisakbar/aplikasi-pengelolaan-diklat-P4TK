@@ -43,4 +43,19 @@ class TestController extends Controller
             }
         }
     }
+
+
+    public function perbaikanTanggalLahir()
+    {
+        ini_set('max_execution_time', 0);
+        foreach (\App\Gtk::limit(10)->get() as $row) {
+            if ($row->nik != '') {
+                $nik = $row->nik;
+                $tanggal = substr($nik, 6, 2) > 40 ? substr($nik, 6, 2) - 40 : substr($nik, 6, 2);
+                $bulan = substr($nik, 8, 2);
+                $tahun = '19' . substr($nik, 10, 2);
+                $tanggal_lahir = $tahun . '-' . $bulan . '-' . $tanggal;
+            }
+        }
+    }
 }
