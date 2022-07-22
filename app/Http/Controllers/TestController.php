@@ -48,7 +48,7 @@ class TestController extends Controller
     public function perbaikanTanggalLahir()
     {
         ini_set('max_execution_time', 0);
-        foreach (\App\Gtk::all() as $row) {
+        foreach (\App\Gtk::whereRaw('left(tanggal_lahir,4)>2020') as $row) {
             if ($row->nik != '') {
                 $nik = $row->nik;
                 $tanggal = substr($nik, 6, 2) > 40 ? substr($nik, 6, 2) - 40 : substr($nik, 6, 2);
