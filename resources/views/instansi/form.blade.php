@@ -61,6 +61,18 @@
         {!! Form::text('telpon_kepala_instansi', null, ['class'=>'form-control','placeholder'=>'Nomor Telpon Kepala Instansi']) !!}
       </div>
     </div>
+    <div class="col-md-6 mb-3">
+      <div class="form-group">
+        <label class="form-label">Keterangan</label>
+        {!! Form::text('keterangan', null, ['class'=>'form-control','placeholder'=>'Keterangan']) !!}
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <div class="form-group">
+        <label class="form-label">Catatan</label>
+        {!! Form::text('catatan', null, ['class'=>'form-control','placeholder'=>'Catatan']) !!}
+      </div>
+    </div>
   </div>
 <hr>
 <div class="mb-10">

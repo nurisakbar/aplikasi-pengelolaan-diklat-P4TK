@@ -361,6 +361,5 @@ function loadKabupaten(){
 @endpush
 
 @push('css')
-{{-- <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" /> --}}
 <link href="{{asset('assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css"/>
 @endpush

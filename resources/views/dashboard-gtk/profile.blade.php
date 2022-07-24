@@ -139,7 +139,7 @@
                         </div>
 
                         <div class="col-md-4 mb-5">
-                            <label class="form-label">Desa</label>
+                            <label class="form-label">Kelurahan/ Desa</label>
                             <select name="village_id" id="desa" class="desa form-control" style="height: 100px;"
                                 placeholder="Masukan Nama Desa">
                                 @if (isset($gtk->village->id))
@@ -187,7 +187,7 @@
                                 placeholder="Masukan Nama Instansi">
                                 @if (isset($gtk))
                                     <option value="{{ $gtk->kompetensi_keahlian_id }}">
-                                        {{ $gtk->kompetensiKeahlian->nama_kompetensi_keahlian }}
+                                        {{ $gtk->kompetensiKeahlian->nama_kompetensi_keahlian??null }}
                                     </option>
                                 @endif
                             </select>

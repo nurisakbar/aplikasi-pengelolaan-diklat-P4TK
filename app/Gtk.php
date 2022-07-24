@@ -70,9 +70,9 @@ class Gtk extends Authenticatable
             $profileNull[] = 'NIP Masih Kosong';
         }
 
-        if ($this->npwp == null) {
-            $profileNull[] = 'NPWP Masih Belum Terpilih';
-        }
+        // if ($this->npwp == null) {
+        //     $profileNull[] = 'NPWP Masih Belum Terpilih';
+        // }
 
         if ($this->nuptk == null) {
             $profileNull[] = 'NUPTK Masih Belum Terpilih';

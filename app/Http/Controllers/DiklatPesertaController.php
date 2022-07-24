@@ -27,10 +27,11 @@ class DiklatPesertaController extends Controller
      */
     public function store(Request $request)
     {
-        $gtk = Gtk::where('id', $request->peserta_id)->first();
+
+        $gtk    = Gtk::where('id', $request->peserta_id)->first();
         $diklat = Diklat::where('id', $request->diklat_id)->first();
-        $text_wa = "Hallo " . $gtk->nama_lengkap . " anda terpilih sebagai peserta pada diklat " . $diklat->nama_diklat . " yang akan dilaksanakan pada tanggal " . tgl_indo($diklat->tanggal_mulai) . " sampai " . tgl_indo($diklat->tanggal_selesai) . "";
-        send_wa($gtk->nomor_hp, $text_wa);
+        //$text_wa = "Hallo " . $gtk->nama_lengkap . " anda terpilih sebagai peserta pada diklat " . $diklat->nama_diklat . " yang akan dilaksanakan pada tanggal " . tgl_indo($diklat->tanggal_mulai) . " sampai " . tgl_indo($diklat->tanggal_selesai) . "";
+        //send_wa($gtk->nomor_hp, $text_wa);
         $request['status_kehadiran'] = 'Peserta';
         return DiklatPeserta::create($request->all());
     }

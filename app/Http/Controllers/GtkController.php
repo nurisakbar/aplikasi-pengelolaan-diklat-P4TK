@@ -96,10 +96,10 @@ class GtkController extends Controller
                     return \Carbon\Carbon::parse($row->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y') . ' Tahun';
                 })
                 ->addColumn('nama_kabupaten', function ($row) {
-                    return 'asas';
+                    return $row->instansi_regency;
                 })
                 ->addColumn('nama_provinsi', function ($row) {
-                    return 'asas';
+                    return $row->instansi_province;
                 })
                 ->addColumn('pilih', function ($row) {
                     $btn = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onClick="tutup_modal_gtk(' . $row->id . ')" data-target="#modalPesertaTerpilih">Pilih</button>';

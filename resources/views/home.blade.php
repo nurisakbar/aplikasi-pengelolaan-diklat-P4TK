@@ -23,11 +23,12 @@
                 <thead>
                     <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                         <th>Nama Kegiatan/ Diklat</th>
-                        <th>Kompetensi Keahlian</th>
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
+                        <th>Tempat Pelaksanaan</th>
                         <th>Quota</th>
                         <th>Jumlah Pendaftar</th>
+                        <th>Kompetensi Keahlian</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -35,11 +36,24 @@
                     @foreach ($diklat as $d)
                     <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                         <td><b>{{ $d->nama_diklat}}</b><br> {{ $d->kategori->nama_kategori}}</td>
-                        <td>Kompetensi Keahlian</td>
-                        <td>{{ $d->tanggal_mulai}}</td>
-                        <td>{{ $d->tanggal_selesai}}</td>
+                        <td>{{ date_format(date_create($d->tanggal_mulai),"d-m-Y")}}</td>
+                        <td>{{ date_format(date_create($d->tanggal_selesai),"d-m-Y")}}</td>
+                        <td>{{ $d->tempat}}</td>
                         <td>{{ $d->quota}}</td>
                         <td>{{ \DB::table('diklat_peserta')->where('diklat_id',$d->id)->where('status_kehadiran','Peserta')->count()}}</td>
+                        <td>
+                            @if(!in_array($d->kompetensi_keahlian_id,[null,'']))
+                            <?php
+                            $kompetensi = \DB::table('kompetensi_keahlian')->where('id',$d->kompetensi_keahlian_id)->first();
+                            echo $kompetensi->nama_kompetensi_keahlian??'-';
+                            ?>
+                            @elseif(!in_array($d->program_keahlian_id,[null,'']))
+                            <?php
+                            $program = \DB::table('program_keahlian')->where('id',$d->program_keahlian_id)->first();
+                            echo $program->nama_program_keahlian??'-';
+                            ?>
+                            @endif
+                        </td>
                         <td>
                             <a href="/diklat/detail/{{$d->id}}" class="btn btn-info btn-sm">Daftar</a>
                         </td>

@@ -332,12 +332,12 @@
         </div>
         @if (Auth::check())
             <div style="float:left;color:#5e6278;width:400px">
-                Selamat Datang : <b>{{ Auth::user()->name }}</b> | <b onClick="logout()">Logout</b>
+                Selamat Datang : <b>{{ Auth::user()->name }}</b> | <b> <a style="text-decoration:none;color:#5e6278" href="#" onClick="logout()">Logout</a></b>
             </div>
         @endif
         @if (Auth::guard('gtk')->check())
             <div style="float:left;color:#5e6278;width:400px">
-                Selamat Datang : <b>{{ Auth::guard('gtk')->user()->nama_lengkap }}</b> | <b onClick="logout()">Logout</b>
+                Selamat Datang : <b>{{ Auth::guard('gtk')->user()->nama_lengkap }}</b> | <b> <a style="text-decoration:none;color:#5e6278" href="#" onClick="logout()">Logout</a></b>
             </div>
         @endif
     </div>

@@ -193,6 +193,7 @@
 @endsection
 @push('scripts')
 <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(function() {
         $('#users-table').DataTable({
@@ -214,7 +215,43 @@
             ]
         });
     });
+    
 
+
+
+  function deleteDiklat(id){
+    Swal.fire({
+      title: 'anda yakin ingin menghapus diklat ini ?',
+      text: "Data yang sudah dihapus tidak bisa dikembalikan",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Batal',
+      confirmButtonText: 'Yakin, Lakukan Proses Penghapusan!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+                url: "/diklat/"+id,
+                data: {
+                    "_token": "{{ csrf_token() }}"
+                },
+                method: 'DELETE',
+                success: function (response) {
+                    console.log(response);
+                    $('#users-table').DataTable().draw();
+                }
+            });
+
+      Swal.fire(
+        'Terhapus!',
+        'Diklat Berhasil Dihapus.',
+        'success'
+      )
+    }
+  })
+  }
+      
 function filterData(){
     var tahun     = $(".txt_tahun").val();
     var departemen_id             = $(".txt_departemen_id").val();
@@ -245,6 +282,48 @@ function load_program_keahlian(){
       $("#program_keahlian").hide();
     }
 }
+</script>
+
+<script type="text/javascript">
+
+ 
+
+  $('.show_confirm').click(function(event) {
+
+       var form =  $(this).closest("form");
+
+       var name = $(this).data("name");
+
+       event.preventDefault();
+
+       swal({
+
+           title: `Are you sure you want to delete this record?`,
+
+           text: "If you delete this, it will be gone forever.",
+
+           icon: "warning",
+
+           buttons: true,
+
+           dangerMode: true,
+
+       })
+
+       .then((willDelete) => {
+
+         if (willDelete) {
+
+           form.submit();
+
+         }
+
+       });
+
+   });
+
+
+
 </script>
 @endpush
 

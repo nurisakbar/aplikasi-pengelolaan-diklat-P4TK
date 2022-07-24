@@ -34,7 +34,7 @@
                 <td>{{ $peserta->gtk->instansi->wilayahAdministratif->regency_name}}</td>
                 <td>{{ $peserta->gtk->instansi->wilayahAdministratif->province_name}}</td>
                 <td>{{ $peserta->kelas->nama_kelas??'-' }}</td>
-                <td>{{ $diklat->kategori->nama_kategori }}</td>
+                <td>{{ $diklat->nama_diklat }}</td>
                 <td>{{ $diklat->programKeahlian->nama_program_keahlian }}</td>
             </tr>
         @endif

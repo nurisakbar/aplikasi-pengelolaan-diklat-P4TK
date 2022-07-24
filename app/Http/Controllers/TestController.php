@@ -50,14 +50,13 @@ class TestController extends Controller
         ini_set('max_execution_time', 0);
         $gtk = \DB::select("SELECT id,tanggal_lahir,nik FROM gtk where left(tanggal_lahir,4)>2020 and nik not in('','-')");
         foreach ($gtk as $row) {
-
             if ($row->nik != '') {
                 $nik = $row->nik;
                 $tanggal = substr($nik, 6, 2) > 40 ? substr($nik, 6, 2) - 40 : substr($nik, 6, 2);
                 $bulan = substr($nik, 8, 2);
                 $tahun = '19' . substr($nik, 10, 2);
                 $tanggal_lahir = $tahun . '-' . $bulan . '-' . $tanggal;
-                $gtk = \App\Gtk::find($row->id)->update(['tanggal_lahir'=>$tanggal_lahir]);
+                $gtk = \App\Gtk::find($row->id)->update(['tanggal_lahir' => $tanggal_lahir]);
             }
         }
     }

@@ -139,7 +139,7 @@
                                         @if($apakahMemenuhiKriteria)
                                             <a href="http://" class="btn btn-primary" onClick="konfirmasi_pendaftaran()" style="margin-bottom:20px;">Mendaftar Sebagai Peserta</a>
                                         @else
-                                            <a href="#" class="btn btn-primary" style="margin-bottom:20px;">Anda Tidak Memenuhi Kriteria Untuk Mengikuti Diklat Ini</a>
+                                            <a href="#" class="btn btn-primary" style="margin-bottom:20px;">Anda Tidak Memenuhi Kriteria Untuk Mengikuti Diklat Ini, <b>kompetensi Keahlian tidak sesuai.</b></a>
                                         @endif
                                     @else
                                         <a href="#" class="btn btn-danger" style="margin-bottom:20px;">Anda Sudah Mendaftar Pada Diklat Ini</a>

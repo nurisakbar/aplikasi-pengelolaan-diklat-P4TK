@@ -88,12 +88,15 @@ class DiklatController extends Controller
                     'recordsFiltered' => $count_filter,
                 ])
                 ->addColumn('action', function ($row) {
-                    $btn = \Form::open(['url' => '/diklat/' . $row->id, 'method' => 'DELETE', 'style' => 'float:right;margin-right:5px']);
-                    $btn .= "<button type='submit' class='btn btn-danger btn-sm'><i class='fa fa-trash' aria-hidden='true'></i></button>";
-                    $btn .= \Form::close();
+                    //$btn = \Form::open(['url' => '/diklat/' . $row->id, 'method' => 'DELETE', 'style' => 'float:right;margin-right:5px']);
+                    $btn = "<button style='margin-right:4px;' type='button' onClick='deleteDiklat(" . $row->id . ")' class='btn btn-danger btn-sm'><i class='fa fa-trash' aria-hidden='true'></i></button>";
+                    //$btn .= \Form::close();
                     $btn .= '<a class="btn btn-danger btn-sm" href="/diklat/' . $row->id . '/edit"><i class="fas fa-edit" aria-hidden="true"></i></a> ';
                     $btn .= '<a class="btn btn-danger btn-sm" href="/diklat/' . $row->id . '?tab=pendaftar"><i class="fas fa-eye" aria-hidden="true"></i></a>';
                     return $btn;
+                })
+                ->addColumn('diklat_kategori', function ($row) {
+                    return $row->nama_diklat . '<br>' . $row->kategori->nama_kategori;
                 })
                 ->addColumn('jumlah_peserta', function ($row) {
                     return $row->peserta()->count();
@@ -104,7 +107,7 @@ class DiklatController extends Controller
                 ->addColumn('tanggal_selesai', function ($row) {
                     return date_format(date_create($row->tanggal_selesai), "d/m/Y");
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action','diklat_kategori'])
                 ->addIndexColumn()
                 ->make(true);
         }
@@ -236,7 +239,7 @@ class DiklatController extends Controller
         DiklatPeserta::where('diklat_id', $id)->forceDelete();
         $diklat->delete();
         \Session::flash('message', 'Data Diklat Berhasil Dihapus');
-        return redirect('diklat');
+        //return redirect('diklat');
     }
 
 
