@@ -12,7 +12,7 @@
 </div>
 <div class="mb-10">
     <button type="submit" class="btn btn-danger">Simpan Data</button>
-    <a href="/regency" class="btn btn-danger">Kembali</a>
+    <a href="/district" class="btn btn-danger">Kembali</a>
 </div>
 
 
