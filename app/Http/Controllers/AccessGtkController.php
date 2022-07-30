@@ -28,7 +28,7 @@ class AccessGtkController extends Controller
     public function profile()
     {
         $id = Auth::guard('gtk')->user()->id;
-        $data['gtk']   = Gtk::with('village', 'instansi')->findOrFail($id);
+        $data['gtk']   = Gtk::with('village', 'wilayahAdministratif', 'instansi')->findOrFail($id);
         $data['agama'] = $this->agama;
         return view('dashboard-gtk.profile', $data);
     }

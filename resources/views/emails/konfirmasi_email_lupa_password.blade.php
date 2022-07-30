@@ -5,4 +5,4 @@ Email: <b>{{ $email }}</b><br>
 password: <b>{{ $password }}</b>
 <p>Anda dianjurkan untuk meng-update profil Biodata sebelum melakukan pendaftaran diklat.
 <br>Gunakan informasi diatas untuk login melalui link dibawah ini</p>
-<p><a href="/login">Klik disini untuk login</a></p>
+<p><a href="/masuk">Klik disini untuk login</a> atau klink tautan berikut ini : {{ URL::to('/masuk')}}</p>

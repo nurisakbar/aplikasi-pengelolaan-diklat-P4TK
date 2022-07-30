@@ -27,7 +27,16 @@ class PageController extends Controller
         if ($request->has('search')) {
             $diklat->where('nama_diklat', 'like', "%" . $request->search . "%");
         }
-        $data['diklat'] = $diklat->paginate(9);
+
+        if ($request->has('periode')) {
+            $diklat->whereRaw("left(tanggal_mulai,7)='" . $request->periode . "'");
+        }
+
+        if ($request->has('kompetensi_keahlian_id')) {
+            $diklat->where('kompetensi_keahlian_id', $request->kompetensi_keahlian_id);
+        }
+
+        $data['diklat'] = $diklat->paginate(10);
         return view('home', $data);
     }
 

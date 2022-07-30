@@ -31,6 +31,11 @@ class Gtk extends Authenticatable
         return $this->belongsTo(Village::class);
     }
 
+    public function wilayahAdministratif()
+    {
+        return $this->belongsTo(WilayahAdministratif::class, 'village_id', 'village_id');
+    }
+
     public function kompetensiKeahlian()
     {
         return $this->belongsTo(KompetensiKeahlian::class);
@@ -105,7 +110,7 @@ class Gtk extends Authenticatable
         }
 
         if ($this->village_id == null) {
-            $profileNull[] = 'Alamat Desa Masih Belum Terpilih';
+            $profileNull[] = 'Kelurahan/Desa Belum dipilih';
         }
 
 
