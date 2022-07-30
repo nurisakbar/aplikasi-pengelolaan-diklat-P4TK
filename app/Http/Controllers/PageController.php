@@ -29,11 +29,15 @@ class PageController extends Controller
         }
 
         if ($request->has('periode')) {
-            $diklat->whereRaw("left(tanggal_mulai,7)='" . $request->periode . "'");
+            if ($request->periode != '') {
+                $diklat->whereRaw("left(tanggal_mulai,7)='" . $request->periode . "'");
+            }
         }
 
         if ($request->has('kompetensi_keahlian_id')) {
-            $diklat->where('kompetensi_keahlian_id', $request->kompetensi_keahlian_id);
+            if ($request->kompetensi_keahlian_id != '') {
+                $diklat->where('kompetensi_keahlian_id', $request->kompetensi_keahlian_id);
+            }
         }
 
         $data['diklat'] = $diklat->paginate(10);

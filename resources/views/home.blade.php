@@ -25,13 +25,13 @@
                 <tr>
                     <td width="200">Periode Pelaksanaan</td>
                     <td>
-                        {{ Form::text('periode',null,['class' => 'form-control','id'=>'NoIconDemo','placeholder'=>'Periode Pelaksanaan'])}}
+                        {{ Form::text('periode',$_GET['periode']??null,['class' => 'form-control','id'=>'NoIconDemo','placeholder'=>'Periode Pelaksanaan'])}}
                     </td>
                 </tr>
                 <tr>
                     <td>Unit Kompetensi Keahlian</td>
                     <td>
-                        {{ Form::select('kompetensi_keahlian_id',\App\KompetensiKeahlian::pluck('nama_kompetensi_keahlian','id'),null,['class'=>'form-control keahlian'])}}
+                        {{ Form::select('kompetensi_keahlian_id',\App\KompetensiKeahlian::pluck('nama_kompetensi_keahlian','id'),$_GET['kompetensi_keahlian_id']?? null,['class'=>'form-control keahlian','placeholder'=>'Semua Kompetensi Keahlian'])}}
                     </td>
                 </tr>
                 <tr>
